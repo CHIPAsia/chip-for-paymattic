@@ -1,6 +1,6 @@
 <img src="./assets/logo.svg" alt="drawing" width="50"/>
 
-# CHIP for Fluent Forms
+# CHIP for Paymattic
 [![WP compatibility](https://plugintests.com/plugins/wporg/chip-for-paymattic/wp-badge.svg)](https://plugintests.com/plugins/wporg/chip-for-paymattic/latest)
 [![PHP compatibility](https://plugintests.com/plugins/wporg/chip-for-paymattic/php-badge.svg)](https://plugintests.com/plugins/wporg/chip-for-paymattic/latest)
 
