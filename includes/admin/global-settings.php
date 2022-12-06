@@ -7,7 +7,7 @@ $slug = PYMTC_CHIP_FSLUG;
 $pymtc_global_currency = GeneralSettings::getGlobalCurrencySettings();
 
 CHIPPYMTC_Setup::createOptions( $slug, array(
-  'framework_title' => sprintf( __( 'CHIP for Paymattic %sCash, Card & Coin Handling Integrated Platform%s', 'chip-for-fluent-forms' ), '<small>', '</small>' ),
+  'framework_title' => sprintf( __( 'CHIP for Paymattic %1$s%3$s%2$s', 'chip-for-fluent-forms' ), '<small>', '</small>', PYMTC_CHIP_MODULE_VERSION ),
 
   'menu_title'  => __( 'CHIP Settings', 'chip-for-paymattic' ),
   'menu_slug'   => 'chip',
