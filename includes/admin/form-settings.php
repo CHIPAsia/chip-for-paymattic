@@ -92,7 +92,7 @@ function pymtc_chip_form_fields( $form ){
       'type'    => 'switcher',
       'title'   => __( 'Synchronize Refund', 'chip-for-paymattic' ),
       'desc'    => __( 'Turn this on to synchronize refund status.', 'chip-for-paymattic' ),
-      'help'    => __( 'Enabling this option will ensure status is updated on Fluent Forms in the event of refund triggered on CHIP dashboard.', 'chip-for-paymattic' ),
+      'help'    => __( 'Enabling this option will ensure status is updated on Paymattic in the event of refund triggered on CHIP dashboard.', 'chip-for-paymattic' ),
 
       'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
     ),
