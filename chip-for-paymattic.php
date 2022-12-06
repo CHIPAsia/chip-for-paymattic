@@ -39,13 +39,18 @@ class Chip_Paymattic {
     define( 'PYMTC_CHIP_FILE', __FILE__ );
     define( 'PYMTC_CHIP_BASENAME', plugin_basename( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_DIR_PATH', plugin_dir_path( PYMTC_CHIP_FILE ) );
+    define( 'PYMTC_CHIP_FSLUG', 'paymattic_chip' );
   }
 
   public function includes() {
     $includes_dir = PYMTC_CHIP_DIR_PATH . 'includes/';
     include $includes_dir . 'class-api.php';
+    include $includes_dir . 'framework/classes/setup.class.php';
 
     if ( is_admin() ){
+      include $includes_dir . 'admin/global-settings.php';
+      include $includes_dir . 'admin/form-settings.php';
+      include $includes_dir . 'admin/backup-settings.php';
     }
 
     include $includes_dir . 'class-element.php';
@@ -68,13 +73,14 @@ class Chip_Paymattic {
   }
 }
 
-add_action( 'plugins_loaded', 'load_chip_for_paymattic' );
+// it must load after paymattic plugin loaded
+add_action( 'plugins_loaded', 'load_chip_for_paymattic', 11 );
 
 function load_chip_for_paymattic() {
 
   if ( !class_exists( 'WPPayFormPro' ) || !class_exists( 'WPPayFormPro\GateWays\BasePaymentMethod' ) ) {
     return;
   }
-  
+
   Chip_Paymattic::get_instance();
 }

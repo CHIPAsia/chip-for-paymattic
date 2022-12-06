@@ -95,14 +95,17 @@ class Chip_Paymattic_Element extends BaseComponent
   }
 
   public function push_payment_method( $methods ) {
+
+    $options       = get_option( PYMTC_CHIP_FSLUG );
+    $payment_title = Arr::get($options, 'payment-title', 'CHIP');
     
     $methods['chip'] = array(
-      'label' => 'CHIP',
+      'label'    => $payment_title,
       'isActive' => true,
       'editor_elements' => array(
         'label' => array(
-          'label' => 'Payment Option Label',
-          'type' => 'text',
+          'label'   => __( 'Payment Option Label', 'chip-for-paymattic' ),
+          'type'    => 'text',
           'default' => 'Pay with CHIP'
         )
       )

@@ -1,0 +1,114 @@
+/**
+ * 06. Taxonomy
+ */
+.chippymtc-taxonomy{
+  max-width: 95%;
+
+  > .chippymtc-field{
+    border-top: none !important;
+  }
+
+  > .chippymtc-field-heading{
+    font-size: 1.1em;
+    padding: 20px !important;
+    border: 1px solid #ddd;
+  }
+
+  > .chippymtc-field-subheading{
+    font-size: 12px;
+    padding: 15px !important;
+    border: 1px solid #ddd;
+  }
+
+  > .chippymtc-field-submessage{
+
+    .chippymtc-submessage{
+      padding: 15px;
+      border-left-width: 1px;
+      border-left-style: solid;
+      border-right-width: 1px;
+      border-right-style: solid;
+    }
+  }
+
+  > .chippymtc-field-notice{
+    background-color: transparent;
+  }
+
+  .chippymtc-section-title{
+    display: block;
+    padding: 15px ;
+    background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+  }
+}
+
+.chippymtc-taxonomy-add-fields{
+
+  > .chippymtc-field{
+    padding: 8px 0;
+
+    > .chippymtc-title{
+      float: none;
+      width: 100%;
+      padding: 2px 2px 4px 0;
+
+      h4{
+        font-size: 12px;
+        font-weight: normal;
+      }
+    }
+
+    > .chippymtc-fieldset{
+      float: none;
+      width: 100%;
+
+      > .chippymtc-help{
+        right: -5px;
+      }
+    }
+  }
+
+  + p.submit{
+    margin-top: 0;
+  }
+}
+
+.chippymtc-taxonomy-edit-fields{
+
+  > .chippymtc-field{
+    padding: 20px 0;
+
+    > .chippymtc-title{
+      width: 200px;
+
+      h4{
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.3;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    > .chippymtc-fieldset{
+      width: calc(100% - 220px);
+
+      > .chippymtc-help{
+        top: -5px;
+        right: -5px;
+      }
+    }
+  }
+
+  > .chippymtc-field-submessage{
+    margin: 20px 0;
+  }
+
+  > .chippymtc-field-subheading,
+  > .chippymtc-field-heading{
+    margin: 20px 0;
+    border: 1px solid #ddd;
+  }
+}

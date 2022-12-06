@@ -1,0 +1,590 @@
+/**
+ *
+ * ---------------------------------------------------------
+ * CHIPPYMTC FRAMEWORK RTL CSS MAP
+ * ---------------------------------------------------------
+ *
+ * 01. Base
+ *     01. 01. Header
+ *     01. 02. Header Buttons
+ *     01. 03. Navigation
+ *     01. 04. Content
+ *     01. 05. Section
+ *     01. 06. Show All Settings
+ *     01. 07. Search Input
+ *     01. 08. Copyright
+ *     01. 09. Metabox
+ * 02. Fields
+ *     02. 01. Field: typography
+ *     02. 02. Field: checkbox, radio
+ *     02. 03. Field: switcher
+ *     02. 04. Field: upload
+ *     02. 05. Field: group
+ *     02. 06. Field: repeater
+ *     02. 07. Field: help
+ *     02. 08. Field: icon
+ *     02. 09. Field: gallery
+ *     02. 10. Field: sorter
+ *     02. 11. Field: tabbed
+ *     02. 12. Field: media
+ *     02. 13. Field: notice
+ *     02. 14. Field: border, spacing, dimensions
+ *     02. 15. Field: background
+ *     02. 16. Field: spinner
+ *     02. 17. Field: slider
+ *     02. 18. Field: button_set
+ *     02. 19. Field: link_color
+ *     02. 20. Field: color_group
+ *     02. 21. Field: palette
+ *     02. 22. Field: accordion
+ *     02. 23. Field: date
+ *     02. 24. Field: map
+ *     02. 25. Field: sortable
+ *     02. 26. Field: number
+ * 03. Taxonomy
+ * 04. Profile
+ * 05. Nav Menu
+ * 06. Modal
+ * 07. Customizer
+ * 08. Responsive
+ * 09. Others
+ *
+ * ---------------------------------------------------------
+ *
+ */
+/**
+ * 01. Base
+ */
+.chippymtc-options {
+  margin-left: 20px;
+  margin-right: 0;
+}
+
+/**
+ * 01. 01. Header
+ */
+.chippymtc-header h1 {
+  float: right;
+}
+.chippymtc-header fieldset {
+  float: left;
+}
+
+/**
+ * 01. 02. Header Buttons
+ */
+.chippymtc-buttons {
+  float: left;
+  direction: ltr;
+}
+
+.chippymtc-header-left {
+  float: right;
+}
+
+.chippymtc-header-right {
+  float: left;
+}
+
+/**
+ * 01. 03. Navigation
+ */
+.chippymtc-nav {
+  float: right;
+}
+.chippymtc-nav ul {
+  clear: right;
+}
+.chippymtc-nav ul li .chippymtc-active:after {
+  right: auto;
+  left: 0;
+  border-left-color: #fff;
+  border-right-color: transparent;
+}
+.chippymtc-nav ul li .chippymtc-arrow:after {
+  content: "\f053";
+  right: auto;
+  left: 10px;
+}
+.chippymtc-nav ul li.chippymtc-tab-expanded .chippymtc-arrow:after {
+  transform: rotate(-90deg);
+}
+.chippymtc-nav ul ul li a {
+  padding-right: 25px;
+  padding-left: 15px;
+}
+.chippymtc-nav ul ul:before {
+  left: auto;
+  right: 15px;
+}
+.chippymtc-nav .chippymtc-tab-icon {
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+.chippymtc-nav-background {
+  left: auto;
+  right: 0;
+}
+
+/**
+ * 01. 04. Content
+ */
+.chippymtc-content {
+  margin-left: 0;
+  margin-right: 225px;
+}
+
+/**
+ * 01. 05. Section
+ */
+.chippymtc-sections {
+  float: right;
+}
+
+/**
+ * 01. 06. Show all options
+ */
+.chippymtc-show-all .chippymtc-content {
+  margin-right: 0;
+  overflow: hidden;
+}
+
+.chippymtc-expand-all {
+  float: right;
+  right: auto;
+  left: 40px;
+  margin-right: 0;
+  margin-left: 4px;
+}
+
+/**
+ * 01. 07. Search Input
+ */
+.chippymtc-search {
+  float: right;
+}
+.chippymtc-search input {
+  margin: 0 0 0 5px;
+}
+
+/**
+ * 01. 08. Copyright
+ */
+.chippymtc-copyright {
+  float: right;
+}
+
+/**
+ * 01. 09. Metabox
+ */
+.chippymtc-metabox {
+  margin: -6px -12px -12px -12px;
+}
+.chippymtc-metabox .chippymtc-section-title {
+  padding: 20px;
+}
+
+.chippymtc-section-title .chippymtc-section-icon {
+  margin-left: 5px;
+  margin-right: 0;
+}
+
+/**
+ * 02. Fields
+ */
+.chippymtc-field .chippymtc-title {
+  float: right;
+}
+.chippymtc-field .chippymtc-fieldset {
+  float: left;
+}
+
+.chippymtc-pseudo-field {
+  padding: 0 0 0 5px !important;
+}
+
+/**
+ * 02. 01. Field: typography
+ */
+.chippymtc-field-typography select {
+  margin: 0;
+  width: 100%;
+}
+.chippymtc-field-typography .chippymtc--blocks-inputs .chippymtc--blocks {
+  flex-direction: row-reverse;
+}
+.chippymtc-field-typography .chippymtc--unit {
+  left: 4px;
+  right: auto;
+}
+
+/**
+ * 02. 02. Field: checkbox, radio
+ */
+.chippymtc-field-checkbox ul ul li,
+.chippymtc-field-radio ul ul li {
+  margin-left: 0;
+  margin-right: 8px;
+}
+.chippymtc-field-checkbox ul ul li:first-child,
+.chippymtc-field-radio ul ul li:first-child {
+  margin-right: 0;
+}
+.chippymtc-field-checkbox .chippymtc--inline-list li,
+.chippymtc-field-radio .chippymtc--inline-list li {
+  margin-right: 0;
+  margin-left: 15px;
+}
+.chippymtc-field-checkbox .chippymtc--text,
+.chippymtc-field-radio .chippymtc--text {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+/**
+ * 02. 03. Field: switcher
+ */
+.chippymtc-field-switcher .chippymtc--switcher {
+  float: right;
+}
+.chippymtc-field-switcher .chippymtc--label {
+  float: right;
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+/**
+ * 02. 04. Field: upload
+ */
+.chippymtc-field-upload .chippymtc--remove,
+.chippymtc-field-upload .chippymtc--button {
+  margin-left: 0;
+  margin-right: 5px;
+}
+
+/**
+ * 02. 05. Field: group
+ */
+.chippymtc-field-group .chippymtc-cloneable-title {
+  padding: 15px 10px 15px 65px;
+}
+.chippymtc-field-group .chippymtc-cloneable-helper {
+  right: auto;
+  left: 10px;
+}
+
+/**
+ * 02. 06. Field: repeater
+ */
+.chippymtc-field-repeater .chippymtc-repeater-helper {
+  border-left: 0;
+  border-right: 1px solid #eee;
+}
+
+/**
+ * 02. 07. Field: help
+ */
+.chippymtc-help {
+  right: auto;
+  left: 5px;
+}
+
+/**
+ * 02. 08. Field: icon
+ */
+.chippymtc-field-icon .button {
+  margin-right: 0;
+  margin-left: 5px;
+}
+.chippymtc-field-icon .chippymtc-icon-preview i {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/**
+ * 02. 09. Field: gallery
+ */
+.chippymtc-field-gallery ul li {
+  margin-right: 0;
+  margin-left: 5px;
+}
+.chippymtc-field-gallery .button {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/**
+ * 02. 11. Field: tabbed
+ */
+.chippymtc-field-tabbed .chippymtc-tabbed-nav .chippymtc--icon {
+  padding-right: 0;
+  padding-left: 5px;
+}
+.chippymtc-field-tabbed .chippymtc-tabbed-nav a {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/**
+ * 02. 12. Field: media
+ */
+.chippymtc-field-media .button {
+  margin-left: 0;
+  margin-right: 7px;
+}
+.chippymtc-field-media .hidden + .button {
+  margin-right: 0;
+}
+
+/**
+ * 02. 13. Field: notice
+ */
+.chippymtc-notice {
+  border-left: none;
+  border-right-style: solid;
+  border-right-width: 4px;
+}
+
+/**
+ * 02. 14. Field: border, spacing, dimensions
+ */
+.chippymtc-field-dimensions .chippymtc--input,
+.chippymtc-field-dimensions .chippymtc-fieldset,
+.chippymtc-field-spacing .chippymtc--input,
+.chippymtc-field-spacing .chippymtc-fieldset,
+.chippymtc-field-border .chippymtc--input,
+.chippymtc-field-border .chippymtc-fieldset {
+  direction: ltr;
+}
+.chippymtc-field-dimensions .chippymtc--inputs,
+.chippymtc-field-dimensions .chippymtc--color,
+.chippymtc-field-spacing .chippymtc--inputs,
+.chippymtc-field-spacing .chippymtc--color,
+.chippymtc-field-border .chippymtc--inputs,
+.chippymtc-field-border .chippymtc--color {
+  float: right;
+}
+.chippymtc-field-dimensions .chippymtc--color,
+.chippymtc-field-spacing .chippymtc--color,
+.chippymtc-field-border .chippymtc--color {
+  margin-right: 4px;
+  direction: rtl;
+}
+
+/**
+ * 02. 15. Field: background
+ */
+.chippymtc-field-background .chippymtc--block {
+  float: right;
+}
+.chippymtc-field-background .chippymtc--select,
+.chippymtc-field-background .chippymtc--media {
+  padding-right: 0;
+}
+.chippymtc-field-background .chippymtc--title {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/**
+ * 02. 16. Field: spinner
+ */
+.chippymtc-field-spinner .chippymtc--spin {
+  float: right;
+  direction: ltr;
+}
+
+/**
+ * 02. 17. Field: slider
+ */
+.chippymtc-field-slider .chippymtc-slider-ui {
+  direction: ltr;
+  margin-right: 0;
+  margin-left: 15px;
+}
+.chippymtc-field-slider .chippymtc--input {
+  direction: ltr;
+}
+
+/**
+ * 02. 18. Field: button_set
+ */
+.chippymtc-field-button_set .chippymtc--button-group {
+  float: right;
+}
+
+/**
+ * 02. 19. Field: link_color
+ */
+.chippymtc-field-link_color .chippymtc--left {
+  float: right;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/**
+ * 02. 20. Field: color_group
+ */
+.chippymtc-field-color_group .chippymtc--left {
+  float: right;
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/**
+ * 02. 21. Field: palette
+ */
+.chippymtc-field-palette .chippymtc--palette {
+  margin-right: 0;
+  margin-left: 10px;
+}
+
+/**
+ * 02. 22. Field: accordion
+ */
+.chippymtc-field-accordion .chippymtc--icon {
+  margin-right: 0;
+  margin-left: 2px;
+}
+
+/**
+ * 02. 23. Field: date
+ */
+.chippymtc-field-date .chippymtc--to {
+  margin-left: 0;
+  margin-right: 7px;
+}
+
+/**
+ * 02. 24. Field: map
+ */
+.chippymtc-field-map .chippymtc--map-input:last-child {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+/**
+ * 02. 25. Field: sortable
+ */
+.chippymtc-field-sortable .chippymtc-sortable-helper {
+  border-left: none;
+  border-right: 1px solid #eee;
+}
+
+/**
+ * 02. 26. Field: number
+ */
+.chippymtc-field-number .chippymtc--wrap {
+  float: right;
+}
+.chippymtc-field-number .chippymtc--unit {
+  left: 4px;
+  right: auto;
+}
+
+/**
+ * 03. Taxonomy
+ */
+.chippymtc-taxonomy-add-fields {
+  margin-right: 0;
+  margin-left: 30px;
+}
+.chippymtc-taxonomy-add-fields .chippymtc-field > .chippymtc-fieldset > .chippymtc-help {
+  left: -5px;
+  right: auto;
+}
+
+.chippymtc-taxonomy-edit-fields {
+  margin-right: 0;
+  margin-left: 35px;
+}
+.chippymtc-taxonomy-edit-fields .chippymtc-field > .chippymtc-fieldset > .chippymtc-help {
+  right: auto;
+  left: -5px;
+}
+
+/**
+ * 04. Profile
+ */
+.chippymtc-profile-options > h2 > .fa {
+  padding-right: 0;
+  padding-left: 7px;
+}
+.chippymtc-profile-options > .chippymtc-field > .chippymtc-fieldset > .chippymtc-help {
+  left: -5px;
+  right: auto;
+}
+
+/**
+ * 05. Nav Menu
+ */
+.chippymtc-nav-menu-options > .chippymtc-fields {
+  margin-left: 0;
+  margin-right: -10px;
+}
+
+.chippymtc-nav-menu-title {
+  padding-left: 14px;
+  padding-right: 12px;
+}
+
+.chippymtc-nav-menu-icon {
+  margin-right: 0;
+  margin-left: 5px;
+}
+
+/**
+ * 06. Modal
+ */
+.chippymtc-modal-content .chippymtc-field {
+  padding: 15px 15px 15px 30px;
+}
+
+.chippymtc-modal-title {
+  padding: 0 16px 0 36px;
+}
+
+.chippymtc-modal-close {
+  right: auto;
+  left: 0;
+}
+
+/**
+ * 07. Customizer
+ */
+.control-section .chippymtc-field .chippymtc-fieldset {
+  margin-right: 0;
+}
+
+/**
+ * 08. Responsive
+ */
+@media only screen and (max-width: 1200px) {
+  .chippymtc-metabox .chippymtc-field .chippymtc-fieldset {
+    margin-left: 0;
+  }
+}
+@media only screen and (max-width: 782px) {
+  .chippymtc .chippymtc-fieldset,
+  .chippymtc .chippymtc-content {
+    margin-right: 0;
+  }
+}
+/**
+ * 09. Others
+ */
+.chippymtc-field .chippymtc--transparent-slider {
+  margin-left: 0;
+  margin-right: 2px;
+}
+.chippymtc-field .chippymtc--transparent-slider .ui-slider-handle {
+  margin: 0 -11px;
+}
+.chippymtc-field .chippymtc--transparent-offset {
+  background-position: center right;
+}
+.chippymtc-field .chippymtc--transparent-text {
+  right: auto;
+  left: 10px;
+}

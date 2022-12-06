@@ -42,7 +42,7 @@ class Chip_Paymattic_Processor {
     add_action( 'wppayform_payment_frameless_chip', array( $this, 'redirect' ) );
   }
 
-  public function choose_payment_method($payment_method, $elements, $form_id, $form_data) {
+  public function choose_payment_method( $payment_method, $elements, $form_id, $form_data ) {
 
     if ( $payment_method ) {
       // Already someone choose that it's their payment method
@@ -63,45 +63,43 @@ class Chip_Paymattic_Processor {
   public function make_form_payment( $transaction_id, $submission_id, $form_data, $form, $has_subscriptions) {
 
     $transaction_model = new Transaction();
-
-    $transaction = $transaction_model->getTransaction( $transaction_id );
-
-    $submission = (new Submission())->getSubmission( $submission_id );
+    $transaction       = $transaction_model->getTransaction( $transaction_id );
+    $submission        = (new Submission())->getSubmission( $submission_id );
 
     $this->handle_purchase( $transaction, $submission, $form_data, $form );
   }
 
   public function handle_purchase( $transaction, $submission, $form_data, $form ) {
 
-    $submissionModel = new Submission();
-    $entries = $submissionModel->getParsedSubmission( $submission );
+    $submission_model = new Submission();
+    $entries         = $submission_model->getParsedSubmission( $submission );
 
     $metadata = [];
-    foreach ($entries as $label => $entry) {
+    foreach ( $entries as $label => $entry ) {
       $value = $entry['value'];
-      if (is_string($value) && $value) {
+      if ( is_string( $value ) && $value ) {
         $metadata[$entry['type']] = $value;
       }
     }
 
     $success_redirect = add_query_arg(array(
       'wppayform_payment' => $submission->id,
-      'payment_method'     => 'chip',
+      'payment_method'    => 'chip',
       'submission_hash'   => $submission->submission_hash,
-      'type'               => 'success'
+      'type'              => 'success'
     ), site_url('index.php'));
 
     $failure_redirect = add_query_arg(array(
       'wppayform_payment' => $submission->id,
-      'payment_method'     => 'chip',
+      'payment_method'    => 'chip',
       'submission_hash'   => $submission->submission_hash,
-      'type'               => 'failed'
+      'type'              => 'failed'
     ), site_url('index.php'));
 
     $success_callback =  add_query_arg([
       'wpf_payment_api_notify' => '1',
-      'payment_method'=> 'chip',
-      'submission_id' => $submission->id
+      'payment_method'         => 'chip',
+      'submission_id'          => $submission->id
     ], site_url('index.php'));
 
     $params = array(
@@ -145,23 +143,23 @@ class Chip_Paymattic_Processor {
     }
 
     do_action('wppayform_log_data', [
-      'form_id' => $form->ID,
+      'form_id'       => $form->ID,
       'submission_id' => $submission->id,
-      'type' => 'activity',
-      'created_by' => 'Paymattic BOT',
-      'title' => __( 'CHIP Payment Redirect', 'chip-for-paymattic' ),
-      'content' => sprintf( __( 'User redirect to CHIP for completing the payment: %s', 'chip-for-paymattic' ), $payment['checkout_url'] ),
+      'type'          => 'activity',
+      'created_by'    => 'CHIP for Paymattic',
+      'title'         => __( 'CHIP Payment Redirect', 'chip-for-paymattic' ),
+      'content'       => sprintf( __( 'User redirect to CHIP for completing the payment: %s', 'chip-for-paymattic' ), $payment['checkout_url'] ),
     ]);
 
     wp_send_json_success([
-      'message' => __( 'You are redirecting to CHIP to complete the purchase. Please wait while you are redirecting....', 'chip-for-paymattic' ),
+      'message'          => __( 'You are redirecting to CHIP to complete the purchase. Please wait while you are redirecting....', 'chip-for-paymattic' ),
       'call_next_method' => 'normalRedirect',
-      'redirect_url' => Arr::get( $payment, 'checkout_url' )
+      'redirect_url'     => Arr::get( $payment, 'checkout_url' )
     ], 200);
   }
 
   private function get_timezone() {
-    if (preg_match('/^[A-z]+\/[A-z\_\/\-]+$/', wp_timezone_string())) {
+    if ( preg_match( '/^[A-z]+\/[A-z\_\/\-]+$/', wp_timezone_string() ) ) {
       return wp_timezone_string();
     }
 
@@ -172,8 +170,8 @@ class Chip_Paymattic_Processor {
 
     $url = 'https://gate.chip-in.asia/p/';
 
-    foreach ($transactions as $transaction) {
-      if ($transaction->charge_id) {
+    foreach ( $transactions as $transaction ) {
+      if ( $transaction->charge_id ) {
         $transaction->transaction_url =  $url . $transaction->charge_id . '/';
       }
     }
@@ -181,15 +179,15 @@ class Chip_Paymattic_Processor {
   }
 
   public function validate_subscription( $payment_items, $formatted_elements, $form_data, $subscription_items ) {
-    wp_send_json_error(array(
-      'message' => __('CHIP doesn\'t support subscriptions right now', 'chip-for-paymattic'),
+    wp_send_json_error( array(
+      'message'       => __( 'CHIP doesn\'t support subscriptions right now', 'chip-for-paymattic' ),
       'payment_error' => true
-    ), 423);
+    ), 423 );
   }
 
   public function redirect( $data ) {
 
-    $submission_id    = absint($data['wppayform_payment']);
+    $submission_id = absint( $data['wppayform_payment'] );
 
     if ( $data['payment_method'] != 'chip' ) {
       return;

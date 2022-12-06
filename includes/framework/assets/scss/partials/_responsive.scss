@@ -1,0 +1,157 @@
+/**
+ * 12. Responsive
+ */
+@media only screen and (max-width:1200px){
+
+  .chippymtc-metabox{
+
+    .chippymtc-field{
+
+      .chippymtc-title{
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .chippymtc-fieldset{
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width:782px){
+
+  .chippymtc-header-inner{
+    text-align: center;
+
+    h1{
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+
+  .chippymtc-form-result{
+    float: none;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .chippymtc-search,
+  .chippymtc-header-right,
+  .chippymtc-header-left{
+    width: 100%;
+  }
+
+  .chippymtc-search{
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .chippymtc-footer{
+    text-align: center;
+  }
+
+  .chippymtc-buttons{
+    float: none;
+  }
+
+  .chippymtc-copyright{
+    float: none;
+    margin-top: 10px;
+  }
+
+  .chippymtc-nav,
+  .chippymtc-expand-all,
+  .chippymtc-reset-section,
+  .chippymtc-nav-background{
+    display: none !important;
+  }
+
+  .chippymtc-nav-normal + .chippymtc-content{
+    margin-left: 0;
+  }
+
+  .chippymtc-section-title,
+  .chippymtc-section{
+    display: block !important;
+  }
+
+  .chippymtc-field{
+
+    .chippymtc-title{
+      float: none;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .chippymtc-fieldset{
+      float: none;
+      width: 100%;
+    }
+  }
+
+  .chippymtc-field-color{
+
+    .button.wp-picker-clear{
+      padding: 0 8px;
+      line-height: 2.14285714;
+      min-height: 32px;
+    }
+  }
+
+  .chippymtc-profile-options,
+  .chippymtc-taxonomy-edit-fields{
+
+    > .chippymtc-field{
+
+      > .chippymtc-title{
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      > .chippymtc-fieldset{
+        float: none;
+        width: 100%;
+      }
+    }
+  }
+
+  .chippymtc-nav-menu-options{
+
+    > .chippymtc-fields{
+      margin-left: -10px;
+      margin-right: -10px;
+
+      > .chippymtc-field{
+        padding: 10px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 782px) {
+
+  .chippymtc-modal{
+
+    .chippymtc-modal-inner{
+      width: 90%;
+    }
+  }
+}
+
+@media only screen and (max-height: 750px) {
+
+  .chippymtc-modal{
+
+    .chippymtc-modal-inner{
+      height: auto;
+    }
+
+    .chippymtc-modal-content{
+      height: calc(100vh - 200px);
+    }
+  }
+}
