@@ -77,7 +77,7 @@ class Chip_Paymattic_Processor {
     $submission_model = new Submission();
     $entries          = $submission_model->getParsedSubmission( $submission );
 
-    $option = $this->get_settings( $form->id );
+    $option = $this->get_settings( $form->ID );
 
     $metadata = [];
     foreach ( $entries as $label => $entry ) {

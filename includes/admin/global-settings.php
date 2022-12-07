@@ -10,7 +10,7 @@ CHIPPYMTC_Setup::createOptions( $slug, array(
   'framework_title' => sprintf( __( 'CHIP for Paymattic %1$s%3$s%2$s', 'chip-for-paymattic' ), '<small>', '</small>', PYMTC_CHIP_MODULE_VERSION ),
 
   'menu_title'  => __( 'CHIP Settings', 'chip-for-paymattic' ),
-  'menu_slug'   => 'chip',
+  'menu_slug'   => 'chip-for-paymattic',
   'menu_type'   => 'submenu',
   'menu_parent' => 'wppayform.php',
   'footer_text' => sprintf( __( 'CHIP for Paymattic %s', 'chip-for-paymattic' ) , PYMTC_CHIP_MODULE_VERSION ),

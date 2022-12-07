@@ -1,7 +1,6 @@
 <?php
 
 use WPPayForm\App\Models\Form;
-use WPPayForm\App\App;
 
 $slug = PYMTC_CHIP_FSLUG;
 function pymtc_chip_form_fields( $form ){
