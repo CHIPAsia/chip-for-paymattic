@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
 class Chip_Paymattic_Processor {
 
   private static $_instance;
+  private $supported_currencies = ['MYR'];
 
   public static function get_instance() {
     if ( self::$_instance == null ) {
@@ -66,13 +67,17 @@ class Chip_Paymattic_Processor {
     $transaction       = $transaction_model->getTransaction( $transaction_id );
     $submission        = (new Submission())->getSubmission( $submission_id );
 
+    $this->is_form_currency_supported( strtoupper( $transaction->currency ) );
+
     $this->handle_purchase( $transaction, $submission, $form_data, $form );
   }
 
   public function handle_purchase( $transaction, $submission, $form_data, $form ) {
 
     $submission_model = new Submission();
-    $entries         = $submission_model->getParsedSubmission( $submission );
+    $entries          = $submission_model->getParsedSubmission( $submission );
+
+    $option = $this->get_settings( $form->id );
 
     $metadata = [];
     foreach ( $entries as $label => $entry ) {
@@ -106,12 +111,12 @@ class Chip_Paymattic_Processor {
       'success_callback' => $success_callback,
       'success_redirect' => $success_redirect,
       'failure_redirect' => $failure_redirect,
-      'creator_agent'    => 'ChipPaymattic: ' . PYMTC_CHIP_MODULE_VERSION,
+      'creator_agent'    => 'Paymattic: ' . PYMTC_CHIP_MODULE_VERSION,
       'reference'        => $transaction->id,
       'platform'         => 'paymattic',
-      'send_receipt'     => true,
-      'due'              => time() + ( absint( 60 )  * 60 ),
-      'brand_id'         => 'brand-id',
+      'send_receipt'     => $option['send_rcpt'],
+      'due'              => time() + ( absint( $option['due_time'] )  * 60 ),
+      'brand_id'         => $option['brand_id'],
       'client'           => [
         'email'     => Arr::get( $metadata, 'customer_email', '' ),
         'full_name' => substr( Arr::get( $metadata, 'customer_name', '' ), 0, 30),
@@ -119,7 +124,7 @@ class Chip_Paymattic_Processor {
       'purchase'         => array(
         'timezone'   => apply_filters( 'paymattic_chip_purchase_timezone', $this->get_timezone() ),
         'currency'   => strtoupper($transaction->currency),
-        'due_strict' => true,
+        'due_strict' => $option['due_strict'],
         'products'   => array([
           'name'     => substr( $form->post_title, 0, 256 ),
           'price'    => round( $transaction->payment_total ),
@@ -127,7 +132,7 @@ class Chip_Paymattic_Processor {
       ),
     );
 
-    $chip    = Chip_Paymattic_API::get_instance('secret-key', 'brand-id');
+    $chip    = Chip_Paymattic_API::get_instance( $option['secret_key'], $option['brand_id'] );
     $payment = $chip->create_payment( $params );
 
     $transaction_model = new Transaction();
@@ -137,12 +142,22 @@ class Chip_Paymattic_Processor {
     ));
 
     if ( !array_key_exists( 'id', $payment ) ) {
+
+      do_action( 'wppayform_log_data', [
+        'form_id'       => $form->ID,
+        'submission_id' => $submission->id,
+        'type'          => 'failed',
+        'created_by'    => 'CHIP for Paymattic',
+        'title'         => __( 'Failure to create purchase', 'chip-for-paymattic' ),
+        'content'       => sprintf( __( 'User is not redirected to CHIP since failure to create purchase: %s', 'chip-for-paymattic' ), print_r( $payment, true ) ),
+      ]);
+
       wp_send_json_error( array(
         'message' => sprintf( __( 'Failed to create purchase: %s', 'chip-for-paymattic' ), print_r($payment, true) ),
       ), 422);
     }
 
-    do_action('wppayform_log_data', [
+    do_action( 'wppayform_log_data', [
       'form_id'       => $form->ID,
       'submission_id' => $submission->id,
       'type'          => 'activity',
@@ -151,11 +166,49 @@ class Chip_Paymattic_Processor {
       'content'       => sprintf( __( 'User redirect to CHIP for completing the payment: %s', 'chip-for-paymattic' ), $payment['checkout_url'] ),
     ]);
 
+    if ( $payment['is_test'] == true ) {
+
+      do_action( 'wppayform_log_data', [
+        'form_id'       => $form->ID,
+        'submission_id' => $submission->id,
+        'type'          => 'info',
+        'created_by'    => 'CHIP for Paymattic',
+        'title'         => __( 'Test mode', 'chip-for-paymattic' ),
+        'content'       => __( 'This is test environment where payment status is simulated.', 'chip-for-paymattic' ),
+      ]);
+    }
+
     wp_send_json_success([
       'message'          => __( 'You are redirecting to CHIP to complete the purchase. Please wait while you are redirecting....', 'chip-for-paymattic' ),
       'call_next_method' => 'normalRedirect',
       'redirect_url'     => Arr::get( $payment, 'checkout_url' )
     ], 200);
+  }
+
+  private function get_settings( $form_id ) {
+
+    $options = get_option( PYMTC_CHIP_FSLUG );
+    $postfix = '';
+
+    if ( $options['form-customize-' . $form_id] ) {
+      $postfix = "-$form_id";
+    }
+
+    return array(
+      'secret_key' => $options['secret-key' . $postfix],
+      'brand_id'   => $options['brand-id' . $postfix],
+      'send_rcpt'  => empty( $options['send-receipt' . $postfix] ) ? false : $options['send-receipt' . $postfix],
+      'due_strict' => empty( $options['due-strict' . $postfix] ) ? false : $options['due-strict' . $postfix],
+      'due_time'   => $options['due-strict-timing' . $postfix],
+    );
+  }
+
+  private function is_form_currency_supported( $currency ) {
+
+    if ( !in_array( $currency, $this->supported_currencies ) ) {
+      echo sprintf( __( 'Error! Currency not supported. The only supported currency is MYR and the current currency is %s.', 'chip-for-paymattic' ), esc_html( $currency ) );
+      exit( 200 );
+    }
   }
 
   private function get_timezone() {
@@ -168,7 +221,7 @@ class Chip_Paymattic_Processor {
 
   public function add_transaction_url( $transactions, $submission_id ) {
 
-    $url = 'https://gate.chip-in.asia/p/';
+    $url = PYMTC_CHIP_ROOT_URL . 'p/';
 
     foreach ( $transactions as $transaction ) {
       if ( $transaction->charge_id ) {
@@ -193,14 +246,15 @@ class Chip_Paymattic_Processor {
       return;
     }
 
-    $submission = (new Submission())->getSubmission( $submission_id );
+    $submission  = (new Submission())->getSubmission( $submission_id );
     $transaction = $this->getTransaction( $submission_id );
 
     if (!$transaction || !$submission) {
       return;
     }
 
-    $chip    = Chip_Paymattic_API::get_instance( 'secret-key', '' );
+    $option  = $this->get_settings( $submission->form_id );
+    $chip    = Chip_Paymattic_API::get_instance( $option['secret_key'], '' );
     $payment = $chip->get_payment( $transaction['charge_id'] );
 
     $GLOBALS['wpdb']->get_results(
@@ -351,24 +405,21 @@ class Chip_Paymattic_Processor {
     }
 
     if ( isset( $_GET['submission_id'] ) ){
-
       $this->success_callback( absint( $_GET['submission_id'] ) );
-    } else {
-      // TODO: Add refund callback
     }
-
   }
 
   private function success_callback( $submission_id ) {
 
-    $submission = (new Submission())->getSubmission( $submission_id );
+    $submission  = (new Submission())->getSubmission( $submission_id );
+    $option      = $this->get_settings( $submission->form_id );
     $transaction = $this->getTransaction( $submission_id );
 
     if (!$transaction || !$submission) {
       return;
     }
 
-    $chip    = Chip_Paymattic_API::get_instance( 'secret-key', '' );
+    $chip    = Chip_Paymattic_API::get_instance( $option['secret_key'], '' );
     $payment = $chip->get_payment( $transaction['charge_id'] );
 
     $GLOBALS['wpdb']->get_results(

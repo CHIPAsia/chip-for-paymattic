@@ -86,20 +86,6 @@ $miscellaneous_global_fields = array(
   ),
 );
 
-$refund_global_fields = array(
-  array(
-    'type'    => 'subheading',
-    'content' => __( 'Refund Synchronization', 'chip-for-paymattic' ),
-  ),
-  array(
-    'id'      => 'refund',
-    'type'    => 'switcher',
-    'title'   => __( 'Synchronize Refund', 'chip-for-paymattic' ),
-    'desc'    => __( 'Turn this on to synchronize refund status.', 'chip-for-paymattic' ),
-    'help'    => __( 'Enabling this option will ensure status is updated on Paymattic in the event of refund triggered on CHIP dashboard.', 'chip-for-paymattic' ),
-  ),
-);
-
 CHIPPYMTC_Setup::createSection( $slug, array(
   'id'    => 'global-configuration',
   'title' => __( 'Global Configuration', 'chip-for-paymattic' ),
@@ -120,12 +106,4 @@ CHIPPYMTC_Setup::createSection( $slug, array(
   'title'       => __( 'Miscellaneous', 'chip-for-paymattic' ),
   'description' => __( 'Miscellaneous settings.', 'chip-for-paymattic' ),
   'fields'      => $miscellaneous_global_fields,
-) );
-
-CHIPPYMTC_Setup::createSection( $slug, array(
-  'parent'      => 'global-configuration',
-  'id'          => 'refund',
-  'title'       => __( 'Refund Synchronization', 'chip-for-paymattic' ),
-  'description' => __( 'Configure public key to allow synchronization of refund status.', 'chip-for-paymattic' ),
-  'fields'      => $refund_global_fields,
 ) );

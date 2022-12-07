@@ -4,8 +4,6 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
-// This is CHIP API URL Endpoint as per documented in: https://developer.chip-in.asia/api
-define("PYMTC_CHIP_ROOT_URL", "https://gate.chip-in.asia");
 
 class Chip_Paymattic_API
 {
@@ -82,7 +80,7 @@ class Chip_Paymattic_API
 
     $response = $this->request(
       $method,
-      sprintf("%s/api/v1%s", PYMTC_CHIP_ROOT_URL, $route),
+      sprintf("%sapi/v1%s", PYMTC_CHIP_ROOT_URL, $route),
       $params,
       [
         'Content-type'  => 'application/json',

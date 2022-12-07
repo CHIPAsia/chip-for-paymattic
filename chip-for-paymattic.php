@@ -40,6 +40,9 @@ class Chip_Paymattic {
     define( 'PYMTC_CHIP_BASENAME', plugin_basename( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_DIR_PATH', plugin_dir_path( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_FSLUG', 'paymattic_chip' );
+
+    // This is CHIP API URL Endpoint as per documented in: https://developer.chip-in.asia/api
+    define( 'PYMTC_CHIP_ROOT_URL', 'https://gate.chip-in.asia/' );
   }
 
   public function includes() {

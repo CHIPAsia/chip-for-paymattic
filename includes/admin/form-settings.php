@@ -81,21 +81,6 @@ function pymtc_chip_form_fields( $form ){
       'dependency'  => array( ['due-strict-' . $form->ID, '==', 'true'], ['form-customize-' . $form->ID, '==', 'true'] ),
       'validate'    => 'chippymtc_validate_numeric',
     ),
-    array(
-      'type'    => 'subheading',
-      'content' => __( 'Refund Synchronization', 'chip-for-paymattic' ),
-
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'id'      => 'refund-' . $form->ID,
-      'type'    => 'switcher',
-      'title'   => __( 'Synchronize Refund', 'chip-for-paymattic' ),
-      'desc'    => __( 'Turn this on to synchronize refund status.', 'chip-for-paymattic' ),
-      'help'    => __( 'Enabling this option will ensure status is updated on Paymattic in the event of refund triggered on CHIP dashboard.', 'chip-for-paymattic' ),
-
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
   );
 
   return $form_fields;
