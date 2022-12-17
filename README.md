@@ -17,10 +17,6 @@ This module adds CHIP payment method option to your Paymattic.
 
 Set the **Brand ID** and **Secret Key** in the plugins settings.
 
-## Known issues
-
-- Icon is broken if **Enable image** for Select Payment Method
-
 ## Other
 
 Facebook: [Merchants & DEV Community](https://www.facebook.com/groups/3210496372558088)
