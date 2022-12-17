@@ -89,14 +89,16 @@ class Chip_Paymattic_Element extends BaseComponent
 
   private function is_supported_currency( $form_id ) {
     $currency_setting = Form::getCurrencySettings( $form_id );
+
     return Arr::get( $currency_setting, 'currency' ) == 'MYR';
   }
 
   public function renderForMultiple( $paymentSettings, $form, $elements ) {
-    $component = $this->component();
-    $component['id'] = 'chip_gateway_element';
+    $component                  = $this->component();
+    $component['id']            = 'chip_gateway_element';
     $component['field_options'] = $paymentSettings;
-    $this->render($component, $form, $elements);
+
+    $this->render( $component, $form, $elements );
   }
 
   public function push_payment_method( $methods ) {
