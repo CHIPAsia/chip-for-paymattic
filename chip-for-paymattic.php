@@ -39,6 +39,7 @@ class Chip_Paymattic {
     define( 'PYMTC_CHIP_FILE', __FILE__ );
     define( 'PYMTC_CHIP_BASENAME', plugin_basename( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_DIR_PATH', plugin_dir_path( PYMTC_CHIP_FILE ) );
+    define( 'PYMTC_CHIP_URL', plugin_dir_url( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_FSLUG', 'paymattic_chip' );
 
     // This is CHIP API URL Endpoint as per documented in: https://developer.chip-in.asia/api
@@ -53,6 +54,7 @@ class Chip_Paymattic {
       include $includes_dir . 'admin/global-settings.php';
       include $includes_dir . 'admin/form-settings.php';
       include $includes_dir . 'admin/backup-settings.php';
+      include $includes_dir . 'admin/class-inject-chip-logo.php';
     }
 
     include $includes_dir . 'class-element.php';

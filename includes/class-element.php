@@ -22,11 +22,11 @@ class Chip_Paymattic_Element extends BaseComponent
 
   public function __construct() {
 
-    parent::__construct('chip_gateway_element', 27);
+    parent::__construct( 'chip_gateway_element', 27 );
 
-    add_filter('wppayform/validate_gateway_api_chip', function ($data, $form) {
-          return $this->validate_api();
-      }, 2, 10);
+    add_filter( 'wppayform/validate_gateway_api_chip', function ( $data, $form ) {
+      return $this->validate_api();
+    }, 2, 10 );
 
     add_action( 'wppayform/payment_method_choose_element_render_chip', array( $this, 'renderForMultiple' ), 10, 3 );
     add_filter( 'wppayform/available_payment_methods', array( $this, 'push_payment_method' ), 2, 1 );

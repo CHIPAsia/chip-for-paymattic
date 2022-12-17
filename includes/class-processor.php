@@ -178,11 +178,11 @@ class Chip_Paymattic_Processor {
       ]);
     }
 
-    wp_send_json_success([
+    wp_send_json_success( [
       'message'          => __( 'You are redirecting to CHIP to complete the purchase. Please wait while you are redirecting....', 'chip-for-paymattic' ),
       'call_next_method' => 'normalRedirect',
       'redirect_url'     => Arr::get( $payment, 'checkout_url' )
-    ], 200);
+    ], 200 );
   }
 
   private function get_settings( $form_id ) {

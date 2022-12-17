@@ -19,14 +19,14 @@ CSF_Setup::createOptions( $slug, array(
 
 $credentials_global_fields = array(
   array(
-    'type' => 'notice',
-    'style' => 'danger',
+    'type'    => 'notice',
+    'style'   => 'danger',
     'content' => sprintf( __( 'The default currency is set to non compatible currencies! %sClick here%s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url('admin.php?page=wppayform_settings') . ' >', '</a>' ),
-    'class' => $pymtc_global_currency['currency'] == 'MYR' ? 'hidden' : '',
+    'class'   => $pymtc_global_currency['currency'] == 'MYR' ? 'hidden' : '',
   ),
   array(
-    'type' => 'notice',
-    'style' => 'normal',
+    'type'    => 'notice',
+    'style'   => 'normal',
     'content' => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
   ),
   array(
@@ -88,6 +88,21 @@ $miscellaneous_global_fields = array(
     'placeholder' => '60',
     'dependency'  => array( ['due-strict', '==', 'true'] ),
     'validate'    => 'csf_validate_numeric',
+  ),
+  array(
+    'id'    => 'inject-chip-logo',
+    'type'  => 'checkbox',
+    'title' => __( 'Set CHIP Logo', 'chip-for-paymattic' ),
+    'desc'  => sprintf( __( 'By activating this option, you agree to allow the plugin to add CHIP Icon to Paymattic. This will not work for WordPress installed on ephemeral file system. Source icon: %s. Target location: %s', 'chip-for-paymattic' ), PYMTC_CHIP_URL . 'assets/logo.svg', WPPAYFORM_DIR . 'assets/images/payment-logo/chip.svg' ),
+    'help'  => __( 'By defaullt Paymattic didn\'t bundle together with CHIP logo. Tick this option to inject logo to Paymattic to fix broken icon.', 'chip-for-paymattic' ),
+  ),
+  array(
+    'type'    => 'notice',
+    'style'   => 'danger',
+    'content' => __( 'Set CHIP logo failed!.', 'chip-for-paymattic' ),
+    'class'   => get_option( 'paymattic_chip_inject_logo', 'success' ) == 'success' ? 'hidden' : '',
+
+    'dependency'  => array( ['inject-chip-logo', '==', 'true'] ),
   ),
 );
 
