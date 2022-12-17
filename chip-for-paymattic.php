@@ -48,7 +48,6 @@ class Chip_Paymattic {
   public function includes() {
     $includes_dir = PYMTC_CHIP_DIR_PATH . 'includes/';
     include $includes_dir . 'class-api.php';
-    include $includes_dir . 'framework/classes/setup.class.php';
 
     if ( is_admin() ){
       include $includes_dir . 'admin/global-settings.php';
@@ -86,4 +85,12 @@ function load_chip_for_paymattic() {
   }
 
   Chip_Paymattic::get_instance();
+}
+
+// csf must load by default priority
+// and shall not tied to load_chip_for_paymattic
+add_action( 'plugins_loaded', 'load_chip_for_paymattic_csf' );
+
+function load_chip_for_paymattic_csf() {
+  include plugin_dir_path( __FILE__ ) . 'includes/framework/classes/setup.class.php';
 }

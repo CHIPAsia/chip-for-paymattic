@@ -16,19 +16,22 @@ function pymtc_chip_form_fields( $form ){
       'help'  => sprintf( __( 'This to enable customization per form-basis for form: #%s', 'chip-for-paymattic' ), $form->ID ),
     ),
     array(
-      'type' => 'notice',
-      'style' => 'danger',
+      'type'    => 'notice',
+      'style'   => 'danger',
       'content' => sprintf( __( 'The default currency is set to non compatible currencies! %sClick here%s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url('admin.php?page=wppayform_settings') . ' >', '</a>' ),
-      'class' => $pymtc_form_currency['currency'] == 'MYR' ? 'hidden' : '',
+      'class'   => $pymtc_form_currency['currency'] == 'MYR' ? 'hidden' : '',
     ),
     array(
-      'type' => 'notice',
-      'style' => 'normal',
+      'type'    => 'notice',
+      'style'   => 'normal',
       'content' => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
+
+      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
     ),
     array(
       'type'    => 'subheading',
       'content' => 'Credentials',
+
       'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
     ),
     array(
@@ -52,6 +55,7 @@ function pymtc_chip_form_fields( $form ){
     array(
       'type'    => 'subheading',
       'content' => 'Miscellaneous',
+
       'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
     ),
     array(

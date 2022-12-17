@@ -13,4 +13,4 @@ CSF_Setup::createSection( $slug, array(
       'type' => 'backup',
     ),
   )
-));
+) );
