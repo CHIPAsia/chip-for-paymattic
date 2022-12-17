@@ -68,7 +68,7 @@ class Chip_Paymattic {
     $new_links = array(
       'settings' => sprintf(
         // this has to be changed to codestar framework settings
-        '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=wppayform.php#/gateways/chip' ), esc_html__( 'Settings', 'chip-for-paymattic' )
+        '<a href="%1$s">%2$s</a>', admin_url( 'admin.php?page=chip-for-paymattic' ), esc_html__( 'Settings', 'chip-for-paymattic' )
       )
     );
 
