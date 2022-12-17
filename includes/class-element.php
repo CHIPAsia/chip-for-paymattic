@@ -25,7 +25,7 @@ class Chip_Paymattic_Element extends BaseComponent
     parent::__construct( 'chip_gateway_element', 27 );
 
     add_filter( 'wppayform/validate_gateway_api_chip', function ( $data, $form ) {
-      return $this->validate_api();
+      return $this->validate_api( $form->ID );
     }, 2, 10 );
 
     add_action( 'wppayform/payment_method_choose_element_render_chip', array( $this, 'renderForMultiple' ), 10, 3 );
@@ -55,9 +55,9 @@ class Chip_Paymattic_Element extends BaseComponent
   }
 
   public function render( $element, $form, $elements ) {
-    if (!$this->validate_api()) { ?>
+    if ( !$this->validate_api( $form->ID ) ) { ?>
       <p style="color: red">You did not configure CHIP payment gateway. Please configure CHIP payment
-        gateway from <b>Paymattic->CHIP Settings</b> to start accepting payments</p>
+        gateway by setting Brand ID and Secret Key from <b>Paymattic Pro->CHIP Settings</b> to start accepting payments</p>
       <?php return;
     }
     if ( !$this->is_supported_currency( $form->ID ) ) { ?>
@@ -68,14 +68,19 @@ class Chip_Paymattic_Element extends BaseComponent
     echo '<input data-wpf_payment_method="chip" type="hidden" name="__chip_payment_gateway" value="chip" />';
   }
 
-  private function validate_api() {
-    // TODO: remove return true below
-    return true;
-    if ( !( $option = get_option('paymattic_chip') ) ) {
+  private function validate_api( $form_id ) {
+
+    if ( !( $options = get_option( PYMTC_CHIP_FSLUG ) ) ) {
       return false;
     }
 
-    if ( strlen( $option['secret_key']) < 1 || strlen($option['brand_id']) < 1 ) {
+    $postfix = '';
+
+    if ( $options['form-customize-' . $form_id] ) {
+      $postfix = "-$form_id";
+    }
+
+    if ( strlen( $options['secret-key' . $postfix] ) < 1 || strlen( $options['brand-id' . $postfix] ) < 1 ) {
       return false;
     }
 
