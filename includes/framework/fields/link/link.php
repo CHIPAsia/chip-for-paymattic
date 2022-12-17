@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_link' ) ) {
-  class CHIPPYMTC_Field_link extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_link' ) ) {
+  class CSF_Field_link extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -17,9 +17,9 @@ if ( ! class_exists( 'CHIPPYMTC_Field_link' ) ) {
     public function render() {
 
       $args = wp_parse_args( $this->field, array(
-        'add_title'    => esc_html__( 'Add Link', 'chippymtc' ),
-        'edit_title'   => esc_html__( 'Edit Link', 'chippymtc' ),
-        'remove_title' => esc_html__( 'Remove Link', 'chippymtc' ),
+        'add_title'    => esc_html__( 'Add Link', 'csf' ),
+        'edit_title'   => esc_html__( 'Edit Link', 'csf' ),
+        'remove_title' => esc_html__( 'Remove Link', 'csf' ),
       ) );
 
       $default_values = array(
@@ -36,17 +36,17 @@ if ( ! class_exists( 'CHIPPYMTC_Field_link' ) ) {
 
       echo $this->field_before();
 
-      echo '<textarea readonly="readonly" class="chippymtc--link hidden"></textarea>';
+      echo '<textarea readonly="readonly" class="csf--link hidden"></textarea>';
 
-      echo '<div class="'. esc_attr( $maybe_hidden ) .'"><div class="chippymtc--result">'. sprintf( '{url:"%s", text:"%s", target:"%s"}', $value['url'], $value['text'], $value['target'] ) .'</div></div>';
+      echo '<div class="'. esc_attr( $maybe_hidden ) .'"><div class="csf--result">'. sprintf( '{url:"%s", text:"%s", target:"%s"}', $value['url'], $value['text'], $value['target'] ) .'</div></div>';
 
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $value['url'] ) .'"'. $this->field_attributes( array( 'class' => 'chippymtc--url' ) ) .' />';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[text]' ) ) .'" value="'. esc_attr( $value['text'] ) .'" class="chippymtc--text" />';
-      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[target]' ) ) .'" value="'. esc_attr( $value['target'] ) .'" class="chippymtc--target" />';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[url]' ) ) .'" value="'. esc_attr( $value['url'] ) .'"'. $this->field_attributes( array( 'class' => 'csf--url' ) ) .' />';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[text]' ) ) .'" value="'. esc_attr( $value['text'] ) .'" class="csf--text" />';
+      echo '<input type="hidden" name="'. esc_attr( $this->field_name( '[target]' ) ) .'" value="'. esc_attr( $value['target'] ) .'" class="csf--target" />';
 
-      echo '<a href="#" class="button button-primary chippymtc--add'. esc_attr( $hidden ) .'">'. $args['add_title'] .'</a> ';
-      echo '<a href="#" class="button chippymtc--edit'. esc_attr( $maybe_hidden ) .'">'. $args['edit_title'] .'</a> ';
-      echo '<a href="#" class="button chippymtc-warning-primary chippymtc--remove'. esc_attr( $maybe_hidden ) .'">'. $args['remove_title'] .'</a>';
+      echo '<a href="#" class="button button-primary csf--add'. esc_attr( $hidden ) .'">'. $args['add_title'] .'</a> ';
+      echo '<a href="#" class="button csf--edit'. esc_attr( $maybe_hidden ) .'">'. $args['edit_title'] .'</a> ';
+      echo '<a href="#" class="button csf-warning-primary csf--remove'. esc_attr( $maybe_hidden ) .'">'. $args['remove_title'] .'</a>';
 
       echo $this->field_after();
 

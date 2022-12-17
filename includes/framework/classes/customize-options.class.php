@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
-  class CHIPPYMTC_Customize_Options extends CHIPPYMTC_Abstract {
+if ( ! class_exists( 'CSF_Customize_Options' ) ) {
+  class CSF_Customize_Options extends CSF_Abstract {
 
     // constans
     public $unique       = '';
@@ -33,8 +33,8 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
     public function __construct( $key, $params ) {
 
       $this->unique       = $key;
-      $this->args         = apply_filters( "chippymtc_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-      $this->sections     = apply_filters( "chippymtc_{$this->unique}_sections", $params['sections'], $this );
+      $this->args         = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
+      $this->sections     = apply_filters( "csf_{$this->unique}_sections", $params['sections'], $this );
       $this->pre_fields   = $this->pre_fields( $this->sections );
       $this->pre_sections = $this->pre_sections_customize( $this->sections );
 
@@ -60,9 +60,9 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
     }
 
     public function add_customize_save_after( $wp_customize ) {
-      do_action( "chippymtc_{$this->unique}_save_before", $this->get_options(), $this, $wp_customize );
-      do_action( "chippymtc_{$this->unique}_saved", $this->get_options(), $this, $wp_customize );
-      do_action( "chippymtc_{$this->unique}_save_after", $this->get_options(), $this, $wp_customize );
+      do_action( "csf_{$this->unique}_save_before", $this->get_options(), $this, $wp_customize );
+      do_action( "csf_{$this->unique}_saved", $this->get_options(), $this, $wp_customize );
+      do_action( "csf_{$this->unique}_save_after", $this->get_options(), $this, $wp_customize );
     }
 
     // get default value
@@ -142,8 +142,8 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
 
     public function add_customize_options( $wp_customize ) {
 
-      if ( ! class_exists( 'WP_Customize_Panel_CHIPPYMTC' ) ) {
-        CHIPPYMTC::include_plugin_file( 'functions/customize.php'  );
+      if ( ! class_exists( 'WP_Customize_Panel_CSF' ) ) {
+        CSF::include_plugin_file( 'functions/customize.php'  );
       }
 
       foreach ( $this->pre_sections as $section ) {
@@ -152,7 +152,7 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
 
           $panel_id = ( isset( $section['id'] ) ) ? $section['id'] : $this->unique .'-panel-'. $this->priority;
 
-          $wp_customize->add_panel( new WP_Customize_Panel_CHIPPYMTC( $wp_customize, $panel_id, array(
+          $wp_customize->add_panel( new WP_Customize_Panel_CSF( $wp_customize, $panel_id, array(
             'title'       => ( isset( $section['title'] ) ) ? $section['title'] : null,
             'description' => ( isset( $section['description'] ) ) ? $section['description'] : null,
             'priority'    => ( isset( $section['priority'] ) ) ? $section['priority'] : null,
@@ -193,7 +193,7 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
 
       } else {
 
-        $wp_customize->add_section( new WP_Customize_Section_CHIPPYMTC( $wp_customize, $section_id, array(
+        $wp_customize->add_section( new WP_Customize_Section_CSF( $wp_customize, $section_id, array(
           'title'       => ( isset( $section_args['title'] ) ) ? $section_args['title'] : '',
           'description' => ( isset( $section_args['description'] ) ) ? $section_args['description'] : '',
           'priority'    => ( isset( $section_args['priority'] ) ) ? $section_args['priority'] : '',
@@ -236,7 +236,7 @@ if ( ! class_exists( 'CHIPPYMTC_Customize_Options' ) ) {
             ) )
           );
 
-          $wp_customize->add_control( new WP_Customize_Control_CHIPPYMTC( $wp_customize, $setting_id,
+          $wp_customize->add_control( new WP_Customize_Control_CSF( $wp_customize, $setting_id,
             wp_parse_args( $control_args, array(
               'unique'   => $this->unique,
               'field'    => $field,

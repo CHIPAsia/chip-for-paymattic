@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_upload' ) ) {
-  class CHIPPYMTC_Field_upload extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_upload' ) ) {
+  class CSF_Field_upload extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -21,8 +21,8 @@ if ( ! class_exists( 'CHIPPYMTC_Field_upload' ) ) {
         'preview'        => false,
         'preview_width'  => '',
         'preview_height' => '',
-        'button_title'   => esc_html__( 'Upload', 'chippymtc' ),
-        'remove_title'   => esc_html__( 'Remove', 'chippymtc' ),
+        'button_title'   => esc_html__( 'Upload', 'csf' ),
+        'remove_title'   => esc_html__( 'Remove', 'csf' ),
       ) );
 
       echo $this->field_before();
@@ -40,18 +40,18 @@ if ( ! class_exists( 'CHIPPYMTC_Field_upload' ) ) {
         $preview_style  = ( ! empty( $preview_width ) || ! empty( $preview_height ) ) ? ' style="'. esc_attr( $preview_width . $preview_height ) .'"': '';
         $preview_hidden = ( empty( $preview_src ) ) ? ' hidden' : '';
 
-        echo '<div class="chippymtc--preview'. esc_attr( $preview_hidden ) .'">';
-        echo '<div class="chippymtc-image-preview"'. $preview_style .'>';
-        echo '<i class="chippymtc--remove fas fa-times"></i><span><img src="'. esc_url( $preview_src ) .'" class="chippymtc--src" /></span>';
+        echo '<div class="csf--preview'. esc_attr( $preview_hidden ) .'">';
+        echo '<div class="csf-image-preview"'. $preview_style .'>';
+        echo '<i class="csf--remove fas fa-times"></i><span><img src="'. esc_url( $preview_src ) .'" class="csf--src" /></span>';
         echo '</div>';
         echo '</div>';
 
       }
 
-      echo '<div class="chippymtc--wrap">';
+      echo '<div class="csf--wrap">';
       echo '<input type="text" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes() .'/>';
-      echo '<a href="#" class="button button-primary chippymtc--button" data-library="'. esc_attr( $library ) .'">'. $args['button_title'] .'</a>';
-      echo '<a href="#" class="button button-secondary chippymtc-warning-primary chippymtc--remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
+      echo '<a href="#" class="button button-primary csf--button" data-library="'. esc_attr( $library ) .'">'. $args['button_title'] .'</a>';
+      echo '<a href="#" class="button button-secondary csf-warning-primary csf--remove'. esc_attr( $hidden ) .'">'. $args['remove_title'] .'</a>';
       echo '</div>';
 
       echo $this->field_after();

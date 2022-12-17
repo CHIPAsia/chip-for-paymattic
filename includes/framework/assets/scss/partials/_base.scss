@@ -1,7 +1,7 @@
 /**
  * 01. Base
  */
-.chippymtc{
+.csf{
   position: relative;
 
   label{
@@ -11,15 +11,15 @@
   }
 }
 
-.chippymtc-ab-icon{
+.csf-ab-icon{
   top: 2px;
 }
 
-#screen-meta-links + .chippymtc-options{
+#screen-meta-links + .csf-options{
   margin-top: 40px;
 }
 
-.chippymtc-options{
+.csf-options{
   margin-top: 20px;
   margin-right: 20px;
 }
@@ -27,11 +27,11 @@
 /**
  * 01. 01. Header
  */
-.chippymtc-header{
+.csf-header{
   position: relative;
 }
 
-.chippymtc-header-inner{
+.csf-header-inner{
   padding: 25px;
   transition: box-shadow .3s ease;
 
@@ -52,9 +52,9 @@
 /**
  * 01. 02. Sticky
  */
-.chippymtc-sticky{
+.csf-sticky{
 
-  .chippymtc-header-inner{
+  .csf-header-inner{
     position: fixed;
     z-index: 99;
     top: 32px;
@@ -65,7 +65,7 @@
 /**
  * 01. 03. Header Buttons
  */
-.chippymtc-buttons{
+.csf-buttons{
   float: right;
 
   .button{
@@ -78,23 +78,23 @@
     }
   }
 
-  .chippymtc-save{
+  .csf-save{
     min-width: 72px;
   }
 }
 
-.chippymtc-header-left{
+.csf-header-left{
   float: left;
 }
 
-.chippymtc-header-right{
+.csf-header-right{
   float: right;
 }
 
 /**
  * 01. 04. Navigation
  */
-.chippymtc-nav{
+.csf-nav{
   display: block;
   position: relative;
   z-index: 10;
@@ -124,7 +124,7 @@
         }
       }
 
-      .chippymtc-arrow:after{
+      .csf-arrow:after{
         content: "\f054";
         display: inline-block;
         font-family: "Font Awesome 5 Pro", "Font Awesome 5 Free", "FontAwesome";
@@ -137,9 +137,9 @@
         margin-top: -4px;
       }
 
-      &.chippymtc-tab-expanded{
+      &.csf-tab-expanded{
 
-        .chippymtc-arrow:after{
+        .csf-arrow:after{
           transform: rotate(90deg);
         }
 
@@ -163,28 +163,28 @@
     }
   }
 
-  .chippymtc-tab-icon{
+  .csf-tab-icon{
     width: 20px;
     margin-right: 5px;
     font-size: 13px;
     text-align: center;
   }
 
-  .chippymtc-label-error{
+  .csf-label-error{
     margin-left: 4px;
     vertical-align: top;
   }
 }
 
-.chippymtc-nav-normal{
+.csf-nav-normal{
   width: 225px;
 
-  + .chippymtc-content{
+  + .csf-content{
     margin-left: 225px;
   }
 }
 
-.chippymtc-nav-inline{
+.csf-nav-inline{
   width: 100%;
 
   ul{
@@ -196,7 +196,7 @@
   }
 }
 
-.chippymtc-nav-background{
+.csf-nav-background{
   position: absolute;
   top: 0;
   left: 0;
@@ -208,14 +208,14 @@
 /**
  * 01. 05. Wrapper
  */
-.chippymtc-wrapper{
+.csf-wrapper{
   position: relative;
 }
 
 /**
  * 01. 06. Content
  */
-.chippymtc-content{
+.csf-content{
   position: relative;
   background-color: #fff;
 }
@@ -223,12 +223,12 @@
 /**
  * 01. 07. Section
  */
-.chippymtc-sections{
+.csf-sections{
   float: left;
   width: 100%;
 }
 
-.chippymtc-section-title{
+.csf-section-title{
   display: none;
   padding: 20px 30px;
   background-color: #f5f5f5;
@@ -243,7 +243,7 @@
     text-transform: uppercase;
   }
 
-  .chippymtc-section-icon{
+  .csf-section-icon{
     margin-right: 5px;
   }
 }
@@ -251,7 +251,7 @@
 /**
  * 01. 08. Footer
  */
-.chippymtc-footer{
+.csf-footer{
   padding: 20px;
   font-size: 11px;
 }
@@ -259,7 +259,7 @@
 /**
  * 01. 09. Copyright
  */
-.chippymtc-copyright{
+.csf-copyright{
   float: left;
   margin-top: 5px;
 }
@@ -267,25 +267,25 @@
 /**
  * 01. 10. Show All Settings
  */
-.chippymtc-search-all,
-.chippymtc-show-all{
-  .chippymtc-nav-background,
-  .chippymtc-nav{
+.csf-search-all,
+.csf-show-all{
+  .csf-nav-background,
+  .csf-nav{
     display: none;
   }
 
-  .chippymtc-content{
+  .csf-content{
     margin-left: 0;
   }
 
-  .chippymtc-section-title,
-  .chippymtc-section{
+  .csf-section-title,
+  .csf-section{
     display: block !important;
   }
 }
 
-.chippymtc-search-all{
-  .chippymtc-section-title{
+.csf-search-all{
+  .csf-section-title{
     display: none !important;
   }
 }
@@ -293,7 +293,7 @@
 //
 // Expand
 //
-.chippymtc-expand-all{
+.csf-expand-all{
   float: left;
   padding: 0 8px;
   margin-right: 4px;
@@ -314,7 +314,7 @@
 /**
  * 01. 11. Search Input
  */
-.chippymtc-search{
+.csf-search{
   float: left;
 
   input{
@@ -334,10 +334,10 @@
   }
 }
 
-.chippymtc-saving{
+.csf-saving{
 
-  .chippymtc-buttons,
-  .chippymtc-content{
+  .csf-buttons,
+  .csf-content{
     cursor: default;
     pointer-events: none;
     opacity: 0.5;
@@ -347,40 +347,40 @@
 /**
  * 01. 12. Metabox
  */
-.chippymtc-metabox{
+.csf-metabox{
   margin: -6px -12px -12px -12px;
 
-  .chippymtc-field{
+  .csf-field{
     padding: 20px;
   }
 
-  .chippymtc-section-title{
+  .csf-section-title{
     padding: 20px;
   }
 }
 
 .block-editor-page{
 
-  .chippymtc-metabox{
+  .csf-metabox{
     margin: -6px -14px -14px -14px;
   }
 }
 
 .block-editor-editor-skeleton__content{
 
-  .chippymtc-metabox{
+  .csf-metabox{
     border-left: 1px solid #e2e4e7;
     border-right: 1px solid #e2e4e7;
   }
 }
 
-.chippymtc-sections-reset{
+.csf-sections-reset{
   float: left;
   width: 100%;
   text-align: right;
   border-top: 1px solid #eee;
 
-  .chippymtc-button-cancel,
+  .csf-button-cancel,
   input{
     display: none;
   }
@@ -395,11 +395,11 @@
   }
 
 
-  input:checked ~ .chippymtc-button-reset{
+  input:checked ~ .csf-button-reset{
     display: none;
   }
 
-  input:checked ~ .chippymtc-button-cancel{
+  input:checked ~ .csf-button-cancel{
     display: inline-block;
   }
 
@@ -407,30 +407,30 @@
 
 #side-sortables{
 
-  .chippymtc-section-title{
+  .csf-section-title{
     padding: 12px;
   }
 
-  .chippymtc-field{
+  .csf-field{
     padding: 10px 15px;
 
-    .chippymtc-title{
+    .csf-title{
       float: none;
       width: 100%;
       margin-bottom: 6px;
     }
 
-    .chippymtc-fieldset{
+    .csf-fieldset{
       float: none;
       width: 100%;
     }
   }
 
-  .chippymtc-field-text input{
+  .csf-field-text input{
     width: 100%;
   }
 
-  .chippymtc-notice{
+  .csf-notice{
     padding: 10px 15px;
   }
 }
@@ -438,14 +438,14 @@
 /**
  * 01. 13. Comment Metabox
  */
-.chippymtc-comment-metabox{
+.csf-comment-metabox{
   margin: -6px -12px -12px -12px;
 
-  .chippymtc-field{
+  .csf-field{
     padding: 20px;
   }
 
-  .chippymtc-section-title{
+  .csf-section-title{
     padding: 20px;
   }
 }
@@ -454,7 +454,7 @@
 /**
  * 01. 14. Help Tooltip
  */
-.chippymtc-tooltip{
+.csf-tooltip{
   position: absolute;
   z-index: 5000001;
   font-size: 12px;

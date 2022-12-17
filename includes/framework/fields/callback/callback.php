@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_callback' ) ) {
-  class CHIPPYMTC_Field_callback extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_callback' ) ) {
+  class CSF_Field_callback extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );

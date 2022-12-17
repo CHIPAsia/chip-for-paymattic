@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_text' ) ) {
-  class CHIPPYMTC_Field_text extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_text' ) ) {
+  class CSF_Field_text extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );

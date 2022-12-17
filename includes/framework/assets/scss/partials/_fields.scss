@@ -1,11 +1,11 @@
 /**
  * 03. Fields
  */
-.chippymtc-field{
+.csf-field{
   position: relative;
   padding: 30px;
 
-  + .chippymtc-field{
+  + .csf-field{
     border-top: 1px solid #eee;
   }
 
@@ -31,7 +31,7 @@
     margin-top: 0;
   }
 
-  .chippymtc-title{
+  .csf-title{
     position: relative;
     width: 20%;
     float: left;
@@ -42,17 +42,17 @@
     }
   }
 
-  .chippymtc-fieldset{
+  .csf-fieldset{
     float: right;
     width: calc(80% - 20px);
   }
 }
 
-.chippymtc-pseudo-field{
+.csf-pseudo-field{
   padding: 0 5px 0 0 !important;
   display: inline-block;
 
-  + .chippymtc-pseudo-field{
+  + .csf-pseudo-field{
     border: 0;
   }
 
@@ -64,9 +64,9 @@
 /**
  * 03. 02. Field: accordion
  */
-.chippymtc-field-accordion{
+.csf-field-accordion{
 
-  .chippymtc-accordion-item{
+  .csf-accordion-item{
     position: relative;
     margin-bottom: 5px;
 
@@ -79,7 +79,7 @@
     }
   }
 
-  .chippymtc-accordion-title{
+  .csf-accordion-title{
     display: block;
     cursor: pointer;
     position: relative;
@@ -100,19 +100,19 @@
       border-color: #999;
     }
 
-    .chippymtc--icon{
+    .csf--icon{
       width: 20px;
       text-align: center;
       margin-right: 2px;
     }
   }
 
-  .chippymtc-accordion-icon{
+  .csf-accordion-icon{
     width: 16px;
     text-align: center;
   }
 
-  .chippymtc-accordion-content{
+  .csf-accordion-content{
     display: none;
     padding: 0;
     border: 1px solid #ccd0d4;
@@ -120,12 +120,12 @@
     background-color: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,0.04);
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-accordion-open{
+  .csf-accordion-open{
     display: block;
   }
 }
@@ -133,26 +133,26 @@
 /**
  * 03. 03. Field: background
  */
-.chippymtc-field-background{
+.csf-field-background{
 
-  .chippymtc-field{
+  .csf-field{
     border: 0 !important;
     padding: 0;
     margin-bottom: 6px;
     margin-right: 6px;
   }
 
-  .chippymtc--title{
+  .csf--title{
     color: #777;
     font-size: 12px;
   }
 
-  .chippymtc--background-colors{
+  .csf--background-colors{
     display: flex;
     flex-wrap: wrap;
   }
 
-  .chippymtc--background-attributes{
+  .csf--background-attributes{
     display: flex;
     flex-wrap: wrap;
 
@@ -161,12 +161,12 @@
       margin: 0;
     }
 
-    .chippymtc-field{
+    .csf-field{
       flex: 1;
     }
   }
 
-  .chippymtc--attributes-hidden{
+  .csf--attributes-hidden{
     display: none;
   }
 }
@@ -174,7 +174,7 @@
 /**
  * 03. 04. Field: backup
  */
-.chippymtc-field-backup{
+.csf-field-backup{
 
   textarea{
     width: 100%;
@@ -197,17 +197,17 @@
 /**
  * 03. 05. Field: border, spacing, dimensions
  */
-.chippymtc-field-border,
-.chippymtc-field-spacing,
-.chippymtc-field-dimensions{
+.csf-field-border,
+.csf-field-spacing,
+.csf-field-dimensions{
 
-  .chippymtc--inputs{
+  .csf--inputs{
     float: left;
     display: flex;
     flex-wrap: wrap;
   }
 
-  .chippymtc--input{
+  .csf--input{
     display: flex;
     padding-right: 6px;
     padding-bottom: 4px;
@@ -227,11 +227,11 @@
     }
   }
 
-  .chippymtc--color{
+  .csf--color{
     float: left;
   }
 
-  .chippymtc--label{
+  .csf--label{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -246,22 +246,22 @@
     background-color: #f5f5f5;
   }
 
-  .chippymtc--icon{
+  .csf--icon{
     border-right: 0;
     border-radius: 4px 0 0 4px;
   }
 
-  .chippymtc--icon + input{
+  .csf--icon + input{
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     border-left: 0;
     border-radius: 0 4px 4px 0;
   }
 
-  .chippymtc--is-unit{
+  .csf--is-unit{
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
@@ -270,13 +270,13 @@
 /**
  * 03. 06. Field: button_set
  */
-.chippymtc-field-button_set{
+.csf-field-button_set{
 
-  .chippymtc--buttons{
+  .csf--buttons{
     display: inline-block;
   }
 
-  .chippymtc--button{
+  .csf--button{
     position: relative;
     z-index: 1;
     float: left;
@@ -307,8 +307,8 @@
     }
   }
 
-  .chippymtc--active:hover,
-  .chippymtc--active{
+  .csf--active:hover,
+  .csf--active{
     z-index: 2;
     color: #fff;
     border-color: #006799;
@@ -323,8 +323,8 @@
 /**
  * 03. 07. Field: checkbox, radio
  */
-.chippymtc-field-checkbox,
-.chippymtc-field-radio{
+.csf-field-checkbox,
+.csf-field-radio{
 
   ul{
     margin: 0;
@@ -354,21 +354,21 @@
     margin: 0 1px;
   }
 
-  .chippymtc--inline-list li{
+  .csf--inline-list li{
     display: inline-block;
     margin-right: 15px;
   }
 
-  .chippymtc--text{
+  .csf--text{
     margin-left: 5px;
     vertical-align: middle;
   }
 
-  .chippymtc-checker{
+  .csf-checker{
     cursor: pointer;
   }
 
-  .chippymtc-checkbox-all{
+  .csf-checkbox-all{
     user-select: none;
     cursor: pointer;
     margin-top: 5px;
@@ -380,7 +380,7 @@
 /**
  * 03. 08. Field: code_editor
  */
-.chippymtc-field-code_editor{
+.csf-field-code_editor{
 
   .CodeMirror{
     width: 100%;
@@ -400,7 +400,7 @@
 /**
  * 03. 09. Field: color
  */
-.chippymtc-field-color{
+.csf-field-color{
 
   > input{
     opacity: 0.75;
@@ -419,15 +419,15 @@
 /**
  * 03. 10. Field: color_group
  */
-.chippymtc-field-color_group{
+.csf-field-color_group{
 
-  .chippymtc--left{
+  .csf--left{
     float: left;
     margin-right: 10px;
     margin-bottom: 5px;
   }
 
-  .chippymtc--title{
+  .csf--title{
     color: #999;
     margin-bottom: 5px;
   }
@@ -436,19 +436,19 @@
 /**
  * 03. 11. Field: fieldset
  */
-.chippymtc-field-fieldset{
+.csf-field-fieldset{
 
-  .chippymtc-fieldset-content{
+  .csf-fieldset-content{
     border: 1px solid #ccd0d4;
     background-color: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,0.04);
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-field-subheading{
+  .csf-field-subheading{
     font-size: 13px;
   }
 }
@@ -456,18 +456,18 @@
 /**
  * 03. 12. Field: date
  */
-.chippymtc-field-date{
+.csf-field-date{
 
   input{
     margin: 0;
   }
 
-  .chippymtc--to{
+  .csf--to{
     margin-left: 7px;
   }
 }
 
-.chippymtc-datepicker-wrapper{
+.csf-datepicker-wrapper{
   margin-top: 5px;
   width: auto;
   background-color: #fff;
@@ -622,18 +622,18 @@
 /**
  * 03. 13. Field: datetime
  */
-.chippymtc-field-datetime{
+.csf-field-datetime{
 
   input{
     margin: 0;
   }
 
-  .chippymtc--to{
+  .csf--to{
     margin-left: 7px;
   }
 }
 
-.chippymtc-flatpickr{
+.csf-flatpickr{
 
   select,
   input{
@@ -652,7 +652,7 @@
 /**
  * 03. 14. Field: gallery
  */
-.chippymtc-field-gallery{
+.csf-field-gallery{
 
   ul{
     margin: 0;
@@ -686,17 +686,17 @@
 /**
  * 03. 15. Field: group
  */
-.chippymtc-field-group{
+.csf-field-group{
 
-  .chippymtc-cloneable-hidden{
+  .csf-cloneable-hidden{
     display: none !important;
   }
 
-  .chippymtc-cloneable-wrapper{
+  .csf-cloneable-wrapper{
     position: relative;
   }
 
-  .chippymtc-cloneable-item{
+  .csf-cloneable-item{
     display: none;
     position: relative;
     margin-bottom: 5px;
@@ -706,21 +706,21 @@
     }
   }
 
-  .ui-accordion .chippymtc-cloneable-item{
+  .ui-accordion .csf-cloneable-item{
     display: block;
   }
 
-  .chippymtc-cloneable-content{
+  .csf-cloneable-content{
     border: 1px solid #ccd0d4;
     background-color: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,0.04);
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-cloneable-title{
+  .csf-cloneable-title{
     display: block;
     cursor: pointer;
     position: relative;
@@ -742,7 +742,7 @@
     }
   }
 
-  .chippymtc-cloneable-helper{
+  .csf-cloneable-helper{
     position: absolute;
     top: 12px;
     right: 10px;
@@ -762,17 +762,17 @@
     }
   }
 
-  .chippymtc-cloneable-content{
+  .csf-cloneable-content{
     padding: 0;
     border-top: 0;
   }
 
-  .chippymtc-cloneable-title-prefix,
-  .chippymtc-cloneable-title-number{
+  .csf-cloneable-title-prefix,
+  .csf-cloneable-title-number{
     margin-right: 5px;
   }
 
-  .chippymtc-cloneable-alert{
+  .csf-cloneable-alert{
     display: none;
     margin-bottom: 5px;
     padding: 10px 20px;
@@ -787,7 +787,7 @@
     background-color: #fffae4;
   }
 
-  .chippymtc-cloneable-header-icon{
+  .csf-cloneable-header-icon{
     display: inline-block;
     text-align: center;
     font-size: 14px;
@@ -796,7 +796,7 @@
     vertical-align: text-top;
   }
 
-  .chippymtc-cloneable-placeholder{
+  .csf-cloneable-placeholder{
     background-color: #ddd;
     margin-top: 4px;
     width: 100px;
@@ -812,18 +812,18 @@
 /**
  * 03. 16. Field: icon
  */
-.chippymtc-field-icon{
+.csf-field-icon{
 
-  .chippymtc-icon-select{
+  .csf-icon-select{
     display: flex;
     grid-gap: 5px;
   }
 
-  .chippymtc-icon-preview:not(.hidden){
+  .csf-icon-preview:not(.hidden){
     display: flex;
   }
 
-  .chippymtc-icon-preview{
+  .csf-icon-preview{
 
     i{
       display: flex;
@@ -845,14 +845,14 @@
 /**
  * 03. 17. Field: image_select
  */
-.chippymtc-field-image_select{
+.csf-field-image_select{
 
-  .chippymtc--image{
+  .csf--image{
     display: inline-block;
     margin: 0 5px 5px 0;
   }
 
-  .chippymtc--inline-list .chippymtc--image{
+  .csf--inline-list .csf--image{
     display: block;
   }
 
@@ -887,7 +887,7 @@
     }
   }
 
-  .chippymtc--active figure{
+  .csf--active figure{
     border-color: #222;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
 
@@ -910,15 +910,15 @@
 /**
  * 03. 18. Field: link_color
  */
-.chippymtc-field-link_color{
+.csf-field-link_color{
 
-  .chippymtc--left{
+  .csf--left{
     float: left;
     margin-right: 10px;
     margin-bottom: 5px;
   }
 
-  .chippymtc--title{
+  .csf--title{
     color: #777;
     margin-bottom: 5px;
   }
@@ -927,7 +927,7 @@
 /**
  * 03. 19. Field: map
  */
-.chippymtc-field-map{
+.csf-field-map{
 
   input{
     width: 100%;
@@ -937,11 +937,11 @@
     background-position-x: calc(100% - 5px);
   }
 
-  .chippymtc--map-search + .chippymtc--map-osm-wrap{
+  .csf--map-search + .csf--map-osm-wrap{
     margin-top: 10px;
   }
 
-  .chippymtc--map-osm-wrap{
+  .csf--map-osm-wrap{
     position: relative;
     padding: 5px;
     border: 1px solid #eee;
@@ -949,19 +949,19 @@
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
   }
 
-  .chippymtc--map-osm{
+  .csf--map-osm{
     position: relative;
     z-index: 1;
     min-height: 250px;
   }
 
-  .chippymtc--map-inputs{
+  .csf--map-inputs{
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
   }
 
-  .chippymtc--map-input{
+  .csf--map-input{
     flex: 1;
 
     &:last-child{
@@ -977,7 +977,7 @@
   }
 }
 
-.chippymtc-map-ui-autocomplate{
+.csf-map-ui-autocomplate{
   z-index: 999999;
   border-radius: 4px;
   overflow: hidden;
@@ -987,9 +987,9 @@
 /**
  * 03. 20. Field: media
  */
-.chippymtc-field-media{
+.csf-field-media{
 
-  .chippymtc--placeholder{
+  .csf--placeholder{
     display: flex;
     align-items: flex-start;
 
@@ -1007,7 +1007,7 @@
     margin-left: 0;
   }
 
-  .chippymtc--preview{
+  .csf--preview{
     position: relative;
   }
 }
@@ -1015,9 +1015,9 @@
 /**
  * 03. 21. Field: palette
  */
-.chippymtc-field-palette{
+.csf-field-palette{
 
-  .chippymtc--palette{
+  .csf--palette{
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -1057,7 +1057,7 @@
     }
   }
 
-  .chippymtc--active{
+  .csf--active{
     border-color: #222;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
 
@@ -1074,19 +1074,19 @@
 /**
  * 03. 22. Field: repeater
  */
-.chippymtc-field-repeater{
+.csf-field-repeater{
 
-  .chippymtc-field-text input{
+  .csf-field-text input{
     width: 100%;
   }
 
-  .chippymtc-repeater-hidden{
+  .csf-repeater-hidden{
     display: none !important;
   }
 
-  .chippymtc-repeater-wrapper{
+  .csf-repeater-wrapper{
 
-    .chippymtc-repeater-item{
+    .csf-repeater-item{
       display: table;
       width: 100%;
       margin-bottom: 5px;
@@ -1098,18 +1098,18 @@
     }
   }
 
-  .chippymtc-repeater-content{
+  .csf-repeater-content{
     width: 100%;
     display: table-cell;
     vertical-align: middle;
     background-color: #fff;
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-repeater-helper{
+  .csf-repeater-helper{
     width: 100%;
     display: table-cell;
     vertical-align: middle;
@@ -1131,11 +1131,11 @@
     }
   }
 
-  .chippymtc-repeater-helper-inner{
+  .csf-repeater-helper-inner{
     width: 75px;
   }
 
-  .chippymtc-repeater-alert{
+  .csf-repeater-alert{
     display: none;
     margin-bottom: 5px;
     padding: 10px 20px;
@@ -1158,8 +1158,8 @@
     background-color: #eee !important;
     opacity: 0.5;
 
-    .chippymtc-repeater-helper,
-    .chippymtc-repeater-content{
+    .csf-repeater-helper,
+    .csf-repeater-content{
       display: none;
     }
   }
@@ -1168,13 +1168,13 @@
 /**
  * 03. 23. Field: select
  */
-.chippymtc-field-select{
+.csf-field-select{
 
-  .chippymtc-fieldset{
+  .csf-fieldset{
     min-height: 30px;
   }
 
-  .chippymtc-chosen{
+  .csf-chosen{
     display: none;
   }
 
@@ -1183,7 +1183,7 @@
     margin: 0;
   }
 
-  .chippymtc-hide-select{
+  .csf-hide-select{
     display: none !important;
   }
 }
@@ -1191,18 +1191,18 @@
 /**
  * 03. 24. Field: slider
  */
-.chippymtc-field-slider{
+.csf-field-slider{
 
-  .chippymtc--wrap{
+  .csf--wrap{
     display: flex;
     align-items: center;
   }
 
-  .chippymtc--input{
+  .csf--input{
     display: flex;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -1217,7 +1217,7 @@
     background-color: #f5f5f5;
   }
 
-  .chippymtc-slider-ui{
+  .csf-slider-ui{
     margin-right: 15px;
   }
 
@@ -1229,7 +1229,7 @@
     text-align: center;
   }
 
-  .chippymtc--is-unit{
+  .csf--is-unit{
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
   }
@@ -1271,9 +1271,9 @@
 /**
  * 03. 25. Field: sortable
  */
-.chippymtc-field-sortable{
+.csf-field-sortable{
 
-  .chippymtc-field-text{
+  .csf-field-text{
 
     input{
       width: 100%;
@@ -1281,9 +1281,9 @@
     }
   }
 
-  .chippymtc-sortable{
+  .csf-sortable{
 
-    .chippymtc-sortable-item{
+    .csf-sortable-item{
       display: table;
       width: 100%;
       margin-bottom: 5px;
@@ -1295,18 +1295,18 @@
     }
   }
 
-  .chippymtc-sortable-content{
+  .csf-sortable-content{
     width: 100%;
     display: table-cell;
     vertical-align: middle;
     background-color: #fff;
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-sortable-helper{
+  .csf-sortable-helper{
     width: 100%;
     display: table-cell;
     vertical-align: middle;
@@ -1342,8 +1342,8 @@
     background-color: #eee !important;
     opacity: 0.5;
 
-    .chippymtc-sortable-helper,
-    .chippymtc-sortable-content{
+    .csf-sortable-helper,
+    .csf-sortable-content{
       display: none;
     }
   }
@@ -1352,7 +1352,7 @@
 /**
  * 03. 26. Field: sorter
  */
-.chippymtc-field-sorter{
+.csf-field-sorter{
 
   .ui-sortable-placeholder{
     height: 20px;
@@ -1360,7 +1360,7 @@
     background-color: #fffae4;
   }
 
-  .chippymtc-modules{
+  .csf-modules{
     float: left;
     width: 50%;
     box-sizing: border-box;
@@ -1374,14 +1374,14 @@
     }
   }
 
-  .chippymtc-disabled,
-  .chippymtc-enabled{
+  .csf-disabled,
+  .csf-enabled{
     padding: 5px 15px;
     border: 1px dashed #ddd;
     background-color: #fff;
   }
 
-  .chippymtc-disabled{
+  .csf-disabled{
     li{
       opacity: 0.5;
       transition: opacity .15s;
@@ -1392,7 +1392,7 @@
     }
   }
 
-  .chippymtc-sorter-title{
+  .csf-sorter-title{
     font-size: 13px;
     font-weight: 600;
     padding: 10px;
@@ -1429,9 +1429,9 @@
 /**
  * 03. 27. Field: spinner
  */
-.chippymtc-field-spinner{
+.csf-field-spinner{
 
-  .chippymtc--spin{
+  .csf--spin{
     display: flex;
   }
 
@@ -1499,7 +1499,7 @@
       }
     }
 
-    .chippymtc--unit{
+    .csf--unit{
       border-left: 0;
       user-select: none;
     }
@@ -1531,7 +1531,7 @@
     order: 2;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     order: 3;
   }
 
@@ -1543,9 +1543,9 @@
 /**
  * 03. 28. Field: switcher
  */
-.chippymtc-field-switcher{
+.csf-field-switcher{
 
-  .chippymtc--switcher{
+  .csf--switcher{
     float: left;
     cursor: pointer;
     position: relative;
@@ -1560,7 +1560,7 @@
     -webkit-user-select: none;
   }
 
-  .chippymtc--ball{
+  .csf--ball{
     position: absolute;
     top: 4px;
     left: 4px;
@@ -1572,8 +1572,8 @@
     box-shadow: 1px 1px 1px rgba(0,0,0,0.15);
   }
 
-  .chippymtc--on,
-  .chippymtc--off{
+  .csf--on,
+  .csf--off{
     position: absolute;
     top: 0;
     left: 0;
@@ -1590,30 +1590,30 @@
     transition: all .1s;
   }
 
-  .chippymtc--off{
+  .csf--off{
     padding-right: 0;
     padding-left: 28px;
     opacity: 1;
   }
 
-  .chippymtc--active{
+  .csf--active{
     background: #4fb845;
 
-    .chippymtc--on{
+    .csf--on{
       opacity: 1;
     }
 
-    .chippymtc--off{
+    .csf--off{
       opacity: 0;
     }
 
-    .chippymtc--ball{
+    .csf--ball{
       left: 100%;
       margin-left: -28px;
     }
   }
 
-  .chippymtc--label{
+  .csf--label{
     float: left;
     margin-top: 4px;
     margin-left: 8px;
@@ -1625,21 +1625,21 @@
 /**
  * 03. 29. Field: tabbed
  */
-.chippymtc-field-tabbed{
+.csf-field-tabbed{
 
-  .chippymtc-tabbed-content{
+  .csf-tabbed-content{
     border: 1px solid #ccd0d4;
     background-color: #fff;
     box-shadow: 0 1px 1px rgba(0,0,0,.04);
 
-    > .chippymtc-field{
+    > .csf-field{
       padding: 15px;
     }
   }
 
-  .chippymtc-tabbed-nav{
+  .csf-tabbed-nav{
 
-    .chippymtc--icon{
+    .csf--icon{
       padding-right: 5px;
     }
 
@@ -1661,7 +1661,7 @@
         background-color: #f9f9f9;
       }
 
-      &.chippymtc-tabbed-active{
+      &.csf-tabbed-active{
         background-color: #fff;
         border-bottom-color: #fff;
       }
@@ -1677,7 +1677,7 @@
 /**
  * 03. 30. Field: text
  */
-.chippymtc-field-text{
+.csf-field-text{
 
   input{
     width: 50%;
@@ -1689,7 +1689,7 @@
 /**
  * 03. 31. Field: textarea
  */
-.chippymtc-field-textarea{
+.csf-field-textarea{
 
   textarea{
     width: 100%;
@@ -1697,7 +1697,7 @@
     min-height: 125px;
   }
 
-  .chippymtc-shortcode-button{
+  .csf-shortcode-button{
     margin-bottom: 10px;
     margin-right: 5px;
   }
@@ -1706,7 +1706,7 @@
 /**
  * 03. 32. Field: typography
  */
-.chippymtc-field-typography{
+.csf-field-typography{
 
   textarea,
   select{
@@ -1715,7 +1715,7 @@
     max-width: 100%;
   }
 
-  .chippymtc--title{
+  .csf--title{
     color: #777;
     margin: 0 0 2px 0;
     font-size: 12px;
@@ -1725,28 +1725,28 @@
     }
   }
 
-  .chippymtc--blocks{
+  .csf--blocks{
     display: flex;
     flex-wrap: wrap;
   }
 
-  .chippymtc--block{
+  .csf--block{
     flex: 1;
     max-width: 100%;
     padding-right: 6px;
     padding-bottom: 6px;
   }
 
-  .chippymtc--input{
+  .csf--input{
     margin: 0;
     min-width: 100%;
   }
 
-  .chippymtc--input-wrap{
+  .csf--input-wrap{
     position: relative;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     position: absolute;
     z-index: 1;
     right: 4px;
@@ -1764,7 +1764,7 @@
     flex-direction: column;
   }
 
-  .chippymtc--preview{
+  .csf--preview{
     font-size: 16px;
     line-height: 20px;
     padding: 20px;
@@ -1777,7 +1777,7 @@
     transition: background-color .2s, border-color .2s;
   }
 
-  .chippymtc--block-preview{
+  .csf--block-preview{
     cursor: pointer;
     position: relative;
     overflow: hidden;
@@ -1785,19 +1785,19 @@
     max-width: 100%;
   }
 
-  .chippymtc--black-background{
+  .csf--black-background{
     border-color: #000;
     background-color: #000;
   }
 
-  .chippymtc--toggle{
+  .csf--toggle{
     position: absolute;
     top: 5px;
     right: 10px;
     color: #999;
   }
 
-  .chippymtc--block-extra-styles{
+  .csf--block-extra-styles{
     margin-top: 5px;
   }
 }
@@ -1805,14 +1805,14 @@
 /**
  * 03. 33. Field: upload
  */
-.chippymtc-field-upload{
+.csf-field-upload{
 
   input{
     width: 100%;
     margin: 0;
   }
 
-  .chippymtc--wrap{
+  .csf--wrap{
     display: flex;
     align-items: flex-start;
   }
@@ -1821,7 +1821,7 @@
     margin-left: 5px;
   }
 
-  .chippymtc--preview{
+  .csf--preview{
     position: relative;
   }
 }
@@ -1829,9 +1829,9 @@
 /**
  * 03. 34. Field: wp_editor
  */
-.chippymtc-field-wp_editor{
+.csf-field-wp_editor{
 
-  .chippymtc-wp-editor{
+  .csf-wp-editor{
     float: left;
     width: 100%;
   }
@@ -1858,11 +1858,11 @@
     z-index: 1;
   }
 
-  .chippymtc-no-tinymce{
+  .csf-no-tinymce{
     border: 1px solid #e5e5e5;
   }
 
-  .chippymtc-no-quicktags{
+  .csf-no-quicktags{
 
     .wp-media-buttons{
       float: none;
@@ -1886,7 +1886,7 @@
 /**
  * 03. 35. Field: heading
  */
-.chippymtc-field-heading{
+.csf-field-heading{
   font-size: 1.5em;
   font-weight: bold;
   color: #23282d;
@@ -1896,7 +1896,7 @@
 /**
  * 03. 36. Field: subheading
  */
-.chippymtc-field-subheading{
+.csf-field-subheading{
   font-size: 14px;
   font-weight: bold;
   padding-top: 17px;
@@ -1908,47 +1908,47 @@
 /**
  * 03. 37. Field: submessage
  */
-.chippymtc-field-submessage{
+.csf-field-submessage{
   padding: 0 !important;
   border: 0 !important;
 
-  + .chippymtc-field{
+  + .csf-field{
     border-top: 0 !important;
   }
 }
 
-.chippymtc-submessage{
+.csf-submessage{
   font-size: 12px;
   padding: 17px 30px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
 
-.chippymtc-submessage-success{
+.csf-submessage-success{
   color: #3c763d;
   border-color: #d6e9c6;
   background-color: #dff0d8;
 }
 
-.chippymtc-submessage-info{
+.csf-submessage-info{
   color: #31708f;
   border-color: #bce8f1;
   background-color: #d9edf7;
 }
 
-.chippymtc-submessage-warning{
+.csf-submessage-warning{
   color: #8a6d3b;
   border-color: #faebcc;
   background-color: #fcf8e3;
 }
 
-.chippymtc-submessage-danger{
+.csf-submessage-danger{
   color: #a94442;
   border-color: #ebccd1;
   background-color: #f2dede;
 }
 
-.chippymtc-submessage-normal{
+.csf-submessage-normal{
   color: #23282d;
   border-color: #eee;
   background-color: #f7f7f7;
@@ -1957,11 +1957,11 @@
 /**
  * 03. 38. Field: notice
  */
-.chippymtc-field-notice{
+.csf-field-notice{
   background-color: #f7f7f7;
 }
 
-.chippymtc-notice{
+.csf-notice{
   padding: 12px;
   background-color: #fff;
   border-left-style: solid;
@@ -1969,43 +1969,43 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.chippymtc-notice-success{
+.csf-notice-success{
   border-color: #46b450;
 }
 
-.chippymtc-notice-info{
+.csf-notice-info{
   border-color: #339fd4;
 }
 
-.chippymtc-notice-warning{
+.csf-notice-warning{
   border-color: #ffbc00;
 }
 
-.chippymtc-notice-danger{
+.csf-notice-danger{
   border-color: #dc3232;
 }
 
-.chippymtc-notice-normal{
+.csf-notice-normal{
   border-color: #222;
 }
 
 /**
  * 03. 39. Field: number
  */
-.chippymtc-field-number{
+.csf-field-number{
 
   input{
     width: 100%;
     margin: 0;
   }
 
-  .chippymtc--wrap{
+  .csf--wrap{
     position: relative;
     float: left;
     width: 100px;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     position: absolute;
     z-index: 1;
     right: 4px;
@@ -2027,9 +2027,9 @@
 /**
  * 03. 40. Field: link
  */
-.chippymtc-field-link{
+.csf-field-link{
 
-  .chippymtc--result{
+  .csf--result{
     display: inline-block;
     font-size: 12px;
     line-height: 16px;
@@ -2042,13 +2042,13 @@
     world-break: break-word;
   }
 
-  .chippymtc--wrap{
+  .csf--wrap{
     position: relative;
     float: left;
     width: 100px;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     position: absolute;
     z-index: 1;
     right: 4px;
@@ -2070,7 +2070,7 @@
 /**
  * 03. 41. others
  */
-.chippymtc-help{
+.csf-help{
   cursor: help;
   position: absolute;
   top: 0;
@@ -2079,16 +2079,16 @@
   font-size: 13px;
   color: #aaa;
 
-  .chippymtc-help-text{
+  .csf-help-text{
     display: none;
   }
 }
 
-.chippymtc--preview{
+.csf--preview{
   max-width: 100%;
 }
 
-.chippymtc-image-preview{
+.csf-image-preview{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2148,14 +2148,14 @@
   }
 }
 
-.chippymtc-field-custom{
+.csf-field-custom{
 
-  .chippymtc-field{
+  .csf-field{
     padding: 0;
   }
 }
 
-.chippymtc-field{
+.csf-field{
 
   .chosen-container-single .chosen-single{
     height: 28px;
@@ -2266,7 +2266,7 @@
     }
   }
 
-  .chippymtc--transparent-wrap{
+  .csf--transparent-wrap{
     display: none;
     position: relative;
     top: -1px;
@@ -2277,11 +2277,11 @@
     background-color: #fff;
   }
 
-  .wp-picker-active .chippymtc--transparent-wrap{
+  .wp-picker-active .csf--transparent-wrap{
     display: block;
   }
 
-  .chippymtc--transparent-slider{
+  .csf--transparent-slider{
     position: absolute;
     width: 190px;
     margin-left: 2px;
@@ -2317,7 +2317,7 @@
     }
   }
 
-  .chippymtc--transparent-offset{
+  .csf--transparent-offset{
     height: 18px;
     width: 200px;
     background: url(../images/checkerboard.png) repeat-y center left scroll #fff;
@@ -2325,7 +2325,7 @@
     box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
   }
 
-  .chippymtc--transparent-text{
+  .csf--transparent-text{
     position: absolute;
     top: 12px;
     right: 10px;
@@ -2336,7 +2336,7 @@
     color: #999;
   }
 
-  .chippymtc--transparent-button{
+  .csf--transparent-button{
     cursor: pointer;
     user-select: none;
     margin-top: 10px;
@@ -2352,7 +2352,7 @@
     transition: background-color .2s, border-color .2s, color .2s;
   }
 
-  .chippymtc--transparent-active{
+  .csf--transparent-active{
 
     .wp-color-result{
       background-image: url(../images/checkerboard.png);
@@ -2361,7 +2361,7 @@
       background-color: transparent !important;
     }
 
-    .chippymtc--transparent-button{
+    .csf--transparent-button{
       color: #fff;
       border-color: #3ea032;
       background-color: #4fb845;

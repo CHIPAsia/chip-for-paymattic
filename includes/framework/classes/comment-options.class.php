@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
-  class CHIPPYMTC_Comment_Metabox extends CHIPPYMTC_Abstract{
+if ( ! class_exists( 'CSF_Comment_Metabox' ) ) {
+  class CSF_Comment_Metabox extends CSF_Abstract{
 
     // constans
     public $unique     = '';
@@ -31,8 +31,8 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
     public function __construct( $key, $params = array() ) {
 
       $this->unique     = $key;
-      $this->args       = apply_filters( "chippymtc_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-      $this->sections   = apply_filters( "chippymtc_{$this->unique}_sections", $params['sections'], $this );
+      $this->args       = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
+      $this->sections   = apply_filters( "csf_{$this->unique}_sections", $params['sections'], $this );
       $this->pre_fields = $this->pre_fields( $this->sections );
 
       add_action( 'add_meta_boxes_comment', array( $this, 'add_comment_meta_box' ) );
@@ -104,25 +104,25 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
     public function add_comment_meta_box_content( $comment, $callback ) {
 
       $has_nav  = ( count( $this->sections ) > 1 ) ? true : false;
-      $show_all = ( ! $has_nav ) ? ' chippymtc-show-all' : '';
-      $errors   = ( is_object ( $comment ) ) ? get_comment_meta( $comment->comment_ID, '_chippymtc_errors_'. $this->unique, true ) : array();
+      $show_all = ( ! $has_nav ) ? ' csf-show-all' : '';
+      $errors   = ( is_object ( $comment ) ) ? get_comment_meta( $comment->comment_ID, '_csf_errors_'. $this->unique, true ) : array();
       $errors   = ( ! empty( $errors ) ) ? $errors : array();
-      $theme    = ( $this->args['theme'] ) ? ' chippymtc-theme-'. $this->args['theme'] : '';
+      $theme    = ( $this->args['theme'] ) ? ' csf-theme-'. $this->args['theme'] : '';
       $nav_type = ( $this->args['nav'] === 'inline' ) ? 'inline' : 'normal';
 
       if ( is_object( $comment ) && ! empty( $errors ) ) {
-        delete_comment_meta( $comment->comment_ID, '_chippymtc_errors_'. $this->unique );
+        delete_comment_meta( $comment->comment_ID, '_csf_errors_'. $this->unique );
       }
 
-      wp_nonce_field( 'chippymtc_comment_metabox_nonce', 'chippymtc_comment_metabox_nonce'. $this->unique );
+      wp_nonce_field( 'csf_comment_metabox_nonce', 'csf_comment_metabox_nonce'. $this->unique );
 
-      echo '<div class="chippymtc chippymtc-comment-metabox'. esc_attr( $theme ) .'">';
+      echo '<div class="csf csf-comment-metabox'. esc_attr( $theme ) .'">';
 
-        echo '<div class="chippymtc-wrapper'. esc_attr( $show_all ) .'">';
+        echo '<div class="csf-wrapper'. esc_attr( $show_all ) .'">';
 
           if ( $has_nav ) {
 
-            echo '<div class="chippymtc-nav chippymtc-nav-'. esc_attr( $nav_type ) .' chippymtc-nav-metabox">';
+            echo '<div class="csf-nav csf-nav-'. esc_attr( $nav_type ) .' csf-nav-metabox">';
 
               echo '<ul>';
 
@@ -130,8 +130,8 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
 
               foreach ( $this->sections as $section ) {
 
-                $tab_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="chippymtc-tab-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
-                $tab_error = ( ! empty( $errors['sections'][$tab_key] ) ) ? '<i class="chippymtc-label-error chippymtc-error">!</i>' : '';
+                $tab_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="csf-tab-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
+                $tab_error = ( ! empty( $errors['sections'][$tab_key] ) ) ? '<i class="csf-label-error csf-error">!</i>' : '';
 
                 echo '<li><a href="#">'. $tab_icon . $section['title'] . $tab_error .'</a></li>';
 
@@ -145,23 +145,23 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
 
           }
 
-          echo '<div class="chippymtc-content">';
+          echo '<div class="csf-content">';
 
-            echo '<div class="chippymtc-sections">';
+            echo '<div class="csf-sections">';
 
             $section_key = 1;
 
             foreach ( $this->sections as $section ) {
 
-              $section_onload = ( ! $has_nav ) ? ' chippymtc-onload' : '';
+              $section_onload = ( ! $has_nav ) ? ' csf-onload' : '';
               $section_class  = ( ! empty( $section['class'] ) ) ? ' '. $section['class'] : '';
               $section_title  = ( ! empty( $section['title'] ) ) ? $section['title'] : '';
-              $section_icon   = ( ! empty( $section['icon'] ) ) ? '<i class="chippymtc-section-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
+              $section_icon   = ( ! empty( $section['icon'] ) ) ? '<i class="csf-section-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
 
-              echo '<div class="chippymtc-section hidden'. esc_attr( $section_onload . $section_class ) .'">';
+              echo '<div class="csf-section hidden'. esc_attr( $section_onload . $section_class ) .'">';
 
-              echo ( $section_title || $section_icon ) ? '<div class="chippymtc-section-title"><h3>'. $section_icon . $section_title .'</h3></div>' : '';
-              echo ( ! empty( $section['description'] ) ) ? '<div class="chippymtc-field chippymtc-section-description">'. $section['description'] .'</div>' : '';
+              echo ( $section_title || $section_icon ) ? '<div class="csf-section-title"><h3>'. $section_icon . $section_title .'</h3></div>' : '';
+              echo ( ! empty( $section['description'] ) ) ? '<div class="csf-field csf-section-description">'. $section['description'] .'</div>' : '';
 
               if ( ! empty( $section['fields'] ) ) {
 
@@ -175,13 +175,13 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
                     $field['default'] = $this->get_default( $field );
                   }
 
-                  CHIPPYMTC::field( $field, $this->get_meta_value( $comment->comment_ID, $field ), $this->unique, 'comment_metabox' );
+                  CSF::field( $field, $this->get_meta_value( $comment->comment_ID, $field ), $this->unique, 'comment_metabox' );
 
                 }
 
               } else {
 
-                echo '<div class="chippymtc-no-option">'. esc_html__( 'No data available.', 'chippymtc' ) .'</div>';
+                echo '<div class="csf-no-option">'. esc_html__( 'No data available.', 'csf' ) .'</div>';
 
               }
 
@@ -195,11 +195,11 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
 
             if ( ! empty( $this->args['show_restore'] ) || ! empty( $this->args['show_reset'] ) ) {
 
-              echo '<div class="chippymtc-sections-reset">';
+              echo '<div class="csf-sections-reset">';
               echo '<label>';
               echo '<input type="checkbox" name="'. esc_attr( $this->unique ) .'[_reset]" />';
-              echo '<span class="button chippymtc-button-reset">'. esc_html__( 'Reset', 'chippymtc' ) .'</span>';
-              echo '<span class="button chippymtc-button-cancel">'. sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'chippymtc' ), esc_html__( 'Cancel', 'chippymtc' ) ) .'</span>';
+              echo '<span class="button csf-button-reset">'. esc_html__( 'Reset', 'csf' ) .'</span>';
+              echo '<span class="button csf-button-cancel">'. sprintf( '<small>( %s )</small> %s', esc_html__( 'update post', 'csf' ), esc_html__( 'Cancel', 'csf' ) ) .'</span>';
               echo '</label>';
               echo '</div>';
 
@@ -207,7 +207,7 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
 
           echo '</div>';
 
-          echo ( $has_nav && $nav_type === 'normal' ) ? '<div class="chippymtc-nav-background"></div>' : '';
+          echo ( $has_nav && $nav_type === 'normal' ) ? '<div class="csf-nav-background"></div>' : '';
 
           echo '<div class="clear"></div>';
 
@@ -223,10 +223,10 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
       $count    = 1;
       $data     = array();
       $errors   = array();
-      $noncekey = 'chippymtc_comment_metabox_nonce'. $this->unique;
+      $noncekey = 'csf_comment_metabox_nonce'. $this->unique;
       $nonce    = ( ! empty( $_POST[ $noncekey ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $noncekey ] ) ) : '';
 
-      if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! wp_verify_nonce( $nonce, 'chippymtc_comment_metabox_nonce' ) ) {
+      if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || ! wp_verify_nonce( $nonce, 'csf_comment_metabox_nonce' ) ) {
         return $comment_id;
       }
 
@@ -293,9 +293,9 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
 
       }
 
-      $data = apply_filters( "chippymtc_{$this->unique}_save", $data, $comment_id, $this );
+      $data = apply_filters( "csf_{$this->unique}_save", $data, $comment_id, $this );
 
-      do_action( "chippymtc_{$this->unique}_save_before", $data, $comment_id, $this );
+      do_action( "csf_{$this->unique}_save_before", $data, $comment_id, $this );
 
       if ( empty( $data ) || ! empty( $request['_reset'] ) ) {
 
@@ -320,14 +320,14 @@ if ( ! class_exists( 'CHIPPYMTC_Comment_Metabox' ) ) {
         }
 
         if ( ! empty( $errors ) ) {
-          update_comment_meta( $comment_id, '_chippymtc_errors_'. $this->unique, $errors );
+          update_comment_meta( $comment_id, '_csf_errors_'. $this->unique, $errors );
         }
 
       }
 
-      do_action( "chippymtc_{$this->unique}_saved", $data, $comment_id, $this );
+      do_action( "csf_{$this->unique}_saved", $data, $comment_id, $this );
 
-      do_action( "chippymtc_{$this->unique}_save_after", $data, $comment_id, $this );
+      do_action( "csf_{$this->unique}_save_after", $data, $comment_id, $this );
 
     }
   }

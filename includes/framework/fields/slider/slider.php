@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_slider' ) ) {
-  class CHIPPYMTC_Field_slider extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_slider' ) ) {
+  class CSF_Field_slider extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -23,15 +23,15 @@ if ( ! class_exists( 'CHIPPYMTC_Field_slider' ) ) {
         'unit' => '',
       ) );
 
-      $is_unit = ( ! empty( $args['unit'] ) ) ? ' chippymtc--is-unit' : '';
+      $is_unit = ( ! empty( $args['unit'] ) ) ? ' csf--is-unit' : '';
 
       echo $this->field_before();
 
-      echo '<div class="chippymtc--wrap">';
-      echo '<div class="chippymtc-slider-ui"></div>';
-      echo '<div class="chippymtc--input">';
-      echo '<input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'chippymtc-input-number'. esc_attr( $is_unit ) ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" step="any" />';
-      echo ( ! empty( $args['unit'] ) ) ? '<span class="chippymtc--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
+      echo '<div class="csf--wrap">';
+      echo '<div class="csf-slider-ui"></div>';
+      echo '<div class="csf--input">';
+      echo '<input type="number" name="'. esc_attr( $this->field_name() ) .'" value="'. esc_attr( $this->value ) .'"'. $this->field_attributes( array( 'class' => 'csf-input-number'. esc_attr( $is_unit ) ) ) .' data-min="'. esc_attr( $args['min'] ) .'" data-max="'. esc_attr( $args['max'] ) .'" data-step="'. esc_attr( $args['step'] ) .'" step="any" />';
+      echo ( ! empty( $args['unit'] ) ) ? '<span class="csf--unit">'. esc_attr( $args['unit'] ) .'</span>' : '';
       echo '</div>';
       echo '</div>';
 

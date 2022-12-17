@@ -1,18 +1,18 @@
 /**
  * 06. Profile
  */
-.chippymtc-profile-options{
+.csf-profile-options{
 
   > h2 > .fa {
     padding-right: 7px;
   }
 
-  > .chippymtc-field{
+  > .csf-field{
     max-width: 750px;
     padding: 15px 0;
     border-top: none !important;
 
-    > .chippymtc-title{
+    > .csf-title{
       width: 200px;
 
       h4{
@@ -24,35 +24,35 @@
       }
     }
 
-    > .chippymtc-fieldset{
+    > .csf-fieldset{
       width: calc(100% - 220px);
 
-      > .chippymtc-help{
+      > .csf-help{
         top: -15px;
         right: -5px;
       }
     }
   }
 
-  > .chippymtc-field-heading{
+  > .csf-field-heading{
     font-size: 1.1em;
   }
 
-  > .chippymtc-field-subheading{
+  > .csf-field-subheading{
     font-size: 12px;
   }
 
-  > .chippymtc-field-subheading,
-  > .chippymtc-field-heading{
+  > .csf-field-subheading,
+  > .csf-field-heading{
     margin: 10px 0;
     padding: 15px !important;
     border: 1px solid #ddd;
   }
 
-  > .chippymtc-field-submessage{
+  > .csf-field-submessage{
     margin: 20px 0;
 
-    .chippymtc-submessage{
+    .csf-submessage{
       padding: 10px;
       border-left-width: 1px;
       border-left-style: solid;
@@ -61,7 +61,7 @@
     }
   }
 
-  > .chippymtc-field-notice{
+  > .csf-field-notice{
     background-color: transparent;
   }
 }

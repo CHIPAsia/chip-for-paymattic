@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_group' ) ) {
-  class CHIPPYMTC_Field_group extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_group' ) ) {
+  class CSF_Field_group extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -20,7 +20,7 @@ if ( ! class_exists( 'CHIPPYMTC_Field_group' ) ) {
         'max'                       => 0,
         'min'                       => 0,
         'fields'                    => array(),
-        'button_title'              => esc_html__( 'Add New', 'chippymtc' ),
+        'button_title'              => esc_html__( 'Add New', 'csf' ),
         'accordion_title_prefix'    => '',
         'accordion_title_number'    => false,
         'accordion_title_auto'      => true,
@@ -38,42 +38,42 @@ if ( ! class_exists( 'CHIPPYMTC_Field_group' ) ) {
 
       if ( preg_match( '/'. preg_quote( '['. $this->field['id'] .']' ) .'/', $this->unique ) ) {
 
-        echo '<div class="chippymtc-notice chippymtc-notice-danger">'. esc_html__( 'Error: Field ID conflict.', 'chippymtc' ) .'</div>';
+        echo '<div class="csf-notice csf-notice-danger">'. esc_html__( 'Error: Field ID conflict.', 'csf' ) .'</div>';
 
       } else {
 
         echo $this->field_before();
 
-        echo '<div class="chippymtc-cloneable-item chippymtc-cloneable-hidden" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
+        echo '<div class="csf-cloneable-item csf-cloneable-hidden" data-depend-id="'. esc_attr( $this->field['id'] ) .'">';
 
-          echo '<div class="chippymtc-cloneable-helper">';
-          echo '<i class="chippymtc-cloneable-sort fas fa-arrows-alt"></i>';
-          echo '<i class="chippymtc-cloneable-clone far fa-clone"></i>';
-          echo '<i class="chippymtc-cloneable-remove chippymtc-confirm fas fa-times" data-confirm="'. esc_html__( 'Are you sure to delete this item?', 'chippymtc' ) .'"></i>';
+          echo '<div class="csf-cloneable-helper">';
+          echo '<i class="csf-cloneable-sort fas fa-arrows-alt"></i>';
+          echo '<i class="csf-cloneable-clone far fa-clone"></i>';
+          echo '<i class="csf-cloneable-remove csf-confirm fas fa-times" data-confirm="'. esc_html__( 'Are you sure to delete this item?', 'csf' ) .'"></i>';
           echo '</div>';
 
-          echo '<h4 class="chippymtc-cloneable-title">';
-          echo '<span class="chippymtc-cloneable-text">';
-          echo ( $title_number ) ? '<span class="chippymtc-cloneable-title-number"></span>' : '';
-          echo ( $title_prefix ) ? '<span class="chippymtc-cloneable-title-prefix">'. esc_attr( $title_prefix ) .'</span>' : '';
-          echo ( $title_auto ) ? '<span class="chippymtc-cloneable-value"><span class="chippymtc-cloneable-placeholder"></span></span>' : '';
+          echo '<h4 class="csf-cloneable-title">';
+          echo '<span class="csf-cloneable-text">';
+          echo ( $title_number ) ? '<span class="csf-cloneable-title-number"></span>' : '';
+          echo ( $title_prefix ) ? '<span class="csf-cloneable-title-prefix">'. esc_attr( $title_prefix ) .'</span>' : '';
+          echo ( $title_auto ) ? '<span class="csf-cloneable-value"><span class="csf-cloneable-placeholder"></span></span>' : '';
           echo '</span>';
           echo '</h4>';
 
-          echo '<div class="chippymtc-cloneable-content">';
+          echo '<div class="csf-cloneable-content">';
           foreach ( $this->field['fields'] as $field ) {
 
             $field_default = ( isset( $field['default'] ) ) ? $field['default'] : '';
             $field_unique  = ( ! empty( $this->unique ) ) ? $this->unique .'['. $this->field['id'] .'][0]' : $this->field['id'] .'[0]';
 
-            CHIPPYMTC::field( $field, $field_default, '___'. $field_unique, 'field/group' );
+            CSF::field( $field, $field_default, '___'. $field_unique, 'field/group' );
 
           }
           echo '</div>';
 
         echo '</div>';
 
-        echo '<div class="chippymtc-cloneable-wrapper chippymtc-data-wrapper" data-title-by="'. esc_attr( json_encode( $title_by ) ) .'" data-title-by-prefix="'. esc_attr( $title_by_prefix ) .'" data-title-number="'. esc_attr( $title_number ) .'" data-field-id="['. esc_attr( $this->field['id'] ) .']" data-max="'. esc_attr( $args['max'] ) .'" data-min="'. esc_attr( $args['min'] ) .'">';
+        echo '<div class="csf-cloneable-wrapper csf-data-wrapper" data-title-by="'. esc_attr( json_encode( $title_by ) ) .'" data-title-by-prefix="'. esc_attr( $title_by_prefix ) .'" data-title-number="'. esc_attr( $title_number ) .'" data-field-id="['. esc_attr( $this->field['id'] ) .']" data-max="'. esc_attr( $args['max'] ) .'" data-min="'. esc_attr( $args['min'] ) .'">';
 
         if ( ! empty( $this->value ) ) {
 
@@ -99,30 +99,30 @@ if ( ! class_exists( 'CHIPPYMTC_Field_group' ) ) {
 
             $title = ( is_array( $title ) ) ? reset( $title ) : $title;
 
-            echo '<div class="chippymtc-cloneable-item">';
+            echo '<div class="csf-cloneable-item">';
 
-              echo '<div class="chippymtc-cloneable-helper">';
-              echo '<i class="chippymtc-cloneable-sort fas fa-arrows-alt"></i>';
-              echo '<i class="chippymtc-cloneable-clone far fa-clone"></i>';
-              echo '<i class="chippymtc-cloneable-remove chippymtc-confirm fas fa-times" data-confirm="'. esc_html__( 'Are you sure to delete this item?', 'chippymtc' ) .'"></i>';
+              echo '<div class="csf-cloneable-helper">';
+              echo '<i class="csf-cloneable-sort fas fa-arrows-alt"></i>';
+              echo '<i class="csf-cloneable-clone far fa-clone"></i>';
+              echo '<i class="csf-cloneable-remove csf-confirm fas fa-times" data-confirm="'. esc_html__( 'Are you sure to delete this item?', 'csf' ) .'"></i>';
               echo '</div>';
 
-              echo '<h4 class="chippymtc-cloneable-title">';
-              echo '<span class="chippymtc-cloneable-text">';
-              echo ( $title_number ) ? '<span class="chippymtc-cloneable-title-number">'. esc_attr( $num+1 ) .'.</span>' : '';
-              echo ( $title_prefix ) ? '<span class="chippymtc-cloneable-title-prefix">'. esc_attr( $title_prefix ) .'</span>' : '';
-              echo ( $title_auto ) ? '<span class="chippymtc-cloneable-value">' . esc_attr( $title ) .'</span>' : '';
+              echo '<h4 class="csf-cloneable-title">';
+              echo '<span class="csf-cloneable-text">';
+              echo ( $title_number ) ? '<span class="csf-cloneable-title-number">'. esc_attr( $num+1 ) .'.</span>' : '';
+              echo ( $title_prefix ) ? '<span class="csf-cloneable-title-prefix">'. esc_attr( $title_prefix ) .'</span>' : '';
+              echo ( $title_auto ) ? '<span class="csf-cloneable-value">' . esc_attr( $title ) .'</span>' : '';
               echo '</span>';
               echo '</h4>';
 
-              echo '<div class="chippymtc-cloneable-content">';
+              echo '<div class="csf-cloneable-content">';
 
               foreach ( $this->field['fields'] as $field ) {
 
                 $field_unique = ( ! empty( $this->unique ) ) ? $this->unique .'['. $this->field['id'] .']['. $num .']' : $this->field['id'] .'['. $num .']';
                 $field_value  = ( isset( $field['id'] ) && isset( $value[$field['id']] ) ) ? $value[$field['id']] : '';
 
-                CHIPPYMTC::field( $field, $field_value, $field_unique, 'field/group' );
+                CSF::field( $field, $field_value, $field_unique, 'field/group' );
 
               }
 
@@ -138,9 +138,9 @@ if ( ! class_exists( 'CHIPPYMTC_Field_group' ) ) {
 
         echo '</div>';
 
-        echo '<div class="chippymtc-cloneable-alert chippymtc-cloneable-max">'. esc_html__( 'You cannot add more.', 'chippymtc' ) .'</div>';
-        echo '<div class="chippymtc-cloneable-alert chippymtc-cloneable-min">'. esc_html__( 'You cannot remove more.', 'chippymtc' ) .'</div>';
-        echo '<a href="#" class="button button-primary chippymtc-cloneable-add">'. $args['button_title'] .'</a>';
+        echo '<div class="csf-cloneable-alert csf-cloneable-max">'. esc_html__( 'You cannot add more.', 'csf' ) .'</div>';
+        echo '<div class="csf-cloneable-alert csf-cloneable-min">'. esc_html__( 'You cannot remove more.', 'csf' ) .'</div>';
+        echo '<a href="#" class="button button-primary csf-cloneable-add">'. $args['button_title'] .'</a>';
 
         echo $this->field_after();
 

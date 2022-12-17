@@ -78,14 +78,14 @@ function pymtc_chip_form_fields( $form ){
       'default'     => '60',
       'placeholder' => '60',
       'dependency'  => array( ['due-strict-' . $form->ID, '==', 'true'], ['form-customize-' . $form->ID, '==', 'true'] ),
-      'validate'    => 'chippymtc_validate_numeric',
+      'validate'    => 'csf_validate_numeric',
     ),
   );
 
   return $form_fields;
 }
 
-CHIPPYMTC_Setup::createSection( $slug, array(
+CSF_Setup::createSection( $slug, array(
   'id'    => 'form-configuration',
   'title' => __( 'Form Configuration', 'chip-for-paymattic' ),
   'icon'  => 'fa fa-gear'
@@ -95,7 +95,7 @@ $all_forms_query = Form::getAllForms();
 
 foreach( $all_forms_query as $form ) {
 
-  CHIPPYMTC_Setup::createSection( $slug, array(
+  CSF_Setup::createSection( $slug, array(
     'parent'      => 'form-configuration',
     'id'          => 'form-id-' . $form->ID,
     'title'       => sprintf( __( 'Form #%s - %s', 'chip-for-paymattic' ), $form->ID, substr( $form->post_title, 0, 15 ) ),

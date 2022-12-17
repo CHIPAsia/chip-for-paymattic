@@ -2,7 +2,7 @@
 
 $slug = PYMTC_CHIP_FSLUG;
 
-CHIPPYMTC_Setup::createSection( $slug, array(
+CSF_Setup::createSection( $slug, array(
   'id'          => 'backup-restore',
   'title'       => __( 'Backup and Restore', 'chip-for-paymattic' ),
   'icon'        => 'fa fa-copy',

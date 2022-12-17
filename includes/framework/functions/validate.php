@@ -7,11 +7,11 @@
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_validate_email' ) ) {
-  function chippymtc_validate_email( $value ) {
+if ( ! function_exists( 'csf_validate_email' ) ) {
+  function csf_validate_email( $value ) {
 
     if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
-      return esc_html__( 'Please enter a valid email address.', 'chippymtc' );
+      return esc_html__( 'Please enter a valid email address.', 'csf' );
     }
 
   }
@@ -25,11 +25,11 @@ if ( ! function_exists( 'chippymtc_validate_email' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_validate_numeric' ) ) {
-  function chippymtc_validate_numeric( $value ) {
+if ( ! function_exists( 'csf_validate_numeric' ) ) {
+  function csf_validate_numeric( $value ) {
 
     if ( ! is_numeric( $value ) ) {
-      return esc_html__( 'Please enter a valid number.', 'chippymtc' );
+      return esc_html__( 'Please enter a valid number.', 'csf' );
     }
 
   }
@@ -43,11 +43,11 @@ if ( ! function_exists( 'chippymtc_validate_numeric' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_validate_required' ) ) {
-  function chippymtc_validate_required( $value ) {
+if ( ! function_exists( 'csf_validate_required' ) ) {
+  function csf_validate_required( $value ) {
 
     if ( empty( $value ) ) {
-      return esc_html__( 'This field is required.', 'chippymtc' );
+      return esc_html__( 'This field is required.', 'csf' );
     }
 
   }
@@ -61,11 +61,11 @@ if ( ! function_exists( 'chippymtc_validate_required' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_validate_url' ) ) {
-  function chippymtc_validate_url( $value ) {
+if ( ! function_exists( 'csf_validate_url' ) ) {
+  function csf_validate_url( $value ) {
 
     if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-      return esc_html__( 'Please enter a valid URL.', 'chippymtc' );
+      return esc_html__( 'Please enter a valid URL.', 'csf' );
     }
 
   }
@@ -79,11 +79,11 @@ if ( ! function_exists( 'chippymtc_validate_url' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_customize_validate_email' ) ) {
-  function chippymtc_customize_validate_email( $validity, $value, $wp_customize ) {
+if ( ! function_exists( 'csf_customize_validate_email' ) ) {
+  function csf_customize_validate_email( $validity, $value, $wp_customize ) {
 
     if ( ! sanitize_email( $value ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid email address.', 'chippymtc' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid email address.', 'csf' ) );
     }
 
     return $validity;
@@ -99,11 +99,11 @@ if ( ! function_exists( 'chippymtc_customize_validate_email' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_customize_validate_numeric' ) ) {
-  function chippymtc_customize_validate_numeric( $validity, $value, $wp_customize ) {
+if ( ! function_exists( 'csf_customize_validate_numeric' ) ) {
+  function csf_customize_validate_numeric( $validity, $value, $wp_customize ) {
 
     if ( ! is_numeric( $value ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid number.', 'chippymtc' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid number.', 'csf' ) );
     }
 
     return $validity;
@@ -119,11 +119,11 @@ if ( ! function_exists( 'chippymtc_customize_validate_numeric' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_customize_validate_required' ) ) {
-  function chippymtc_customize_validate_required( $validity, $value, $wp_customize ) {
+if ( ! function_exists( 'csf_customize_validate_required' ) ) {
+  function csf_customize_validate_required( $validity, $value, $wp_customize ) {
 
     if ( empty( $value ) ) {
-      $validity->add( 'required', esc_html__( 'This field is required.', 'chippymtc' ) );
+      $validity->add( 'required', esc_html__( 'This field is required.', 'csf' ) );
     }
 
     return $validity;
@@ -139,11 +139,11 @@ if ( ! function_exists( 'chippymtc_customize_validate_required' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_customize_validate_url' ) ) {
-  function chippymtc_customize_validate_url( $validity, $value, $wp_customize ) {
+if ( ! function_exists( 'csf_customize_validate_url' ) ) {
+  function csf_customize_validate_url( $validity, $value, $wp_customize ) {
 
     if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
-      $validity->add( 'required', esc_html__( 'Please enter a valid URL.', 'chippymtc' ) );
+      $validity->add( 'required', esc_html__( 'Please enter a valid URL.', 'csf' ) );
     }
 
     return $validity;

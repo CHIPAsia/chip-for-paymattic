@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
-  class CHIPPYMTC_Widget extends WP_Widget {
+if ( ! class_exists( 'CSF_Widget' ) ) {
+  class CSF_Widget extends WP_Widget {
 
     // constans
     public $unique  = '';
@@ -28,7 +28,7 @@ if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
       $control_ops = array();
 
       $this->unique = $key;
-      $this->args   = apply_filters( "chippymtc_{$this->unique}_args", wp_parse_args( $params, $this->args ), $this );
+      $this->args   = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params, $this->args ), $this );
 
       // Set control options
       if ( ! empty( $this->args['width'] ) ) {
@@ -45,8 +45,8 @@ if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
       }
 
       // Set filters
-      $widget_ops  = apply_filters( "chippymtc_{$this->unique}_widget_ops", $widget_ops, $this );
-      $control_ops = apply_filters( "chippymtc_{$this->unique}_control_ops", $control_ops, $this );
+      $widget_ops  = apply_filters( "csf_{$this->unique}_widget_ops", $widget_ops, $this );
+      $control_ops = apply_filters( "csf_{$this->unique}_control_ops", $control_ops, $this );
 
       parent::__construct( $this->unique, esc_attr( $this->args['title'] ), $widget_ops, $control_ops );
 
@@ -89,7 +89,7 @@ if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
 
         $class = ( $this->args['class'] ) ? ' '. $this->args['class'] : '';
 
-        echo '<div class="chippymtc chippymtc-widgets chippymtc-fields'. esc_attr( $class ) .'">';
+        echo '<div class="csf csf-widgets csf-fields'. esc_attr( $class ) .'">';
 
         foreach ( $this->args['fields'] as $field ) {
 
@@ -107,7 +107,7 @@ if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
 
           }
 
-          CHIPPYMTC::field( $field, $this->get_widget_value( $instance, $field ), $field_unique );
+          CSF::field( $field, $this->get_widget_value( $instance, $field ), $field_unique );
 
         }
 
@@ -127,9 +127,9 @@ if ( ! class_exists( 'CHIPPYMTC_Widget' ) ) {
         }
       }
 
-      $new_instance = apply_filters( "chippymtc_{$this->unique}_save", $new_instance, $this->args, $this );
+      $new_instance = apply_filters( "csf_{$this->unique}_save", $new_instance, $this->args, $this );
 
-      do_action( "chippymtc_{$this->unique}_save_before", $new_instance, $this->args, $this );
+      do_action( "csf_{$this->unique}_save_before", $new_instance, $this->args, $this );
 
       return $new_instance;
 

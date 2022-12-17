@@ -1,7 +1,7 @@
 /**
  *
  * ---------------------------------------------------------
- * CHIPPYMTC FRAMEWORK RTL CSS MAP
+ * CODESTAR FRAMEWORK RTL CSS MAP
  * ---------------------------------------------------------
  *
  * 01. Base
@@ -56,7 +56,7 @@
 /**
  * 01. Base
  */
-.chippymtc-options{
+.csf-options{
   margin-left: 20px;
   margin-right: 0;
 }
@@ -64,7 +64,7 @@
 /**
  * 01. 01. Header
  */
-.chippymtc-header{
+.csf-header{
   h1{
     float: right;
   }
@@ -77,43 +77,43 @@
 /**
  * 01. 02. Header Buttons
  */
-.chippymtc-buttons{
+.csf-buttons{
   float: left;
   direction: ltr;
 }
 
-.chippymtc-header-left{
+.csf-header-left{
   float: right;
 }
 
-.chippymtc-header-right{
+.csf-header-right{
   float: left;
 }
 
 /**
  * 01. 03. Navigation
  */
-.chippymtc-nav{
+.csf-nav{
   float: right;
 
   ul{
     clear: right;
 
     li{
-      .chippymtc-active:after{
+      .csf-active:after{
         right: auto;
         left: 0;
         border-left-color: #fff;
         border-right-color: transparent;
       }
 
-      .chippymtc-arrow:after{
+      .csf-arrow:after{
         content: "\f053";
         right: auto;
         left: 10px;
       }
 
-      &.chippymtc-tab-expanded .chippymtc-arrow:after{
+      &.csf-tab-expanded .csf-arrow:after{
         transform: rotate(-90deg);
       }
     }
@@ -133,13 +133,13 @@
     }
   }
 
-  .chippymtc-tab-icon{
+  .csf-tab-icon{
     margin-left: 5px;
     margin-right: 0;
   }
 }
 
-.chippymtc-nav-background{
+.csf-nav-background{
   left: auto;
   right: 0;
 }
@@ -147,7 +147,7 @@
 /**
  * 01. 04. Content
  */
-.chippymtc-content{
+.csf-content{
   margin-left: 0;
   margin-right: 225px;
 }
@@ -155,19 +155,19 @@
 /**
  * 01. 05. Section
  */
-.chippymtc-sections{
+.csf-sections{
   float: right;
 }
 
 /**
  * 01. 06. Show all options
  */
-.chippymtc-show-all .chippymtc-content{
+.csf-show-all .csf-content{
   margin-right: 0;
   overflow: hidden;
 }
 
-.chippymtc-expand-all{
+.csf-expand-all{
   float: right;
   right: auto;
   left: 40px;
@@ -178,7 +178,7 @@
 /**
  * 01. 07. Search Input
  */
-.chippymtc-search{
+.csf-search{
   float: right;
 
   input{
@@ -189,24 +189,24 @@
 /**
  * 01. 08. Copyright
  */
-.chippymtc-copyright{
+.csf-copyright{
   float: right;
 }
 
 /**
  * 01. 09. Metabox
  */
-.chippymtc-metabox{
+.csf-metabox{
   margin: -6px -12px -12px -12px;
 
-  .chippymtc-section-title{
+  .csf-section-title{
     padding: 20px;
   }
 }
 
-.chippymtc-section-title{
+.csf-section-title{
 
-  .chippymtc-section-icon{
+  .csf-section-icon{
     margin-left: 5px;
     margin-right: 0;
   }
@@ -215,38 +215,38 @@
 /**
  * 02. Fields
  */
-.chippymtc-field{
+.csf-field{
 
-  .chippymtc-title{
+  .csf-title{
     float: right;
   }
 
-  .chippymtc-fieldset{
+  .csf-fieldset{
     float: left;
   }
 }
 
-.chippymtc-pseudo-field{
+.csf-pseudo-field{
   padding: 0 0 0 5px !important;
 }
 
 /**
  * 02. 01. Field: typography
  */
-.chippymtc-field-typography{
+.csf-field-typography{
 
   select{
     margin: 0;
     width: 100%;
   }
 
-  .chippymtc--blocks-inputs{
-    .chippymtc--blocks{
+  .csf--blocks-inputs{
+    .csf--blocks{
       flex-direction: row-reverse;
     }
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     left: 4px;
     right: auto;
   }
@@ -255,8 +255,8 @@
 /**
  * 02. 02. Field: checkbox, radio
  */
-.chippymtc-field-checkbox,
-.chippymtc-field-radio{
+.csf-field-checkbox,
+.csf-field-radio{
 
   ul ul li{
     margin-left: 0;
@@ -267,12 +267,12 @@
     }
   }
 
-  .chippymtc--inline-list li{
+  .csf--inline-list li{
     margin-right: 0;
     margin-left: 15px;
   }
 
-  .chippymtc--text{
+  .csf--text{
     margin-left: 0;
     margin-right: 5px;
   }
@@ -281,13 +281,13 @@
 /**
  * 02. 03. Field: switcher
  */
-.chippymtc-field-switcher{
+.csf-field-switcher{
 
-  .chippymtc--switcher{
+  .csf--switcher{
     float: right;
   }
 
-  .chippymtc--label{
+  .csf--label{
     float: right;
     margin-left: 0;
     margin-right: 5px;
@@ -297,10 +297,10 @@
 /**
  * 02. 04. Field: upload
  */
-.chippymtc-field-upload{
+.csf-field-upload{
 
-  .chippymtc--remove,
-  .chippymtc--button{
+  .csf--remove,
+  .csf--button{
     margin-left: 0;
     margin-right: 5px;
   }
@@ -309,13 +309,13 @@
 /**
  * 02. 05. Field: group
  */
-.chippymtc-field-group{
+.csf-field-group{
 
-  .chippymtc-cloneable-title{
+  .csf-cloneable-title{
     padding: 15px 10px 15px 65px;
   }
 
-  .chippymtc-cloneable-helper{
+  .csf-cloneable-helper{
     right: auto;
     left: 10px;
   }
@@ -324,9 +324,9 @@
 /**
  * 02. 06. Field: repeater
  */
-.chippymtc-field-repeater{
+.csf-field-repeater{
 
-  .chippymtc-repeater-helper{
+  .csf-repeater-helper{
     border-left: 0;
     border-right: 1px solid #eee;
   }
@@ -335,7 +335,7 @@
 /**
  * 02. 07. Field: help
  */
-.chippymtc-help{
+.csf-help{
   right: auto;
   left: 5px;
 }
@@ -343,14 +343,14 @@
 /**
  * 02. 08. Field: icon
  */
-.chippymtc-field-icon{
+.csf-field-icon{
 
   .button{
     margin-right: 0;
     margin-left: 5px;
   }
 
-  .chippymtc-icon-preview i{
+  .csf-icon-preview i{
     margin-right: 0;
     margin-left: 5px;
   }
@@ -359,7 +359,7 @@
 /**
  * 02. 09. Field: gallery
  */
-.chippymtc-field-gallery{
+.csf-field-gallery{
 
   ul li{
     margin-right: 0;
@@ -375,11 +375,11 @@
 /**
  * 02. 11. Field: tabbed
  */
-.chippymtc-field-tabbed{
+.csf-field-tabbed{
 
-  .chippymtc-tabbed-nav{
+  .csf-tabbed-nav{
 
-    .chippymtc--icon{
+    .csf--icon{
       padding-right: 0;
       padding-left: 5px;
     }
@@ -394,7 +394,7 @@
 /**
  * 02. 12. Field: media
  */
-.chippymtc-field-media{
+.csf-field-media{
 
   .button{
     margin-left: 0;
@@ -409,7 +409,7 @@
 /**
  * 02. 13. Field: notice
  */
-.chippymtc-notice{
+.csf-notice{
   border-left: none;
   border-right-style: solid;
   border-right-width: 4px;
@@ -418,21 +418,21 @@
 /**
  * 02. 14. Field: border, spacing, dimensions
  */
-.chippymtc-field-dimensions,
-.chippymtc-field-spacing,
-.chippymtc-field-border{
+.csf-field-dimensions,
+.csf-field-spacing,
+.csf-field-border{
 
-  .chippymtc--input,
-  .chippymtc-fieldset{
+  .csf--input,
+  .csf-fieldset{
     direction: ltr;
   }
 
-  .chippymtc--inputs,
-  .chippymtc--color{
+  .csf--inputs,
+  .csf--color{
     float: right;
   }
 
-  .chippymtc--color{
+  .csf--color{
     margin-right: 4px;
     direction: rtl;
   }
@@ -441,18 +441,18 @@
 /**
  * 02. 15. Field: background
  */
-.chippymtc-field-background{
+.csf-field-background{
 
-  .chippymtc--block{
+  .csf--block{
     float: right;
   }
 
-  .chippymtc--select,
-  .chippymtc--media{
+  .csf--select,
+  .csf--media{
     padding-right: 0;
   }
 
-  .chippymtc--title{
+  .csf--title{
     margin-right: 0;
     margin-left: 5px;
   }
@@ -461,9 +461,9 @@
 /**
  * 02. 16. Field: spinner
  */
-.chippymtc-field-spinner{
+.csf-field-spinner{
 
-  .chippymtc--spin{
+  .csf--spin{
     float: right;
     direction: ltr;
   }
@@ -472,15 +472,15 @@
 /**
  * 02. 17. Field: slider
  */
-.chippymtc-field-slider{
+.csf-field-slider{
 
-  .chippymtc-slider-ui{
+  .csf-slider-ui{
     direction: ltr;
     margin-right: 0;
     margin-left: 15px;
   }
 
-  .chippymtc--input{
+  .csf--input{
     direction: ltr;
   }
 }
@@ -488,9 +488,9 @@
 /**
  * 02. 18. Field: button_set
  */
-.chippymtc-field-button_set{
+.csf-field-button_set{
 
-  .chippymtc--button-group{
+  .csf--button-group{
     float: right;
   }
 }
@@ -498,9 +498,9 @@
 /**
  * 02. 19. Field: link_color
  */
-.chippymtc-field-link_color{
+.csf-field-link_color{
 
-  .chippymtc--left{
+  .csf--left{
     float: right;
     margin-right: 0;
     margin-left: 10px;
@@ -510,9 +510,9 @@
 /**
  * 02. 20. Field: color_group
  */
-.chippymtc-field-color_group{
+.csf-field-color_group{
 
-  .chippymtc--left{
+  .csf--left{
     float: right;
     margin-right: 0;
     margin-left: 10px;
@@ -522,9 +522,9 @@
 /**
  * 02. 21. Field: palette
  */
-.chippymtc-field-palette{
+.csf-field-palette{
 
-  .chippymtc--palette{
+  .csf--palette{
     margin-right: 0;
     margin-left: 10px;
   }
@@ -533,9 +533,9 @@
 /**
  * 02. 22. Field: accordion
  */
-.chippymtc-field-accordion{
+.csf-field-accordion{
 
-  .chippymtc--icon{
+  .csf--icon{
     margin-right: 0;
     margin-left: 2px;
   }
@@ -544,9 +544,9 @@
 /**
  * 02. 23. Field: date
  */
-.chippymtc-field-date{
+.csf-field-date{
 
-  .chippymtc--to {
+  .csf--to {
     margin-left: 0;
     margin-right: 7px;
   }
@@ -555,9 +555,9 @@
 /**
  * 02. 24. Field: map
  */
-.chippymtc-field-map{
+.csf-field-map{
 
-  .chippymtc--map-input:last-child {
+  .csf--map-input:last-child {
     padding-left: 0;
     padding-right: 10px;
   }
@@ -566,9 +566,9 @@
 /**
  * 02. 25. Field: sortable
  */
-.chippymtc-field-sortable{
+.csf-field-sortable{
 
-  .chippymtc-sortable-helper{
+  .csf-sortable-helper{
     border-left: none;
     border-right: 1px solid #eee;
   }
@@ -577,13 +577,13 @@
 /**
  * 02. 26. Field: number
  */
-.chippymtc-field-number{
+.csf-field-number{
 
-  .chippymtc--wrap{
+  .csf--wrap{
     float: right;
   }
 
-  .chippymtc--unit{
+  .csf--unit{
     left: 4px;
     right: auto;
   }
@@ -592,21 +592,21 @@
 /**
  * 03. Taxonomy
  */
-.chippymtc-taxonomy-add-fields{
+.csf-taxonomy-add-fields{
   margin-right: 0;
   margin-left: 30px;
 
-  .chippymtc-field > .chippymtc-fieldset > .chippymtc-help{
+  .csf-field > .csf-fieldset > .csf-help{
     left: -5px;
     right: auto;
   }
 }
 
-.chippymtc-taxonomy-edit-fields{
+.csf-taxonomy-edit-fields{
   margin-right: 0;
   margin-left: 35px;
 
-  .chippymtc-field > .chippymtc-fieldset > .chippymtc-help{
+  .csf-field > .csf-fieldset > .csf-help{
     right: auto;
     left: -5px;
   }
@@ -615,18 +615,18 @@
 /**
  * 04. Profile
  */
-.chippymtc-profile-options{
+.csf-profile-options{
 
   > h2 > .fa{
     padding-right: 0;
     padding-left: 7px;
   }
 
-  > .chippymtc-field{
+  > .csf-field{
 
-    > .chippymtc-fieldset{
+    > .csf-fieldset{
 
-      > .chippymtc-help{
+      > .csf-help{
         left: -5px;
         right: auto;
       }
@@ -637,20 +637,20 @@
 /**
  * 05. Nav Menu
  */
-.chippymtc-nav-menu-options{
+.csf-nav-menu-options{
 
-  > .chippymtc-fields{
+  > .csf-fields{
     margin-left: 0;
     margin-right: -10px;
   }
 }
 
-.chippymtc-nav-menu-title {
+.csf-nav-menu-title {
   padding-left: 14px;
   padding-right: 12px;
 }
 
-.chippymtc-nav-menu-icon{
+.csf-nav-menu-icon{
   margin-right: 0;
   margin-left: 5px;
 }
@@ -658,18 +658,18 @@
 /**
  * 06. Modal
  */
-.chippymtc-modal-content{
+.csf-modal-content{
 
-  .chippymtc-field{
+  .csf-field{
     padding: 15px 15px 15px 30px;
   }
 }
 
-.chippymtc-modal-title{
+.csf-modal-title{
   padding: 0 16px 0 36px;
 }
 
-.chippymtc-modal-close{
+.csf-modal-close{
   right: auto;
   left: 0;
 }
@@ -679,9 +679,9 @@
  */
 .control-section{
 
-  .chippymtc-field{
+  .csf-field{
 
-    .chippymtc-fieldset{
+    .csf-fieldset{
       margin-right: 0;
     }
   }
@@ -691,14 +691,14 @@
  * 08. Responsive
  */
 @media only screen and (max-width:1200px){
-  .chippymtc-metabox .chippymtc-field .chippymtc-fieldset{
+  .csf-metabox .csf-field .csf-fieldset{
     margin-left: 0;
   }
 }
 
 @media only screen and (max-width:782px){
-  .chippymtc .chippymtc-fieldset,
-  .chippymtc .chippymtc-content{
+  .csf .csf-fieldset,
+  .csf .csf-content{
     margin-right: 0;
   }
 }
@@ -706,9 +706,9 @@
 /**
  * 09. Others
  */
-.chippymtc-field{
+.csf-field{
 
-  .chippymtc--transparent-slider{
+  .csf--transparent-slider{
     margin-left: 0;
     margin-right: 2px;
 
@@ -717,11 +717,11 @@
     }
   }
 
-  .chippymtc--transparent-offset{
+  .csf--transparent-offset{
     background-position: center right;
   }
 
-  .chippymtc--transparent-text{
+  .csf--transparent-text{
     right: auto;
     left: 10px;
   }

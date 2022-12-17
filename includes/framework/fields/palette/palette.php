@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Field_palette' ) ) {
-  class CHIPPYMTC_Field_palette extends CHIPPYMTC_Fields {
+if ( ! class_exists( 'CSF_Field_palette' ) ) {
+  class CSF_Field_palette extends CSF_Fields {
 
     public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
       parent::__construct( $field, $value, $unique, $where, $parent );
@@ -22,14 +22,14 @@ if ( ! class_exists( 'CHIPPYMTC_Field_palette' ) ) {
 
       if ( ! empty( $palette ) ) {
 
-        echo '<div class="chippymtc-siblings chippymtc--palettes">';
+        echo '<div class="csf-siblings csf--palettes">';
 
         foreach ( $palette as $key => $colors ) {
 
-          $active  = ( $key === $this->value ) ? ' chippymtc--active' : '';
+          $active  = ( $key === $this->value ) ? ' csf--active' : '';
           $checked = ( $key === $this->value ) ? ' checked' : '';
 
-          echo '<div class="chippymtc--sibling chippymtc--palette'. esc_attr( $active ) .'">';
+          echo '<div class="csf--sibling csf--palette'. esc_attr( $active ) .'">';
 
           if ( ! empty( $colors ) ) {
 

@@ -7,28 +7,28 @@
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_get_icons' ) ) {
-  function chippymtc_get_icons() {
+if ( ! function_exists( 'csf_get_icons' ) ) {
+  function csf_get_icons() {
 
     $nonce = ( ! empty( $_POST[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'nonce' ] ) ) : '';
 
-    if ( ! wp_verify_nonce( $nonce, 'chippymtc_icon_nonce' ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'chippymtc' ) ) );
+    if ( ! wp_verify_nonce( $nonce, 'csf_icon_nonce' ) ) {
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'csf' ) ) );
     }
 
     ob_start();
 
-    $icon_library = ( apply_filters( 'chippymtc_fa4', false ) ) ? 'fa4' : 'fa5';
+    $icon_library = ( apply_filters( 'csf_fa4', false ) ) ? 'fa4' : 'fa5';
 
-    CHIPPYMTC::include_plugin_file( 'fields/icon/'. $icon_library .'-icons.php' );
+    CSF::include_plugin_file( 'fields/icon/'. $icon_library .'-icons.php' );
 
-    $icon_lists = apply_filters( 'chippymtc_field_icon_add_icons', chippymtc_get_default_icons() );
+    $icon_lists = apply_filters( 'csf_field_icon_add_icons', csf_get_default_icons() );
 
     if ( ! empty( $icon_lists ) ) {
 
       foreach ( $icon_lists as $list ) {
 
-        echo ( count( $icon_lists ) >= 2 ) ? '<div class="chippymtc-icon-title">'. esc_attr( $list['title'] ) .'</div>' : '';
+        echo ( count( $icon_lists ) >= 2 ) ? '<div class="csf-icon-title">'. esc_attr( $list['title'] ) .'</div>' : '';
 
         foreach ( $list['icons'] as $icon ) {
           echo '<i title="'. esc_attr( $icon ) .'" class="'. esc_attr( $icon ) .'"></i>';
@@ -38,7 +38,7 @@ if ( ! function_exists( 'chippymtc_get_icons' ) ) {
 
     } else {
 
-      echo '<div class="chippymtc-error-text">'. esc_html__( 'No data available.', 'chippymtc' ) .'</div>';
+      echo '<div class="csf-error-text">'. esc_html__( 'No data available.', 'csf' ) .'</div>';
 
     }
 
@@ -47,7 +47,7 @@ if ( ! function_exists( 'chippymtc_get_icons' ) ) {
     wp_send_json_success( array( 'content' => $content ) );
 
   }
-  add_action( 'wp_ajax_chippymtc-get-icons', 'chippymtc_get_icons' );
+  add_action( 'wp_ajax_csf-get-icons', 'csf_get_icons' );
 }
 
 /**
@@ -58,18 +58,18 @@ if ( ! function_exists( 'chippymtc_get_icons' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_export' ) ) {
-  function chippymtc_export() {
+if ( ! function_exists( 'csf_export' ) ) {
+  function csf_export() {
 
     $nonce  = ( ! empty( $_GET[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ 'nonce' ] ) ) : '';
     $unique = ( ! empty( $_GET[ 'unique' ] ) ) ? sanitize_text_field( wp_unslash( $_GET[ 'unique' ] ) ) : '';
 
-    if ( ! wp_verify_nonce( $nonce, 'chippymtc_backup_nonce' ) ) {
-      die( esc_html__( 'Error: Invalid nonce verification.', 'chippymtc' ) );
+    if ( ! wp_verify_nonce( $nonce, 'csf_backup_nonce' ) ) {
+      die( esc_html__( 'Error: Invalid nonce verification.', 'csf' ) );
     }
 
     if ( empty( $unique ) ) {
-      die( esc_html__( 'Error: Invalid key.', 'chippymtc' ) );
+      die( esc_html__( 'Error: Invalid key.', 'csf' ) );
     }
 
     // Export
@@ -84,7 +84,7 @@ if ( ! function_exists( 'chippymtc_export' ) ) {
     die();
 
   }
-  add_action( 'wp_ajax_chippymtc-export', 'chippymtc_export' );
+  add_action( 'wp_ajax_csf-export', 'csf_export' );
 }
 
 /**
@@ -95,23 +95,23 @@ if ( ! function_exists( 'chippymtc_export' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_import_ajax' ) ) {
-  function chippymtc_import_ajax() {
+if ( ! function_exists( 'csf_import_ajax' ) ) {
+  function csf_import_ajax() {
 
     $nonce  = ( ! empty( $_POST[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'nonce' ] ) ) : '';
     $unique = ( ! empty( $_POST[ 'unique' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'unique' ] ) ) : '';
     $data   = ( ! empty( $_POST[ 'data' ] ) ) ? wp_kses_post_deep( json_decode( wp_unslash( trim( $_POST[ 'data' ] ) ), true ) ) : array();
 
-    if ( ! wp_verify_nonce( $nonce, 'chippymtc_backup_nonce' ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'chippymtc' ) ) );
+    if ( ! wp_verify_nonce( $nonce, 'csf_backup_nonce' ) ) {
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'csf' ) ) );
     }
 
     if ( empty( $unique ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid key.', 'chippymtc' ) ) );
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid key.', 'csf' ) ) );
     }
 
     if ( empty( $data ) || ! is_array( $data ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: The response is not a valid JSON response.', 'chippymtc' ) ) );
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: The response is not a valid JSON response.', 'csf' ) ) );
     }
 
     // Success
@@ -120,7 +120,7 @@ if ( ! function_exists( 'chippymtc_import_ajax' ) ) {
     wp_send_json_success();
 
   }
-  add_action( 'wp_ajax_chippymtc-import', 'chippymtc_import_ajax' );
+  add_action( 'wp_ajax_csf-import', 'csf_import_ajax' );
 }
 
 /**
@@ -131,14 +131,14 @@ if ( ! function_exists( 'chippymtc_import_ajax' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_reset_ajax' ) ) {
-  function chippymtc_reset_ajax() {
+if ( ! function_exists( 'csf_reset_ajax' ) ) {
+  function csf_reset_ajax() {
 
     $nonce  = ( ! empty( $_POST[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'nonce' ] ) ) : '';
     $unique = ( ! empty( $_POST[ 'unique' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'unique' ] ) ) : '';
 
-    if ( ! wp_verify_nonce( $nonce, 'chippymtc_backup_nonce' ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'chippymtc' ) ) );
+    if ( ! wp_verify_nonce( $nonce, 'csf_backup_nonce' ) ) {
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'csf' ) ) );
     }
 
     // Success
@@ -147,7 +147,7 @@ if ( ! function_exists( 'chippymtc_reset_ajax' ) ) {
     wp_send_json_success();
 
   }
-  add_action( 'wp_ajax_chippymtc-reset', 'chippymtc_reset_ajax' );
+  add_action( 'wp_ajax_csf-reset', 'csf_reset_ajax' );
 }
 
 /**
@@ -158,33 +158,33 @@ if ( ! function_exists( 'chippymtc_reset_ajax' ) ) {
  * @version 1.0.0
  *
  */
-if ( ! function_exists( 'chippymtc_chosen_ajax' ) ) {
-  function chippymtc_chosen_ajax() {
+if ( ! function_exists( 'csf_chosen_ajax' ) ) {
+  function csf_chosen_ajax() {
 
     $nonce = ( ! empty( $_POST[ 'nonce' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'nonce' ] ) ) : '';
     $type  = ( ! empty( $_POST[ 'type' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'type' ] ) ) : '';
     $term  = ( ! empty( $_POST[ 'term' ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ 'term' ] ) ) : '';
     $query = ( ! empty( $_POST[ 'query_args' ] ) ) ? wp_kses_post_deep( $_POST[ 'query_args' ] ) : array();
 
-    if ( ! wp_verify_nonce( $nonce, 'chippymtc_chosen_ajax_nonce' ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'chippymtc' ) ) );
+    if ( ! wp_verify_nonce( $nonce, 'csf_chosen_ajax_nonce' ) ) {
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid nonce verification.', 'csf' ) ) );
     }
 
     if ( empty( $type ) || empty( $term ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid term ID.', 'chippymtc' ) ) );
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid term ID.', 'csf' ) ) );
     }
 
-    $capability = apply_filters( 'chippymtc_chosen_ajax_capability', 'manage_options' );
+    $capability = apply_filters( 'csf_chosen_ajax_capability', 'manage_options' );
 
     if ( ! current_user_can( $capability ) ) {
-      wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.', 'chippymtc' ) ) );
+      wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.', 'csf' ) ) );
     }
 
     // Success
-    $options = CHIPPYMTC_Fields::field_data( $type, $term, $query );
+    $options = CSF_Fields::field_data( $type, $term, $query );
 
     wp_send_json_success( $options );
 
   }
-  add_action( 'wp_ajax_chippymtc-chosen', 'chippymtc_chosen_ajax' );
+  add_action( 'wp_ajax_csf-chosen', 'csf_chosen_ajax' );
 }

@@ -135,12 +135,6 @@ class Chip_Paymattic_Processor {
     $chip    = Chip_Paymattic_API::get_instance( $option['secret_key'], $option['brand_id'] );
     $payment = $chip->create_payment( $params );
 
-    $transaction_model = new Transaction();
-    $transaction_model->updateTransaction( $transaction->id, array(
-      'payment_mode' => $payment['is_test'] ? 'test' : 'live',
-      'charge_id'    => $payment['id'],
-    ));
-
     if ( !array_key_exists( 'id', $payment ) ) {
 
       do_action( 'wppayform_log_data', [
@@ -156,6 +150,12 @@ class Chip_Paymattic_Processor {
         'message' => sprintf( __( 'Failed to create purchase: %s', 'chip-for-paymattic' ), print_r($payment, true) ),
       ), 422);
     }
+
+    $transaction_model = new Transaction();
+    $transaction_model->updateTransaction( $transaction->id, array(
+      'payment_mode' => $payment['is_test'] ? 'test' : 'live',
+      'charge_id'    => $payment['id'],
+    ));
 
     do_action( 'wppayform_log_data', [
       'form_id'       => $form->ID,

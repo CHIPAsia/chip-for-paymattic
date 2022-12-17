@@ -2,7 +2,7 @@
  *
  * -----------------------------------------------------------
  *
- * Chippymtc Framework
+ * Codestar Framework
  * A Simple and Lightweight WordPress Option Framework
  *
  * -----------------------------------------------------------
@@ -14,11 +14,11 @@
   //
   // Constants
   //
-  var CHIPPYMTC   = CHIPPYMTC || {};
+  var CSF   = CSF || {};
 
-  CHIPPYMTC.funcs = {};
+  CSF.funcs = {};
 
-  CHIPPYMTC.vars  = {
+  CSF.vars  = {
     onloaded: false,
     $body: $('body'),
     $window: $(window),
@@ -33,7 +33,7 @@
   //
   // Helper Functions
   //
-  CHIPPYMTC.helper = {
+  CSF.helper = {
 
     //
     // Generate UID
@@ -54,7 +54,7 @@
     name_nested_replace: function( $selector, field_id ) {
 
       var checks = [];
-      var regex  = new RegExp(CHIPPYMTC.helper.preg_quote(field_id +'[\\d+]'), 'g');
+      var regex  = new RegExp(CSF.helper.preg_quote(field_id +'[\\d+]'), 'g');
 
       $selector.find(':radio').each(function() {
         if ( this.checked || this.orginal_checked ) {
@@ -100,7 +100,7 @@
   //
   // Custom clone for textarea and select clone() bug
   //
-  $.fn.chippymtc_clone = function() {
+  $.fn.csf_clone = function() {
 
     var base   = $.fn.clone.apply(this, arguments),
         clone  = this.find('select').add(this.filter('select')),
@@ -127,13 +127,13 @@
   //
   // Expand All Options
   //
-  $.fn.chippymtc_expand_all = function() {
+  $.fn.csf_expand_all = function() {
     return this.each( function() {
       $(this).on('click', function( e ) {
 
         e.preventDefault();
-        $('.chippymtc-wrapper').toggleClass('chippymtc-show-all');
-        $('.chippymtc-section').chippymtc_reload_script();
+        $('.csf-wrapper').toggleClass('csf-show-all');
+        $('.csf-section').csf_reload_script();
         $(this).find('.fa').toggleClass('fa-indent').toggleClass('fa-outdent');
 
       });
@@ -143,7 +143,7 @@
   //
   // Options Navigation
   //
-  $.fn.chippymtc_nav_options = function() {
+  $.fn.csf_nav_options = function() {
     return this.each( function() {
 
       var $nav    = $(this),
@@ -152,7 +152,7 @@
           $links  = $nav.find('a'),
           $last;
 
-      $window.on('hashchange chippymtc.hashchange', function() {
+      $window.on('hashchange csf.hashchange', function() {
 
         var hash  = window.location.hash.replace('#tab=', '');
         var slug  = hash ? hash : $links.first().attr('href').replace('#tab=', '');
@@ -160,7 +160,7 @@
 
         if ( $link.length ) {
 
-          $link.closest('.chippymtc-tab-item').addClass('chippymtc-tab-expanded').siblings().removeClass('chippymtc-tab-expanded');
+          $link.closest('.csf-tab-item').addClass('csf-tab-expanded').siblings().removeClass('csf-tab-expanded');
 
           if( $link.next().is('ul') ) {
 
@@ -169,8 +169,8 @@
 
           }
 
-          $links.removeClass('chippymtc-active');
-          $link.addClass('chippymtc-active');
+          $links.removeClass('csf-active');
+          $link.addClass('csf-active');
 
           if ( $last ) {
             $last.addClass('hidden');
@@ -179,9 +179,9 @@
           var $section = $('[data-section-id="'+slug+'"]');
 
           $section.removeClass('hidden');
-          $section.chippymtc_reload_script();
+          $section.csf_reload_script();
 
-          $('.chippymtc-section-id').val( $section.index()+1 );
+          $('.csf-section-id').val( $section.index()+1 );
 
           $last = $section;
 
@@ -192,7 +192,7 @@
 
         }
 
-      }).trigger('chippymtc.hashchange');
+      }).trigger('csf.hashchange');
 
     });
   };
@@ -200,12 +200,12 @@
   //
   // Metabox Tabs
   //
-  $.fn.chippymtc_nav_metabox = function() {
+  $.fn.csf_nav_metabox = function() {
     return this.each( function() {
 
       var $nav      = $(this),
           $links    = $nav.find('a'),
-          $sections = $nav.parent().find('.chippymtc-section'),
+          $sections = $nav.parent().find('.csf-section'),
           $last;
 
       $links.each( function( index ) {
@@ -216,8 +216,8 @@
 
           var $link = $(this);
 
-          $links.removeClass('chippymtc-active');
-          $link.addClass('chippymtc-active');
+          $links.removeClass('csf-active');
+          $link.addClass('csf-active');
 
           if ( $last !== undefined ) {
             $last.addClass('hidden');
@@ -226,7 +226,7 @@
           var $section = $sections.eq(index);
 
           $section.removeClass('hidden');
-          $section.chippymtc_reload_script();
+          $section.csf_reload_script();
 
           $last = $section;
 
@@ -242,15 +242,15 @@
   //
   // Metabox Page Templates Listener
   //
-  $.fn.chippymtc_page_templates = function() {
+  $.fn.csf_page_templates = function() {
     if ( this.length ) {
 
       $(document).on('change', '.editor-page-attributes__template select, #page_template, .edit-post-post-status + div select', function() {
 
         var maybe_value = $(this).val() || 'default';
 
-        $('.chippymtc-page-templates').removeClass('chippymtc-metabox-show').addClass('chippymtc-metabox-hide');
-        $('.chippymtc-page-'+maybe_value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,'-')).removeClass('chippymtc-metabox-hide').addClass('chippymtc-metabox-show');
+        $('.csf-page-templates').removeClass('csf-metabox-show').addClass('csf-metabox-hide');
+        $('.csf-page-'+maybe_value.toLowerCase().replace(/[^a-zA-Z0-9]+/g,'-')).removeClass('csf-metabox-hide').addClass('csf-metabox-show');
 
       });
 
@@ -260,7 +260,7 @@
   //
   // Metabox Post Formats Listener
   //
-  $.fn.chippymtc_post_formats = function() {
+  $.fn.csf_post_formats = function() {
     if ( this.length ) {
 
       $(document).on('change', '.editor-post-format select, #formatdiv input[name="post_format"]', function() {
@@ -270,8 +270,8 @@
         // Fallback for classic editor version
         maybe_value = ( maybe_value === '0' ) ? 'default' : maybe_value;
 
-        $('.chippymtc-post-formats').removeClass('chippymtc-metabox-show').addClass('chippymtc-metabox-hide');
-        $('.chippymtc-post-format-'+maybe_value).removeClass('chippymtc-metabox-hide').addClass('chippymtc-metabox-show');
+        $('.csf-post-formats').removeClass('csf-metabox-show').addClass('csf-metabox-hide');
+        $('.csf-post-format-'+maybe_value).removeClass('csf-metabox-hide').addClass('csf-metabox-show');
 
       });
 
@@ -281,7 +281,7 @@
   //
   // Search
   //
-  $.fn.chippymtc_search = function() {
+  $.fn.csf_search = function() {
     return this.each( function() {
 
       var $this  = $(this),
@@ -290,15 +290,15 @@
       $input.on('change keyup', function() {
 
         var value    = $(this).val(),
-            $wrapper = $('.chippymtc-wrapper'),
-            $section = $wrapper.find('.chippymtc-section'),
-            $fields  = $section.find('> .chippymtc-field:not(.chippymtc-depend-on)'),
-            $titles  = $fields.find('> .chippymtc-title, .chippymtc-search-tags');
+            $wrapper = $('.csf-wrapper'),
+            $section = $wrapper.find('.csf-section'),
+            $fields  = $section.find('> .csf-field:not(.csf-depend-on)'),
+            $titles  = $fields.find('> .csf-title, .csf-search-tags');
 
         if ( value.length > 3 ) {
 
-          $fields.addClass('chippymtc-metabox-hide');
-          $wrapper.addClass('chippymtc-search-all');
+          $fields.addClass('csf-metabox-hide');
+          $wrapper.addClass('csf-search-all');
 
           $titles.each( function() {
 
@@ -306,10 +306,10 @@
 
             if ( $title.text().match( new RegExp('.*?' + value + '.*?', 'i') ) ) {
 
-              var $field = $title.closest('.chippymtc-field');
+              var $field = $title.closest('.csf-field');
 
-              $field.removeClass('chippymtc-metabox-hide');
-              $field.parent().chippymtc_reload_script();
+              $field.removeClass('csf-metabox-hide');
+              $field.parent().csf_reload_script();
 
             }
 
@@ -317,8 +317,8 @@
 
         } else {
 
-          $fields.removeClass('chippymtc-metabox-hide');
-          $wrapper.removeClass('chippymtc-search-all');
+          $fields.removeClass('csf-metabox-hide');
+          $wrapper.removeClass('csf-search-all');
 
         }
 
@@ -330,12 +330,12 @@
   //
   // Sticky Header
   //
-  $.fn.chippymtc_sticky = function() {
+  $.fn.csf_sticky = function() {
     return this.each( function() {
 
       var $this     = $(this),
           $window   = $(window),
-          $inner    = $this.find('.chippymtc-header-inner'),
+          $inner    = $this.find('.csf-header-inner'),
           padding   = parseInt( $inner.css('padding-left') ) + parseInt( $inner.css('padding-right') ),
           offset    = 32,
           scrollTop = 0,
@@ -349,10 +349,10 @@
 
             if ( stickyTop <= offset && winWidth > 782 ) {
               $inner.css({width: $this.outerWidth()-padding});
-              $this.css({height: $this.outerHeight()}).addClass( 'chippymtc-sticky' );
+              $this.css({height: $this.outerHeight()}).addClass( 'csf-sticky' );
             } else {
               $inner.removeAttr('style');
-              $this.removeAttr('style').removeClass( 'chippymtc-sticky' );
+              $this.removeAttr('style').removeClass( 'csf-sticky' );
             }
 
           },
@@ -385,7 +385,7 @@
   //
   // Dependency System
   //
-  $.fn.chippymtc_dependency = function() {
+  $.fn.csf_dependency = function() {
     return this.each( function() {
 
       var $this   = $(this),
@@ -393,8 +393,8 @@
 
       if( $fields.length ) {
 
-        var normal_ruleset = $.chippymtc_deps.createRuleset(),
-            global_ruleset = $.chippymtc_deps.createRuleset(),
+        var normal_ruleset = $.csf_deps.createRuleset(),
+            global_ruleset = $.csf_deps.createRuleset(),
             normal_depends = [],
             global_depends = [];
 
@@ -427,11 +427,11 @@
         });
 
         if ( normal_depends.length ) {
-          $.chippymtc_deps.enable($this, normal_ruleset, normal_depends);
+          $.csf_deps.enable($this, normal_ruleset, normal_depends);
         }
 
         if ( global_depends.length ) {
-          $.chippymtc_deps.enable(CHIPPYMTC.vars.$body, global_ruleset, global_depends);
+          $.csf_deps.enable(CSF.vars.$body, global_ruleset, global_depends);
         }
 
       }
@@ -442,15 +442,15 @@
   //
   // Field: accordion
   //
-  $.fn.chippymtc_field_accordion = function() {
+  $.fn.csf_field_accordion = function() {
     return this.each( function() {
 
-      var $titles = $(this).find('.chippymtc-accordion-title');
+      var $titles = $(this).find('.csf-accordion-title');
 
       $titles.on('click', function() {
 
         var $title   = $(this),
-            $icon    = $title.find('.chippymtc-accordion-icon'),
+            $icon    = $title.find('.csf-accordion-icon'),
             $content = $title.next();
 
         if ( $icon.hasClass('fa-angle-right') ) {
@@ -461,12 +461,12 @@
 
         if ( !$content.data( 'opened' ) ) {
 
-          $content.chippymtc_reload_script();
+          $content.csf_reload_script();
           $content.data( 'opened', true );
 
         }
 
-        $content.toggleClass('chippymtc-accordion-open');
+        $content.toggleClass('csf-accordion-open');
 
       });
 
@@ -476,7 +476,7 @@
   //
   // Field: backup
   //
-  $.fn.chippymtc_field_backup = function() {
+  $.fn.csf_field_backup = function() {
     return this.each( function() {
 
       if ( window.wp.customize === undefined ) { return; }
@@ -484,8 +484,8 @@
       var base    = this,
           $this   = $(this),
           $body   = $('body'),
-          $import = $this.find('.chippymtc-import'),
-          $reset  = $this.find('.chippymtc-reset');
+          $import = $this.find('.csf-import'),
+          $reset  = $this.find('.csf-reset');
 
       base.notificationOverlay = function() {
 
@@ -499,7 +499,7 @@
           }
 
           // then show a notification overlay
-          wp.customize.notifications.add( new wp.customize.OverlayNotification('chippymtc_field_backup_notification', {
+          wp.customize.notifications.add( new wp.customize.OverlayNotification('csf_field_backup_notification', {
             type: 'default',
             message: '&nbsp;',
             loading: true
@@ -513,11 +513,11 @@
 
         e.preventDefault();
 
-        if ( CHIPPYMTC.vars.is_confirm ) {
+        if ( CSF.vars.is_confirm ) {
 
           base.notificationOverlay();
 
-          window.wp.ajax.post('chippymtc-reset', {
+          window.wp.ajax.post('csf-reset', {
             unique: $reset.data('unique'),
             nonce: $reset.data('nonce')
           })
@@ -526,7 +526,7 @@
           })
           .fail( function( response ) {
             alert( response.error );
-            wp.customize.notifications.remove('chippymtc_field_backup_notification');
+            wp.customize.notifications.remove('csf_field_backup_notification');
           });
 
         }
@@ -537,19 +537,19 @@
 
         e.preventDefault();
 
-        if ( CHIPPYMTC.vars.is_confirm ) {
+        if ( CSF.vars.is_confirm ) {
 
           base.notificationOverlay();
 
-          window.wp.ajax.post( 'chippymtc-import', {
+          window.wp.ajax.post( 'csf-import', {
             unique: $import.data('unique'),
             nonce: $import.data('nonce'),
-            data: $this.find('.chippymtc-import-data').val()
+            data: $this.find('.csf-import-data').val()
           }).done( function( response ) {
             window.location.reload(true);
           }).fail( function( response ) {
             alert( response.error );
-            wp.customize.notifications.remove('chippymtc_field_backup_notification');
+            wp.customize.notifications.remove('csf_field_backup_notification');
           });
 
         }
@@ -562,16 +562,16 @@
   //
   // Field: background
   //
-  $.fn.chippymtc_field_background = function() {
+  $.fn.csf_field_background = function() {
     return this.each( function() {
-      $(this).find('.chippymtc--background-image').chippymtc_reload_script();
+      $(this).find('.csf--background-image').csf_reload_script();
     });
   };
 
   //
   // Field: code_editor
   //
-  $.fn.chippymtc_field_code_editor = function() {
+  $.fn.csf_field_code_editor = function() {
     return this.each( function() {
 
       if ( typeof CodeMirror !== 'function' ) { return; }
@@ -591,21 +591,21 @@
           var code_editor = CodeMirror.fromTextArea( $textarea[0], data_editor );
 
           // load code-mirror theme css.
-          if ( data_editor.theme !== 'default' && CHIPPYMTC.vars.code_themes.indexOf(data_editor.theme) === -1 ) {
+          if ( data_editor.theme !== 'default' && CSF.vars.code_themes.indexOf(data_editor.theme) === -1 ) {
 
             var $cssLink = $('<link>');
 
-            $('#chippymtc-codemirror-css').after( $cssLink );
+            $('#csf-codemirror-css').after( $cssLink );
 
             $cssLink.attr({
               rel: 'stylesheet',
-              id: 'chippymtc-codemirror-'+ data_editor.theme +'-css',
+              id: 'csf-codemirror-'+ data_editor.theme +'-css',
               href: data_editor.cdnURL +'/theme/'+ data_editor.theme +'.min.css',
               type: 'text/css',
               media: 'all'
             });
 
-            CHIPPYMTC.vars.code_themes.push(data_editor.theme);
+            CSF.vars.code_themes.push(data_editor.theme);
 
           }
 
@@ -627,21 +627,21 @@
   //
   // Field: date
   //
-  $.fn.chippymtc_field_date = function() {
+  $.fn.csf_field_date = function() {
     return this.each( function() {
 
       var $this    = $(this),
           $inputs  = $this.find('input'),
-          settings = $this.find('.chippymtc-date-settings').data('settings'),
-          wrapper  = '<div class="chippymtc-datepicker-wrapper"></div>';
+          settings = $this.find('.csf-date-settings').data('settings'),
+          wrapper  = '<div class="csf-datepicker-wrapper"></div>';
 
       var defaults = {
         showAnim: '',
         beforeShow: function(input, inst) {
-          $(inst.dpDiv).addClass('chippymtc-datepicker-wrapper');
+          $(inst.dpDiv).addClass('csf-datepicker-wrapper');
         },
         onClose: function( input, inst ) {
-          $(inst.dpDiv).removeClass('chippymtc-datepicker-wrapper');
+          $(inst.dpDiv).removeClass('csf-datepicker-wrapper');
         },
       };
 
@@ -682,16 +682,16 @@
   //
   // Field: datetime
   //
-  $.fn.chippymtc_field_datetime = function() {
+  $.fn.csf_field_datetime = function() {
     return this.each( function() {
 
       var $this    = $(this),
           $inputs  = $this.find('input'),
-          settings = $this.find('.chippymtc-datetime-settings').data('settings');
+          settings = $this.find('.csf-datetime-settings').data('settings');
 
       settings = $.extend({}, settings, {
         onReady: function( selectedDates, dateStr, instance) {
-          $(instance.calendarContainer).addClass('chippymtc-flatpickr');
+          $(instance.calendarContainer).addClass('csf-flatpickr');
         },
       });
 
@@ -717,31 +717,31 @@
   //
   // Field: fieldset
   //
-  $.fn.chippymtc_field_fieldset = function() {
+  $.fn.csf_field_fieldset = function() {
     return this.each( function() {
-      $(this).find('.chippymtc-fieldset-content').chippymtc_reload_script();
+      $(this).find('.csf-fieldset-content').csf_reload_script();
     });
   };
 
   //
   // Field: gallery
   //
-  $.fn.chippymtc_field_gallery = function() {
+  $.fn.csf_field_gallery = function() {
     return this.each( function() {
 
       var $this  = $(this),
-          $edit  = $this.find('.chippymtc-edit-gallery'),
-          $clear = $this.find('.chippymtc-clear-gallery'),
+          $edit  = $this.find('.csf-edit-gallery'),
+          $clear = $this.find('.csf-clear-gallery'),
           $list  = $this.find('ul'),
           $input = $this.find('input'),
           $img   = $this.find('img'),
           wp_media_frame;
 
-      $this.on('click', '.chippymtc-button, .chippymtc-edit-gallery', function( e ) {
+      $this.on('click', '.csf-button, .csf-edit-gallery', function( e ) {
 
         var $el   = $(this),
             ids   = $input.val(),
-            what  = ( $el.hasClass('chippymtc-edit-gallery') ) ? 'edit' : 'add',
+            what  = ( $el.hasClass('csf-edit-gallery') ) ? 'edit' : 'add',
             state = ( what === 'add' && !ids.length ) ? 'gallery' : 'gallery-edit';
 
         e.preventDefault();
@@ -811,16 +811,16 @@
   //
   // Field: group
   //
-  $.fn.chippymtc_field_group = function() {
+  $.fn.csf_field_group = function() {
     return this.each( function() {
 
       var $this           = $(this),
-          $fieldset    = $this.children('.chippymtc-fieldset'),
+          $fieldset    = $this.children('.csf-fieldset'),
           $group       = $fieldset.length ? $fieldset : $this,
-          $wrapper     = $group.children('.chippymtc-cloneable-wrapper'),
-          $hidden      = $group.children('.chippymtc-cloneable-hidden'),
-          $max         = $group.children('.chippymtc-cloneable-max'),
-          $min         = $group.children('.chippymtc-cloneable-min'),
+          $wrapper     = $group.children('.csf-cloneable-wrapper'),
+          $hidden      = $group.children('.csf-cloneable-hidden'),
+          $max         = $group.children('.csf-cloneable-max'),
+          $min         = $group.children('.csf-cloneable-min'),
           title_by     = $wrapper.data('title-by'),
           title_prefix = $wrapper.data('title-by-prefix'),
           field_id     = $wrapper.data('field-id'),
@@ -834,20 +834,20 @@
       }
 
       var update_title_numbers = function( $selector ) {
-        $selector.find('.chippymtc-cloneable-title-number').each( function( index ) {
-          $(this).html( ( $(this).closest('.chippymtc-cloneable-item').index()+1 ) + '.' );
+        $selector.find('.csf-cloneable-title-number').each( function( index ) {
+          $(this).html( ( $(this).closest('.csf-cloneable-item').index()+1 ) + '.' );
         });
       };
 
       $wrapper.accordion({
-        header: '> .chippymtc-cloneable-item > .chippymtc-cloneable-title',
+        header: '> .csf-cloneable-item > .csf-cloneable-title',
         collapsible : true,
         active: false,
         animate: false,
         heightStyle: 'content',
         icons: {
-          'header': 'chippymtc-cloneable-header-icon fas fa-angle-right',
-          'activeHeader': 'chippymtc-cloneable-header-icon fas fa-angle-down'
+          'header': 'csf-cloneable-header-icon fas fa-angle-right',
+          'activeHeader': 'csf-cloneable-header-icon fas fa-angle-down'
         },
         activate: function( event, ui ) {
 
@@ -856,7 +856,7 @@
 
           if ( $panel.length && !$panel.data( 'opened' ) ) {
 
-            var $title = $header.find('.chippymtc-cloneable-value');
+            var $title = $header.find('.csf-cloneable-value');
             var inputs = [];
 
             $.each(title_by, function( key, title_key ) {
@@ -865,7 +865,7 @@
 
             $.each(inputs, function( key, $input ) {
 
-              $input.on('change keyup chippymtc.keyup', function() {
+              $input.on('change keyup csf.keyup', function() {
 
                 var titles = [];
 
@@ -883,17 +883,17 @@
                   $title.text( titles.join( title_prefix ) );
                 }
 
-              }).trigger('chippymtc.keyup');
+              }).trigger('csf.keyup');
 
             });
 
-            $panel.chippymtc_reload_script();
+            $panel.csf_reload_script();
             $panel.data( 'opened', true );
             $panel.data( 'retry', false );
 
           } else if ( $panel.data( 'retry' ) ) {
 
-            $panel.chippymtc_reload_script_retry();
+            $panel.csf_reload_script_retry();
             $panel.data( 'retry', false );
 
           }
@@ -903,7 +903,7 @@
 
       $wrapper.sortable({
         axis: 'y',
-        handle: '.chippymtc-cloneable-title,.chippymtc-cloneable-sort',
+        handle: '.csf-cloneable-title,.csf-cloneable-sort',
         helper: 'original',
         cursor: 'move',
         placeholder: 'widget-placeholder',
@@ -911,13 +911,13 @@
 
           $wrapper.accordion({ active:false });
           $wrapper.sortable('refreshPositions');
-          ui.item.children('.chippymtc-cloneable-content').data('retry', true);
+          ui.item.children('.csf-cloneable-content').data('retry', true);
 
         },
         update: function( event, ui ) {
 
-          CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-cloneable-item'), field_id );
-          $wrapper.chippymtc_customizer_refresh();
+          CSF.helper.name_nested_replace( $wrapper.children('.csf-cloneable-item'), field_id );
+          $wrapper.csf_customizer_refresh();
 
           if ( is_number ) {
             update_title_numbers($wrapper);
@@ -926,11 +926,11 @@
         },
       });
 
-      $group.children('.chippymtc-cloneable-add').on('click', function( e ) {
+      $group.children('.csf-cloneable-add').on('click', function( e ) {
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-cloneable-item').length;
+        var count = $wrapper.children('.csf-cloneable-item').length;
 
         $min.hide();
 
@@ -939,9 +939,9 @@
           return;
         }
 
-        var $cloned_item = $hidden.chippymtc_clone(true);
+        var $cloned_item = $hidden.csf_clone(true);
 
-        $cloned_item.removeClass('chippymtc-cloneable-hidden');
+        $cloned_item.removeClass('csf-cloneable-hidden');
 
         $cloned_item.find(':input[name!="_pseudo"]').each( function() {
           this.name = this.name.replace( '___', '' ).replace( field_id +'[0]', field_id +'['+ count +']' );
@@ -950,8 +950,8 @@
         $wrapper.append($cloned_item);
         $wrapper.accordion('refresh');
         $wrapper.accordion({active: count});
-        $wrapper.chippymtc_customizer_refresh();
-        $wrapper.chippymtc_customizer_listen({closest: true});
+        $wrapper.csf_customizer_refresh();
+        $wrapper.csf_customizer_listen({closest: true});
 
         if ( is_number ) {
           update_title_numbers($wrapper);
@@ -963,7 +963,7 @@
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-cloneable-item').length;
+        var count = $wrapper.children('.csf-cloneable-item').length;
 
         $min.hide();
 
@@ -974,10 +974,10 @@
 
         var $this           = $(this),
             $parent         = $this.parent().parent(),
-            $cloned_helper  = $parent.children('.chippymtc-cloneable-helper').chippymtc_clone(true),
-            $cloned_title   = $parent.children('.chippymtc-cloneable-title').chippymtc_clone(),
-            $cloned_content = $parent.children('.chippymtc-cloneable-content').chippymtc_clone(),
-            $cloned_item    = $('<div class="chippymtc-cloneable-item" />');
+            $cloned_helper  = $parent.children('.csf-cloneable-helper').csf_clone(true),
+            $cloned_title   = $parent.children('.csf-cloneable-title').csf_clone(),
+            $cloned_content = $parent.children('.csf-cloneable-content').csf_clone(),
+            $cloned_item    = $('<div class="csf-cloneable-item" />');
 
         $cloned_item.append($cloned_helper);
         $cloned_item.append($cloned_title);
@@ -985,11 +985,11 @@
 
         $wrapper.children().eq($parent.index()).after($cloned_item);
 
-        CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-cloneable-item'), field_id );
+        CSF.helper.name_nested_replace( $wrapper.children('.csf-cloneable-item'), field_id );
 
         $wrapper.accordion('refresh');
-        $wrapper.chippymtc_customizer_refresh();
-        $wrapper.chippymtc_customizer_listen({closest: true});
+        $wrapper.csf_customizer_refresh();
+        $wrapper.csf_customizer_listen({closest: true});
 
         if ( is_number ) {
           update_title_numbers($wrapper);
@@ -997,14 +997,14 @@
 
       };
 
-      $wrapper.children('.chippymtc-cloneable-item').children('.chippymtc-cloneable-helper').on('click', '.chippymtc-cloneable-clone', event_clone);
-      $group.children('.chippymtc-cloneable-hidden').children('.chippymtc-cloneable-helper').on('click', '.chippymtc-cloneable-clone', event_clone);
+      $wrapper.children('.csf-cloneable-item').children('.csf-cloneable-helper').on('click', '.csf-cloneable-clone', event_clone);
+      $group.children('.csf-cloneable-hidden').children('.csf-cloneable-helper').on('click', '.csf-cloneable-clone', event_clone);
 
       var event_remove = function( e ) {
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-cloneable-item').length;
+        var count = $wrapper.children('.csf-cloneable-item').length;
 
         $max.hide();
         $min.hide();
@@ -1014,11 +1014,11 @@
           return;
         }
 
-        $(this).closest('.chippymtc-cloneable-item').remove();
+        $(this).closest('.csf-cloneable-item').remove();
 
-        CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-cloneable-item'), field_id );
+        CSF.helper.name_nested_replace( $wrapper.children('.csf-cloneable-item'), field_id );
 
-        $wrapper.chippymtc_customizer_refresh();
+        $wrapper.csf_customizer_refresh();
 
         if ( is_number ) {
           update_title_numbers($wrapper);
@@ -1026,8 +1026,8 @@
 
       };
 
-      $wrapper.children('.chippymtc-cloneable-item').children('.chippymtc-cloneable-helper').on('click', '.chippymtc-cloneable-remove', event_remove);
-      $group.children('.chippymtc-cloneable-hidden').children('.chippymtc-cloneable-helper').on('click', '.chippymtc-cloneable-remove', event_remove);
+      $wrapper.children('.csf-cloneable-item').children('.csf-cloneable-helper').on('click', '.csf-cloneable-remove', event_remove);
+      $group.children('.csf-cloneable-hidden').children('.csf-cloneable-helper').on('click', '.csf-cloneable-remove', event_remove);
 
     });
   };
@@ -1035,35 +1035,35 @@
   //
   // Field: icon
   //
-  $.fn.chippymtc_field_icon = function() {
+  $.fn.csf_field_icon = function() {
     return this.each( function() {
 
       var $this = $(this);
 
-      $this.on('click', '.chippymtc-icon-add', function( e ) {
+      $this.on('click', '.csf-icon-add', function( e ) {
 
         e.preventDefault();
 
         var $button = $(this);
-        var $modal  = $('#chippymtc-modal-icon');
+        var $modal  = $('#csf-modal-icon');
 
         $modal.removeClass('hidden');
 
-        CHIPPYMTC.vars.$icon_target = $this;
+        CSF.vars.$icon_target = $this;
 
-        if ( !CHIPPYMTC.vars.icon_modal_loaded ) {
+        if ( !CSF.vars.icon_modal_loaded ) {
 
-          $modal.find('.chippymtc-modal-loading').show();
+          $modal.find('.csf-modal-loading').show();
 
-          window.wp.ajax.post( 'chippymtc-get-icons', {
+          window.wp.ajax.post( 'csf-get-icons', {
             nonce: $button.data('nonce')
           }).done( function( response ) {
 
-            $modal.find('.chippymtc-modal-loading').hide();
+            $modal.find('.csf-modal-loading').hide();
 
-            CHIPPYMTC.vars.icon_modal_loaded = true;
+            CSF.vars.icon_modal_loaded = true;
 
-            var $load = $modal.find('.chippymtc-modal-load').html( response.content );
+            var $load = $modal.find('.csf-modal-load').html( response.content );
 
             $load.on('click', 'i', function( e ) {
 
@@ -1071,16 +1071,16 @@
 
               var icon = $(this).attr('title');
 
-              CHIPPYMTC.vars.$icon_target.find('.chippymtc-icon-preview i').removeAttr('class').addClass(icon);
-              CHIPPYMTC.vars.$icon_target.find('.chippymtc-icon-preview').removeClass('hidden');
-              CHIPPYMTC.vars.$icon_target.find('.chippymtc-icon-remove').removeClass('hidden');
-              CHIPPYMTC.vars.$icon_target.find('input').val(icon).trigger('change');
+              CSF.vars.$icon_target.find('.csf-icon-preview i').removeAttr('class').addClass(icon);
+              CSF.vars.$icon_target.find('.csf-icon-preview').removeClass('hidden');
+              CSF.vars.$icon_target.find('.csf-icon-remove').removeClass('hidden');
+              CSF.vars.$icon_target.find('input').val(icon).trigger('change');
 
               $modal.addClass('hidden');
 
             });
 
-            $modal.on('change keyup', '.chippymtc-icon-search', function() {
+            $modal.on('change keyup', '.csf-icon-search', function() {
 
               var value  = $(this).val(),
                   $icons = $load.find('i');
@@ -1099,13 +1099,13 @@
 
             });
 
-            $modal.on('click', '.chippymtc-modal-close, .chippymtc-modal-overlay', function() {
+            $modal.on('click', '.csf-modal-close, .csf-modal-overlay', function() {
               $modal.addClass('hidden');
             });
 
           }).fail( function( response ) {
-            $modal.find('.chippymtc-modal-loading').hide();
-            $modal.find('.chippymtc-modal-load').html( response.error );
+            $modal.find('.csf-modal-loading').hide();
+            $modal.find('.csf-modal-load').html( response.error );
             $modal.on('click', function() {
               $modal.addClass('hidden');
             });
@@ -1114,9 +1114,9 @@
 
       });
 
-      $this.on('click', '.chippymtc-icon-remove', function( e ) {
+      $this.on('click', '.csf-icon-remove', function( e ) {
         e.preventDefault();
-        $this.find('.chippymtc-icon-preview').addClass('hidden');
+        $this.find('.csf-icon-preview').addClass('hidden');
         $this.find('input').val('').trigger('change');
         $(this).addClass('hidden');
       });
@@ -1127,17 +1127,17 @@
   //
   // Field: map
   //
-  $.fn.chippymtc_field_map = function() {
+  $.fn.csf_field_map = function() {
     return this.each( function() {
 
       if ( typeof L === 'undefined' ) { return; }
 
       var $this         = $(this),
-          $map          = $this.find('.chippymtc--map-osm'),
-          $search_input = $this.find('.chippymtc--map-search input'),
-          $latitude     = $this.find('.chippymtc--latitude'),
-          $longitude    = $this.find('.chippymtc--longitude'),
-          $zoom         = $this.find('.chippymtc--zoom'),
+          $map          = $this.find('.csf--map-osm'),
+          $search_input = $this.find('.csf--map-search input'),
+          $latitude     = $this.find('.csf--latitude'),
+          $longitude    = $this.find('.csf--longitude'),
+          $zoom         = $this.find('.csf--zoom'),
           map_data      = $map.data( 'map' );
 
       var mapInit = L.map( $map.get(0), map_data);
@@ -1168,7 +1168,7 @@
       });
 
       if ( ! $search_input.length ) {
-        $search_input = $( '[data-depend-id="'+ $this.find('.chippymtc--address-field').data( 'address-field' ) +'"]' );
+        $search_input = $( '[data-depend-id="'+ $this.find('.csf--address-field').data( 'address-field' ) +'"]' );
       }
 
       var cache = {};
@@ -1224,7 +1224,7 @@
 
         },
         create: function (event, ui) {
-          $(this).autocomplete('widget').addClass('chippymtc-map-ui-autocomplate');
+          $(this).autocomplete('widget').addClass('csf-map-ui-autocomplate');
         }
       });
 
@@ -1246,16 +1246,16 @@
   //
   // Field: link
   //
-  $.fn.chippymtc_field_link = function() {
+  $.fn.csf_field_link = function() {
     return this.each( function() {
 
       var $this   = $(this),
-          $link   = $this.find('.chippymtc--link'),
-          $add    = $this.find('.chippymtc--add'),
-          $edit   = $this.find('.chippymtc--edit'),
-          $remove = $this.find('.chippymtc--remove'),
-          $result = $this.find('.chippymtc--result'),
-          uniqid  = CHIPPYMTC.helper.uid('chippymtc-wplink-textarea-');
+          $link   = $this.find('.csf--link'),
+          $add    = $this.find('.csf--add'),
+          $edit   = $this.find('.csf--edit'),
+          $remove = $this.find('.csf--remove'),
+          $result = $this.find('.csf--result'),
+          uniqid  = CSF.helper.uid('csf-wplink-textarea-');
 
       $add.on('click', function( e ) {
 
@@ -1271,9 +1271,9 @@
 
         $add.trigger('click');
 
-        $('#wp-link-url').val($this.find('.chippymtc--url').val());
-        $('#wp-link-text').val($this.find('.chippymtc--text').val());
-        $('#wp-link-target').prop('checked', ($this.find('.chippymtc--target').val() === '_blank'));
+        $('#wp-link-url').val($this.find('.csf--url').val());
+        $('#wp-link-text').val($this.find('.csf--text').val());
+        $('#wp-link-target').prop('checked', ($this.find('.csf--target').val() === '_blank'));
 
       });
 
@@ -1281,9 +1281,9 @@
 
         e.preventDefault();
 
-        $this.find('.chippymtc--url').val('').trigger('change');
-        $this.find('.chippymtc--text').val('');
-        $this.find('.chippymtc--target').val('');
+        $this.find('.csf--url').val('').trigger('change');
+        $this.find('.csf--text').val('');
+        $this.find('.csf--target').val('');
 
         $add.removeClass('hidden');
         $edit.addClass('hidden');
@@ -1299,9 +1299,9 @@
             text   = $('#wp-link-text').val(),
             target = ( atts.target ) ? atts.target : '';
 
-        $this.find('.chippymtc--url').val(href).trigger('change');
-        $this.find('.chippymtc--text').val(text);
-        $this.find('.chippymtc--target').val(target);
+        $this.find('.csf--url').val(href).trigger('change');
+        $this.find('.csf--text').val(text);
+        $this.find('.csf--target').val(target);
 
         $result.html('{url:"'+href+'", text:"'+text+'", target:"'+target+'"}');
 
@@ -1319,14 +1319,14 @@
   //
   // Field: media
   //
-  $.fn.chippymtc_field_media = function() {
+  $.fn.csf_field_media = function() {
     return this.each( function() {
 
       var $this            = $(this),
-          $upload_button   = $this.find('.chippymtc--button'),
-          $remove_button   = $this.find('.chippymtc--remove'),
+          $upload_button   = $this.find('.csf--button'),
+          $remove_button   = $this.find('.csf--remove'),
           $library         = $upload_button.data('library') && $upload_button.data('library').split(',') || '',
-          $auto_attributes = ( $this.hasClass('chippymtc-assign-field-background') ) ? $this.closest('.chippymtc-field-background').find('.chippymtc--auto-attributes') : false,
+          $auto_attributes = ( $this.hasClass('csf-assign-field-background') ) ? $this.closest('.csf-field-background').find('.csf--auto-attributes') : false,
           wp_media_frame;
 
       $upload_button.on('click', function( e ) {
@@ -1358,12 +1358,12 @@
             return;
           }
 
-          $this.find('.chippymtc--id').val( attributes.id );
-          $this.find('.chippymtc--width').val( attributes.width );
-          $this.find('.chippymtc--height').val( attributes.height );
-          $this.find('.chippymtc--alt').val( attributes.alt );
-          $this.find('.chippymtc--title').val( attributes.title );
-          $this.find('.chippymtc--description').val( attributes.description );
+          $this.find('.csf--id').val( attributes.id );
+          $this.find('.csf--width').val( attributes.width );
+          $this.find('.csf--height').val( attributes.height );
+          $this.find('.csf--alt').val( attributes.alt );
+          $this.find('.csf--title').val( attributes.title );
+          $this.find('.csf--description').val( attributes.description );
 
           if ( typeof attributes.sizes !== 'undefined' && typeof attributes.sizes.thumbnail !== 'undefined' && preview_size === 'thumbnail' ) {
             thumbnail = attributes.sizes.thumbnail.url;
@@ -1376,15 +1376,15 @@
           }
 
           if ( $auto_attributes ) {
-            $auto_attributes.removeClass('chippymtc--attributes-hidden');
+            $auto_attributes.removeClass('csf--attributes-hidden');
           }
 
           $remove_button.removeClass('hidden');
 
-          $this.find('.chippymtc--preview').removeClass('hidden');
-          $this.find('.chippymtc--src').attr('src', thumbnail);
-          $this.find('.chippymtc--thumbnail').val( thumbnail );
-          $this.find('.chippymtc--url').val( attributes.url ).trigger('change');
+          $this.find('.csf--preview').removeClass('hidden');
+          $this.find('.csf--src').attr('src', thumbnail);
+          $this.find('.csf--thumbnail').val( thumbnail );
+          $this.find('.csf--url').val( attributes.url ).trigger('change');
 
         });
 
@@ -1397,13 +1397,13 @@
         e.preventDefault();
 
         if ( $auto_attributes ) {
-          $auto_attributes.addClass('chippymtc--attributes-hidden');
+          $auto_attributes.addClass('csf--attributes-hidden');
         }
 
         $remove_button.addClass('hidden');
         $this.find('input').val('');
-        $this.find('.chippymtc--preview').addClass('hidden');
-        $this.find('.chippymtc--url').trigger('change');
+        $this.find('.csf--preview').addClass('hidden');
+        $this.find('.csf--url').trigger('change');
 
       });
 
@@ -1414,42 +1414,42 @@
   //
   // Field: repeater
   //
-  $.fn.chippymtc_field_repeater = function() {
+  $.fn.csf_field_repeater = function() {
     return this.each( function() {
 
       var $this     = $(this),
-          $fieldset = $this.children('.chippymtc-fieldset'),
+          $fieldset = $this.children('.csf-fieldset'),
           $repeater = $fieldset.length ? $fieldset : $this,
-          $wrapper  = $repeater.children('.chippymtc-repeater-wrapper'),
-          $hidden   = $repeater.children('.chippymtc-repeater-hidden'),
-          $max      = $repeater.children('.chippymtc-repeater-max'),
-          $min      = $repeater.children('.chippymtc-repeater-min'),
+          $wrapper  = $repeater.children('.csf-repeater-wrapper'),
+          $hidden   = $repeater.children('.csf-repeater-hidden'),
+          $max      = $repeater.children('.csf-repeater-max'),
+          $min      = $repeater.children('.csf-repeater-min'),
           field_id  = $wrapper.data('field-id'),
           max       = parseInt( $wrapper.data('max') ),
           min       = parseInt( $wrapper.data('min') );
 
-      $wrapper.children('.chippymtc-repeater-item').children('.chippymtc-repeater-content').chippymtc_reload_script();
+      $wrapper.children('.csf-repeater-item').children('.csf-repeater-content').csf_reload_script();
 
       $wrapper.sortable({
         axis: 'y',
-        handle: '.chippymtc-repeater-sort',
+        handle: '.csf-repeater-sort',
         helper: 'original',
         cursor: 'move',
         placeholder: 'widget-placeholder',
         update: function( event, ui ) {
 
-          CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-repeater-item'), field_id );
-          $wrapper.chippymtc_customizer_refresh();
-          ui.item.chippymtc_reload_script_retry();
+          CSF.helper.name_nested_replace( $wrapper.children('.csf-repeater-item'), field_id );
+          $wrapper.csf_customizer_refresh();
+          ui.item.csf_reload_script_retry();
 
         }
       });
 
-      $repeater.children('.chippymtc-repeater-add').on('click', function( e ) {
+      $repeater.children('.csf-repeater-add').on('click', function( e ) {
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-repeater-item').length;
+        var count = $wrapper.children('.csf-repeater-item').length;
 
         $min.hide();
 
@@ -1458,18 +1458,18 @@
           return;
         }
 
-        var $cloned_item = $hidden.chippymtc_clone(true);
+        var $cloned_item = $hidden.csf_clone(true);
 
-        $cloned_item.removeClass('chippymtc-repeater-hidden');
+        $cloned_item.removeClass('csf-repeater-hidden');
 
         $cloned_item.find(':input[name!="_pseudo"]').each( function() {
           this.name = this.name.replace( '___', '' ).replace( field_id +'[0]', field_id +'['+ count +']' );
         });
 
         $wrapper.append($cloned_item);
-        $cloned_item.children('.chippymtc-repeater-content').chippymtc_reload_script();
-        $wrapper.chippymtc_customizer_refresh();
-        $wrapper.chippymtc_customizer_listen({closest: true});
+        $cloned_item.children('.csf-repeater-content').csf_reload_script();
+        $wrapper.csf_customizer_refresh();
+        $wrapper.csf_customizer_listen({closest: true});
 
       });
 
@@ -1477,7 +1477,7 @@
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-repeater-item').length;
+        var count = $wrapper.children('.csf-repeater-item').length;
 
         $min.hide();
 
@@ -1488,32 +1488,32 @@
 
         var $this           = $(this),
             $parent         = $this.parent().parent().parent(),
-            $cloned_content = $parent.children('.chippymtc-repeater-content').chippymtc_clone(),
-            $cloned_helper  = $parent.children('.chippymtc-repeater-helper').chippymtc_clone(true),
-            $cloned_item    = $('<div class="chippymtc-repeater-item" />');
+            $cloned_content = $parent.children('.csf-repeater-content').csf_clone(),
+            $cloned_helper  = $parent.children('.csf-repeater-helper').csf_clone(true),
+            $cloned_item    = $('<div class="csf-repeater-item" />');
 
         $cloned_item.append($cloned_content);
         $cloned_item.append($cloned_helper);
 
         $wrapper.children().eq($parent.index()).after($cloned_item);
 
-        $cloned_item.children('.chippymtc-repeater-content').chippymtc_reload_script();
+        $cloned_item.children('.csf-repeater-content').csf_reload_script();
 
-        CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-repeater-item'), field_id );
+        CSF.helper.name_nested_replace( $wrapper.children('.csf-repeater-item'), field_id );
 
-        $wrapper.chippymtc_customizer_refresh();
-        $wrapper.chippymtc_customizer_listen({closest: true});
+        $wrapper.csf_customizer_refresh();
+        $wrapper.csf_customizer_listen({closest: true});
 
       };
 
-      $wrapper.children('.chippymtc-repeater-item').children('.chippymtc-repeater-helper').on('click', '.chippymtc-repeater-clone', event_clone);
-      $repeater.children('.chippymtc-repeater-hidden').children('.chippymtc-repeater-helper').on('click', '.chippymtc-repeater-clone', event_clone);
+      $wrapper.children('.csf-repeater-item').children('.csf-repeater-helper').on('click', '.csf-repeater-clone', event_clone);
+      $repeater.children('.csf-repeater-hidden').children('.csf-repeater-helper').on('click', '.csf-repeater-clone', event_clone);
 
       var event_remove = function( e ) {
 
         e.preventDefault();
 
-        var count = $wrapper.children('.chippymtc-repeater-item').length;
+        var count = $wrapper.children('.csf-repeater-item').length;
 
         $max.hide();
         $min.hide();
@@ -1523,16 +1523,16 @@
           return;
         }
 
-        $(this).closest('.chippymtc-repeater-item').remove();
+        $(this).closest('.csf-repeater-item').remove();
 
-        CHIPPYMTC.helper.name_nested_replace( $wrapper.children('.chippymtc-repeater-item'), field_id );
+        CSF.helper.name_nested_replace( $wrapper.children('.csf-repeater-item'), field_id );
 
-        $wrapper.chippymtc_customizer_refresh();
+        $wrapper.csf_customizer_refresh();
 
       };
 
-      $wrapper.children('.chippymtc-repeater-item').children('.chippymtc-repeater-helper').on('click', '.chippymtc-repeater-remove', event_remove);
-      $repeater.children('.chippymtc-repeater-hidden').children('.chippymtc-repeater-helper').on('click', '.chippymtc-repeater-remove', event_remove);
+      $wrapper.children('.csf-repeater-item').children('.csf-repeater-helper').on('click', '.csf-repeater-remove', event_remove);
+      $repeater.children('.csf-repeater-hidden').children('.csf-repeater-helper').on('click', '.csf-repeater-remove', event_remove);
 
     });
   };
@@ -1540,12 +1540,12 @@
   //
   // Field: slider
   //
-  $.fn.chippymtc_field_slider = function() {
+  $.fn.csf_field_slider = function() {
     return this.each( function() {
 
       var $this   = $(this),
           $input  = $this.find('input'),
-          $slider = $this.find('.chippymtc-slider-ui'),
+          $slider = $this.find('.csf-slider-ui'),
           data    = $input.data(),
           value   = $input.val() || 0;
 
@@ -1574,10 +1574,10 @@
   //
   // Field: sortable
   //
-  $.fn.chippymtc_field_sortable = function() {
+  $.fn.csf_field_sortable = function() {
     return this.each( function() {
 
-      var $sortable = $(this).find('.chippymtc-sortable');
+      var $sortable = $(this).find('.csf-sortable');
 
       $sortable.sortable({
         axis: 'y',
@@ -1585,11 +1585,11 @@
         cursor: 'move',
         placeholder: 'widget-placeholder',
         update: function( event, ui ) {
-          $sortable.chippymtc_customizer_refresh();
+          $sortable.csf_customizer_refresh();
         }
       });
 
-      $sortable.find('.chippymtc-sortable-content').chippymtc_reload_script();
+      $sortable.find('.csf-sortable-content').csf_reload_script();
 
     });
   };
@@ -1597,12 +1597,12 @@
   //
   // Field: sorter
   //
-  $.fn.chippymtc_field_sorter = function() {
+  $.fn.csf_field_sorter = function() {
     return this.each( function() {
 
       var $this         = $(this),
-          $enabled      = $this.find('.chippymtc-enabled'),
-          $has_disabled = $this.find('.chippymtc-disabled'),
+          $enabled      = $this.find('.csf-enabled'),
+          $has_disabled = $this.find('.csf-disabled'),
           $disabled     = ( $has_disabled.length ) ? $has_disabled : false;
 
       $enabled.sortable({
@@ -1612,13 +1612,13 @@
 
           var $el = ui.item.find('input');
 
-          if ( ui.item.parent().hasClass('chippymtc-enabled') ) {
+          if ( ui.item.parent().hasClass('csf-enabled') ) {
             $el.attr('name', $el.attr('name').replace('disabled', 'enabled'));
           } else {
             $el.attr('name', $el.attr('name').replace('enabled', 'disabled'));
           }
 
-          $this.chippymtc_customizer_refresh();
+          $this.csf_customizer_refresh();
 
         }
       });
@@ -1629,7 +1629,7 @@
           connectWith: $enabled,
           placeholder: 'ui-sortable-placeholder',
           update: function( event, ui ) {
-            $this.chippymtc_customizer_refresh();
+            $this.csf_customizer_refresh();
           }
         });
 
@@ -1641,7 +1641,7 @@
   //
   // Field: spinner
   //
-  $.fn.chippymtc_field_spinner = function() {
+  $.fn.csf_field_spinner = function() {
     return this.each( function() {
 
       var $this   = $(this),
@@ -1659,7 +1659,7 @@
         step: data.step || 1,
         create: function( event, ui ) {
           if ( data.unit ) {
-            $input.after('<span class="ui-button chippymtc--unit">'+ data.unit +'</span>');
+            $input.after('<span class="ui-button csf--unit">'+ data.unit +'</span>');
           }
         },
         spin: function (event, ui ) {
@@ -1673,21 +1673,21 @@
   //
   // Field: switcher
   //
-  $.fn.chippymtc_field_switcher = function() {
+  $.fn.csf_field_switcher = function() {
     return this.each( function() {
 
-      var $switcher = $(this).find('.chippymtc--switcher');
+      var $switcher = $(this).find('.csf--switcher');
 
       $switcher.on('click', function() {
 
         var value  = 0;
         var $input = $switcher.find('input');
 
-        if ( $switcher.hasClass('chippymtc--active') ) {
-          $switcher.removeClass('chippymtc--active');
+        if ( $switcher.hasClass('csf--active') ) {
+          $switcher.removeClass('csf--active');
         } else {
           value = 1;
-          $switcher.addClass('chippymtc--active');
+          $switcher.addClass('csf--active');
         }
 
         $input.val(value).trigger('change');
@@ -1700,14 +1700,14 @@
   //
   // Field: tabbed
   //
-  $.fn.chippymtc_field_tabbed = function() {
+  $.fn.csf_field_tabbed = function() {
     return this.each( function() {
 
       var $this     = $(this),
-          $links    = $this.find('.chippymtc-tabbed-nav a'),
-          $contents = $this.find('.chippymtc-tabbed-content');
+          $links    = $this.find('.csf-tabbed-nav a'),
+          $contents = $this.find('.csf-tabbed-content');
 
-      $contents.eq(0).chippymtc_reload_script();
+      $contents.eq(0).csf_reload_script();
 
       $links.on( 'click', function( e ) {
 
@@ -1717,8 +1717,8 @@
             index    = $link.index(),
             $content = $contents.eq(index);
 
-        $link.addClass('chippymtc-tabbed-active').siblings().removeClass('chippymtc-tabbed-active');
-        $content.chippymtc_reload_script();
+        $link.addClass('csf-tabbed-active').siblings().removeClass('csf-tabbed-active');
+        $content.csf_reload_script();
         $content.removeClass('hidden').siblings().addClass('hidden');
 
       });
@@ -1729,15 +1729,15 @@
   //
   // Field: typography
   //
-  $.fn.chippymtc_field_typography = function() {
+  $.fn.csf_field_typography = function() {
     return this.each(function () {
 
       var base          = this;
       var $this         = $(this);
       var loaded_fonts  = [];
-      var webfonts      = chippymtc_typography_json.webfonts;
-      var googlestyles  = chippymtc_typography_json.googlestyles;
-      var defaultstyles = chippymtc_typography_json.defaultstyles;
+      var webfonts      = csf_typography_json.webfonts;
+      var googlestyles  = csf_typography_json.googlestyles;
+      var defaultstyles = csf_typography_json.defaultstyles;
 
       //
       //
@@ -1810,7 +1810,7 @@
 
         });
 
-        $select.append(opts).trigger('chippymtc.change').trigger('chosen:updated');
+        $select.append(opts).trigger('csf.change').trigger('chosen:updated');
 
       };
 
@@ -1820,9 +1820,9 @@
         //
         // Constants
         var selected_styles  = [];
-        var $typography      = $this.find('.chippymtc--typography');
-        var $type            = $this.find('.chippymtc--type');
-        var $styles          = $this.find('.chippymtc--block-font-style');
+        var $typography      = $this.find('.csf--typography');
+        var $type            = $this.find('.csf--type');
+        var $styles          = $this.find('.csf--block-font-style');
         var unit             = $typography.data('unit');
         var line_height_unit = $typography.data('line-height-unit');
         var exclude_fonts    = $typography.data('exclude') ? $typography.data('exclude').split(',') : [];
@@ -1830,7 +1830,7 @@
         //
         //
         // Chosen init
-        if ( $this.find('.chippymtc--chosen').length ) {
+        if ( $this.find('.csf--chosen').length ) {
 
           var $chosen_selects = $this.find('select');
 
@@ -1856,7 +1856,7 @@
         //
         //
         // Font family select
-        var $font_family_select = $this.find('.chippymtc--font-family');
+        var $font_family_select = $this.find('.csf--font-family');
         var first_font_family   = $font_family_select.val();
 
         // Clear default font family select options
@@ -1890,16 +1890,16 @@
         //
         //
         // Font style select
-        var $font_style_block = $this.find('.chippymtc--block-font-style');
+        var $font_style_block = $this.find('.csf--block-font-style');
 
         if ( $font_style_block.length ) {
 
-          var $font_style_select = $this.find('.chippymtc--font-style-select');
+          var $font_style_select = $this.find('.csf--font-style-select');
           var first_style_value  = $font_style_select.val() ? $font_style_select.val().replace(/normal/g, '' ) : '';
 
           //
           // Font Style on on change listener
-          $font_style_select.on('change chippymtc.change', function( event ) {
+          $font_style_select.on('change csf.change', function( event ) {
 
             var style_value = $font_style_select.val();
 
@@ -1913,18 +1913,18 @@
             var font_weight = ( style_value && style_value !== 'italic' && style_value !== 'normal' ) ? style_value.replace('italic', '') : font_normal;
             var font_style  = ( style_value && style_value.substr(-6) === 'italic' ) ? 'italic' : '';
 
-            $this.find('.chippymtc--font-weight').val( font_weight );
-            $this.find('.chippymtc--font-style').val( font_style );
+            $this.find('.csf--font-weight').val( font_weight );
+            $this.find('.csf--font-style').val( font_style );
 
           });
 
           //
           //
           // Extra font style select
-          var $extra_font_style_block = $this.find('.chippymtc--block-extra-styles');
+          var $extra_font_style_block = $this.find('.csf--block-extra-styles');
 
           if ( $extra_font_style_block.length ) {
-            var $extra_font_style_select = $this.find('.chippymtc--extra-styles');
+            var $extra_font_style_select = $this.find('.csf--extra-styles');
             var first_extra_style_value  = $extra_font_style_select.val();
           }
 
@@ -1933,9 +1933,9 @@
         //
         //
         // Subsets select
-        var $subset_block = $this.find('.chippymtc--block-subset');
+        var $subset_block = $this.find('.csf--block-subset');
         if ( $subset_block.length ) {
-          var $subset_select = $this.find('.chippymtc--subset');
+          var $subset_select = $this.find('.csf--subset');
           var first_subset_select_value = $subset_select.val();
           var subset_multi_select = $subset_select.data('multiple') || false;
         }
@@ -1943,12 +1943,12 @@
         //
         //
         // Backup font family
-        var $backup_font_family_block = $this.find('.chippymtc--block-backup-font-family');
+        var $backup_font_family_block = $this.find('.csf--block-backup-font-family');
 
         //
         //
         // Font Family on Change Listener
-        $font_family_select.on('change chippymtc.change', function( event ) {
+        $font_family_select.on('change csf.change', function( event ) {
 
           // Hide subsets on change
           if ( $subset_block.length ) {
@@ -2060,36 +2060,36 @@
           // Update font type input value
           $type.val(type);
 
-        }).trigger('chippymtc.change');
+        }).trigger('csf.change');
 
         //
         //
         // Preview
-        var $preview_block = $this.find('.chippymtc--block-preview');
+        var $preview_block = $this.find('.csf--block-preview');
 
         if ( $preview_block.length ) {
 
-          var $preview = $this.find('.chippymtc--preview');
+          var $preview = $this.find('.csf--preview');
 
           // Set preview styles on change
-          $this.on('change', CHIPPYMTC.helper.debounce( function( event ) {
+          $this.on('change', CSF.helper.debounce( function( event ) {
 
             $preview_block.removeClass('hidden');
 
             var font_family       = $font_family_select.val(),
-                font_weight       = $this.find('.chippymtc--font-weight').val(),
-                font_style        = $this.find('.chippymtc--font-style').val(),
-                font_size         = $this.find('.chippymtc--font-size').val(),
-                font_variant      = $this.find('.chippymtc--font-variant').val(),
-                line_height       = $this.find('.chippymtc--line-height').val(),
-                text_align        = $this.find('.chippymtc--text-align').val(),
-                text_transform    = $this.find('.chippymtc--text-transform').val(),
-                text_decoration   = $this.find('.chippymtc--text-decoration').val(),
-                text_color        = $this.find('.chippymtc--color').val(),
-                word_spacing      = $this.find('.chippymtc--word-spacing').val(),
-                letter_spacing    = $this.find('.chippymtc--letter-spacing').val(),
-                custom_style      = $this.find('.chippymtc--custom-style').val(),
-                type              = $this.find('.chippymtc--type').val();
+                font_weight       = $this.find('.csf--font-weight').val(),
+                font_style        = $this.find('.csf--font-style').val(),
+                font_size         = $this.find('.csf--font-size').val(),
+                font_variant      = $this.find('.csf--font-variant').val(),
+                line_height       = $this.find('.csf--line-height').val(),
+                text_align        = $this.find('.csf--text-align').val(),
+                text_transform    = $this.find('.csf--text-transform').val(),
+                text_decoration   = $this.find('.csf--text-decoration').val(),
+                text_color        = $this.find('.csf--color').val(),
+                word_spacing      = $this.find('.csf--word-spacing').val(),
+                letter_spacing    = $this.find('.csf--letter-spacing').val(),
+                custom_style      = $this.find('.csf--custom-style').val(),
+                type              = $this.find('.csf--type').val();
 
             if ( type === 'google' ) {
               base.load_google_font(font_family, font_weight, font_style);
@@ -2122,9 +2122,9 @@
           // Preview black and white backgrounds trigger
           $preview_block.on('click', function() {
 
-            $preview.toggleClass('chippymtc--black-background');
+            $preview.toggleClass('csf--black-background');
 
-            var $toggle = $preview_block.find('.chippymtc--toggle');
+            var $toggle = $preview_block.find('.csf--toggle');
 
             if ( $toggle.hasClass('fa-toggle-off') ) {
               $toggle.removeClass('fa-toggle-off').addClass('fa-toggle-on');
@@ -2150,15 +2150,15 @@
   //
   // Field: upload
   //
-  $.fn.chippymtc_field_upload = function() {
+  $.fn.csf_field_upload = function() {
     return this.each( function() {
 
       var $this          = $(this),
           $input         = $this.find('input'),
-          $upload_button = $this.find('.chippymtc--button'),
-          $remove_button = $this.find('.chippymtc--remove'),
-          $preview_wrap  = $this.find('.chippymtc--preview'),
-          $preview_src   = $this.find('.chippymtc--src'),
+          $upload_button = $this.find('.csf--button'),
+          $remove_button = $this.find('.csf--remove'),
+          $preview_wrap  = $this.find('.csf--preview'),
+          $preview_src   = $this.find('.csf--src'),
           $library       = $upload_button.data('library') && $upload_button.data('library').split(',') || '',
           wp_media_frame;
 
@@ -2233,15 +2233,15 @@
   //
   // Field: wp_editor
   //
-  $.fn.chippymtc_field_wp_editor = function() {
+  $.fn.csf_field_wp_editor = function() {
     return this.each( function() {
 
-      if ( typeof window.wp.editor === 'undefined' || typeof window.tinyMCEPreInit === 'undefined' || typeof window.tinyMCEPreInit.mceInit.chippymtc_wp_editor === 'undefined' ) {
+      if ( typeof window.wp.editor === 'undefined' || typeof window.tinyMCEPreInit === 'undefined' || typeof window.tinyMCEPreInit.mceInit.csf_wp_editor === 'undefined' ) {
         return;
       }
 
       var $this     = $(this),
-          $editor   = $this.find('.chippymtc-wp-editor'),
+          $editor   = $this.find('.csf-wp-editor'),
           $textarea = $this.find('textarea');
 
       // If there is wp-editor remove it for avoid dupliated wp-editor conflicts.
@@ -2254,14 +2254,14 @@
       }
 
       // Generate a unique id
-      var uid = CHIPPYMTC.helper.uid('chippymtc-editor-');
+      var uid = CSF.helper.uid('csf-editor-');
 
       $textarea.attr('id', uid);
 
       // Get default editor settings
       var default_editor_settings = {
-        tinymce: window.tinyMCEPreInit.mceInit.chippymtc_wp_editor,
-        quicktags: window.tinyMCEPreInit.qtInit.chippymtc_wp_editor
+        tinymce: window.tinyMCEPreInit.mceInit.csf_wp_editor,
+        quicktags: window.tinyMCEPreInit.qtInit.csf_wp_editor
       };
 
       // Get default editor settings
@@ -2290,13 +2290,13 @@
       // Override editor tinymce settings
       if ( field_editor_settings.tinymce === false ) {
         default_editor_settings.tinymce = false;
-        $editor.addClass('chippymtc-no-tinymce');
+        $editor.addClass('csf-no-tinymce');
       }
 
       // Override editor quicktags settings
       if ( field_editor_settings.quicktags === false ) {
         default_editor_settings.quicktags = false;
-        $editor.addClass('chippymtc-no-quicktags');
+        $editor.addClass('csf-no-quicktags');
       }
 
       // Wait until :visible
@@ -2308,19 +2308,19 @@
       });
 
       // Add Media buttons
-      if ( field_editor_settings.media_buttons && window.chippymtc_media_buttons ) {
+      if ( field_editor_settings.media_buttons && window.csf_media_buttons ) {
 
         var $editor_buttons = $editor.find('.wp-media-buttons');
 
         if ( $editor_buttons.length ) {
 
-          $editor_buttons.find('.chippymtc-shortcode-button').data('editor-id', uid);
+          $editor_buttons.find('.csf-shortcode-button').data('editor-id', uid);
 
         } else {
 
-          var $media_buttons = $(window.chippymtc_media_buttons);
+          var $media_buttons = $(window.csf_media_buttons);
 
-          $media_buttons.find('.chippymtc-shortcode-button').data('editor-id', uid);
+          $media_buttons.find('.csf-shortcode-button').data('editor-id', uid);
 
           $editor.prepend( $media_buttons );
 
@@ -2335,16 +2335,16 @@
   //
   // Confirm
   //
-  $.fn.chippymtc_confirm = function() {
+  $.fn.csf_confirm = function() {
     return this.each( function() {
       $(this).on('click', function( e ) {
 
-        var confirm_text   = $(this).data('confirm') || window.chippymtc_vars.i18n.confirm;
+        var confirm_text   = $(this).data('confirm') || window.csf_vars.i18n.confirm;
         var confirm_answer = confirm( confirm_text );
 
         if ( confirm_answer ) {
-          CHIPPYMTC.vars.is_confirm = true;
-          CHIPPYMTC.vars.form_modified = false;
+          CSF.vars.is_confirm = true;
+          CSF.vars.form_modified = false;
         } else {
           e.preventDefault();
           return false;
@@ -2374,12 +2374,12 @@
   //
   // Options Save
   //
-  $.fn.chippymtc_save = function() {
+  $.fn.csf_save = function() {
     return this.each( function() {
 
       var $this    = $(this),
-          $buttons = $('.chippymtc-save'),
-          $panel   = $('.chippymtc-options'),
+          $buttons = $('.csf-save'),
+          $panel   = $('.csf-options'),
           flooding = false,
           timeout;
 
@@ -2392,55 +2392,55 @@
 
           $buttons.attr('value', $text);
 
-          if ( $this.hasClass('chippymtc-save-ajax') ) {
+          if ( $this.hasClass('csf-save-ajax') ) {
 
             e.preventDefault();
 
-            $panel.addClass('chippymtc-saving');
+            $panel.addClass('csf-saving');
             $buttons.prop('disabled', true);
 
-            window.wp.ajax.post( 'chippymtc_'+ $panel.data('unique') +'_ajax_save', {
-              data: $('#chippymtc-form').serializeJSONCHIPPYMTC()
+            window.wp.ajax.post( 'csf_'+ $panel.data('unique') +'_ajax_save', {
+              data: $('#csf-form').serializeJSONCSF()
             })
             .done( function( response ) {
 
               // clear errors
-              $('.chippymtc-error').remove();
+              $('.csf-error').remove();
 
               if ( Object.keys( response.errors ).length ) {
 
-                var error_icon = '<i class="chippymtc-label-error chippymtc-error">!</i>';
+                var error_icon = '<i class="csf-label-error csf-error">!</i>';
 
                 $.each(response.errors, function( key, error_message ) {
 
                   var $field = $('[data-depend-id="'+ key +'"]'),
-                      $link  = $('a[href="#tab='+ $field.closest('.chippymtc-section').data('section-id') +'"]' ),
-                      $tab   = $link.closest('.chippymtc-tab-item');
+                      $link  = $('a[href="#tab='+ $field.closest('.csf-section').data('section-id') +'"]' ),
+                      $tab   = $link.closest('.csf-tab-item');
 
-                  $field.closest('.chippymtc-fieldset').append( '<p class="chippymtc-error chippymtc-error-text">'+ error_message +'</p>' );
+                  $field.closest('.csf-fieldset').append( '<p class="csf-error csf-error-text">'+ error_message +'</p>' );
 
-                  if ( !$link.find('.chippymtc-error').length ) {
+                  if ( !$link.find('.csf-error').length ) {
                     $link.append( error_icon );
                   }
 
-                  if ( !$tab.find('.chippymtc-arrow .chippymtc-error').length ) {
-                    $tab.find('.chippymtc-arrow').append( error_icon );
+                  if ( !$tab.find('.csf-arrow .csf-error').length ) {
+                    $tab.find('.csf-arrow').append( error_icon );
                   }
 
                 });
 
               }
 
-              $panel.removeClass('chippymtc-saving');
+              $panel.removeClass('csf-saving');
               $buttons.prop('disabled', false).attr('value', $value);
               flooding = false;
 
-              CHIPPYMTC.vars.form_modified = false;
-              CHIPPYMTC.vars.$form_warning.hide();
+              CSF.vars.form_modified = false;
+              CSF.vars.$form_warning.hide();
 
               clearTimeout(timeout);
 
-              var $result_success = $('.chippymtc-form-success');
+              var $result_success = $('.csf-form-success');
               $result_success.empty().append(response.notice).fadeIn('fast', function() {
                 timeout = setTimeout( function() {
                   $result_success.fadeOut('fast');
@@ -2454,7 +2454,7 @@
 
           } else {
 
-            CHIPPYMTC.vars.form_modified = false;
+            CSF.vars.form_modified = false;
 
           }
 
@@ -2470,35 +2470,35 @@
   //
   // Option Framework
   //
-  $.fn.chippymtc_options = function() {
+  $.fn.csf_options = function() {
     return this.each( function() {
 
       var $this         = $(this),
-          $content      = $this.find('.chippymtc-content'),
-          $form_success = $this.find('.chippymtc-form-success'),
-          $form_warning = $this.find('.chippymtc-form-warning'),
-          $save_button  = $this.find('.chippymtc-header .chippymtc-save');
+          $content      = $this.find('.csf-content'),
+          $form_success = $this.find('.csf-form-success'),
+          $form_warning = $this.find('.csf-form-warning'),
+          $save_button  = $this.find('.csf-header .csf-save');
 
-      CHIPPYMTC.vars.$form_warning = $form_warning;
+      CSF.vars.$form_warning = $form_warning;
 
       // Shows a message white leaving theme options without saving
       if ( $form_warning.length ) {
 
         window.onbeforeunload = function() {
-          return ( CHIPPYMTC.vars.form_modified ) ? true : undefined;
+          return ( CSF.vars.form_modified ) ? true : undefined;
         };
 
         $content.on('change keypress', ':input', function() {
-          if ( !CHIPPYMTC.vars.form_modified ) {
+          if ( !CSF.vars.form_modified ) {
             $form_success.hide();
             $form_warning.fadeIn('fast');
-            CHIPPYMTC.vars.form_modified = true;
+            CSF.vars.form_modified = true;
           }
         });
 
       }
 
-      if ( $form_success.hasClass('chippymtc-form-show') ) {
+      if ( $form_success.hasClass('csf-form-show') ) {
         setTimeout( function() {
           $form_success.fadeOut('fast');
         }, 1000);
@@ -2518,7 +2518,7 @@
   //
   // Taxonomy Framework
   //
-  $.fn.chippymtc_taxonomy = function() {
+  $.fn.csf_taxonomy = function() {
     return this.each( function() {
 
       var $this = $(this),
@@ -2527,7 +2527,7 @@
       if ( $form.attr('id') === 'addtag' ) {
 
         var $submit = $form.find('#submit'),
-            $cloned = $this.find('.chippymtc-field').chippymtc_clone();
+            $cloned = $this.find('.csf-field').csf_clone();
 
         $submit.on( 'click', function() {
 
@@ -2539,9 +2539,9 @@
 
             $this.html( $cloned );
 
-            $cloned = $cloned.chippymtc_clone();
+            $cloned = $cloned.csf_clone();
 
-            $this.chippymtc_reload_script();
+            $this.csf_reload_script();
 
           }
 
@@ -2555,7 +2555,7 @@
   //
   // Shortcode Framework
   //
-  $.fn.chippymtc_shortcode = function() {
+  $.fn.csf_shortcode = function() {
 
     var base = this;
 
@@ -2664,10 +2664,10 @@
     return this.each( function() {
 
       var $modal   = $(this),
-          $load    = $modal.find('.chippymtc-modal-load'),
-          $content = $modal.find('.chippymtc-modal-content'),
-          $insert  = $modal.find('.chippymtc-modal-insert'),
-          $loading = $modal.find('.chippymtc-modal-loading'),
+          $load    = $modal.find('.csf-modal-load'),
+          $content = $modal.find('.csf-modal-content'),
+          $insert  = $modal.find('.csf-modal-insert'),
+          $loading = $modal.find('.csf-modal-loading'),
           $select  = $modal.find('select'),
           modal_id = $modal.data('modal-id'),
           nonce    = $modal.data('nonce'),
@@ -2681,7 +2681,7 @@
           $cloned,
           $button;
 
-      $(document).on('click', '.chippymtc-shortcode-button[data-modal-id="'+ modal_id +'"]', function( e ) {
+      $(document).on('click', '.csf-shortcode-button[data-modal-id="'+ modal_id +'"]', function( e ) {
 
         e.preventDefault();
 
@@ -2693,7 +2693,7 @@
         $modal.removeClass('hidden');
 
         // single usage trigger first shortcode
-        if ( $modal.hasClass('chippymtc-shortcode-single') && sc_name === undefined ) {
+        if ( $modal.hasClass('csf-shortcode-single') && sc_name === undefined ) {
           $select.trigger('change');
         }
 
@@ -2715,7 +2715,7 @@
 
           $loading.show();
 
-          window.wp.ajax.post( 'chippymtc-get-shortcode-'+ modal_id, {
+          window.wp.ajax.post( 'csf-get-shortcode-'+ modal_id, {
             shortcode_key: sc_key,
             nonce: nonce
           })
@@ -2727,10 +2727,10 @@
 
             $insert.parent().removeClass('hidden');
 
-            $cloned = $appended.find('.chippymtc--repeat-shortcode').chippymtc_clone();
+            $cloned = $appended.find('.csf--repeat-shortcode').csf_clone();
 
-            $appended.chippymtc_reload_script();
-            $appended.find('.chippymtc-fields').chippymtc_reload_script();
+            $appended.csf_reload_script();
+            $appended.find('.csf-fields').csf_reload_script();
 
           });
 
@@ -2749,7 +2749,7 @@
         if ( $insert.prop('disabled') || $insert.attr('disabled') ) { return; }
 
         var shortcode = '';
-        var serialize = $modal.find('.chippymtc-field:not(.chippymtc-depend-on)').find(':input:not(.ignore)').serializeObjectCHIPPYMTC();
+        var serialize = $modal.find('.csf-field:not(.csf-depend-on)').find(':input:not(.ignore)').serializeObjectCSF();
 
         switch ( sc_view ) {
 
@@ -2787,8 +2787,8 @@
 
         if ( gutenberg_id ) {
 
-          var content = window.chippymtc_gutenberg_props.attributes.hasOwnProperty('shortcode') ? window.chippymtc_gutenberg_props.attributes.shortcode : '';
-          window.chippymtc_gutenberg_props.setAttributes({shortcode: content + shortcode});
+          var content = window.csf_gutenberg_props.attributes.hasOwnProperty('shortcode') ? window.csf_gutenberg_props.attributes.shortcode : '';
+          window.csf_gutenberg_props.setAttributes({shortcode: content + shortcode});
 
         } else if ( editor_id ) {
 
@@ -2805,31 +2805,31 @@
 
       });
 
-      $modal.on('click', '.chippymtc--repeat-button', function( e ) {
+      $modal.on('click', '.csf--repeat-button', function( e ) {
 
         e.preventDefault();
 
-        var $repeatable = $modal.find('.chippymtc--repeatable');
-        var $new_clone  = $cloned.chippymtc_clone();
-        var $remove_btn = $new_clone.find('.chippymtc-repeat-remove');
+        var $repeatable = $modal.find('.csf--repeatable');
+        var $new_clone  = $cloned.csf_clone();
+        var $remove_btn = $new_clone.find('.csf-repeat-remove');
 
         var $appended = $new_clone.appendTo( $repeatable );
 
-        $new_clone.find('.chippymtc-fields').chippymtc_reload_script();
+        $new_clone.find('.csf-fields').csf_reload_script();
 
-        CHIPPYMTC.helper.name_nested_replace( $modal.find('.chippymtc--repeat-shortcode'), sc_group );
+        CSF.helper.name_nested_replace( $modal.find('.csf--repeat-shortcode'), sc_group );
 
         $remove_btn.on('click', function() {
 
           $new_clone.remove();
 
-          CHIPPYMTC.helper.name_nested_replace( $modal.find('.chippymtc--repeat-shortcode'), sc_group );
+          CSF.helper.name_nested_replace( $modal.find('.csf--repeat-shortcode'), sc_group );
 
         });
 
       });
 
-      $modal.on('click', '.chippymtc-modal-close, .chippymtc-modal-overlay', function() {
+      $modal.on('click', '.csf-modal-close, .csf-modal-overlay', function() {
         $modal.addClass('hidden');
       });
 
@@ -2863,7 +2863,7 @@
 
   }
 
-  CHIPPYMTC.funcs.parse_color = function( color ) {
+  CSF.funcs.parse_color = function( color ) {
 
     var value = color.replace(/\s+/g, ''),
         trans = ( value.indexOf('rgba') !== -1 ) ? parseFloat( value.replace(/^.*,(.+)\)/, '$1') * 100 ) : 100,
@@ -2873,12 +2873,12 @@
 
   };
 
-  $.fn.chippymtc_color = function() {
+  $.fn.csf_color = function() {
     return this.each( function() {
 
       var $input        = $(this),
-          picker_color  = CHIPPYMTC.funcs.parse_color( $input.val() ),
-          palette_color = window.chippymtc_vars.color_palette.length ? window.chippymtc_vars.color_palette : true,
+          picker_color  = CSF.funcs.parse_color( $input.val() ),
+          palette_color = window.csf_vars.color_palette.length ? window.csf_vars.color_palette : true,
           $container;
 
       // Destroy and Reinit
@@ -2892,8 +2892,8 @@
 
           var ui_color_value = ui.color.toString();
 
-          $container.removeClass('chippymtc--transparent-active');
-          $container.find('.chippymtc--transparent-offset').css('background-color', ui_color_value);
+          $container.removeClass('csf--transparent-active');
+          $container.find('.csf--transparent-offset').css('background-color', ui_color_value);
           $input.val(ui_color_value).trigger('change');
 
         },
@@ -2902,28 +2902,28 @@
           $container = $input.closest('.wp-picker-container');
 
           var a8cIris = $input.data('a8cIris'),
-              $transparent_wrap = $('<div class="chippymtc--transparent-wrap">' +
-                                '<div class="chippymtc--transparent-slider"></div>' +
-                                '<div class="chippymtc--transparent-offset"></div>' +
-                                '<div class="chippymtc--transparent-text"></div>' +
-                                '<div class="chippymtc--transparent-button">transparent <i class="fas fa-toggle-off"></i></div>' +
+              $transparent_wrap = $('<div class="csf--transparent-wrap">' +
+                                '<div class="csf--transparent-slider"></div>' +
+                                '<div class="csf--transparent-offset"></div>' +
+                                '<div class="csf--transparent-text"></div>' +
+                                '<div class="csf--transparent-button">transparent <i class="fas fa-toggle-off"></i></div>' +
                                 '</div>').appendTo( $container.find('.wp-picker-holder') ),
-              $transparent_slider = $transparent_wrap.find('.chippymtc--transparent-slider'),
-              $transparent_text   = $transparent_wrap.find('.chippymtc--transparent-text'),
-              $transparent_offset = $transparent_wrap.find('.chippymtc--transparent-offset'),
-              $transparent_button = $transparent_wrap.find('.chippymtc--transparent-button');
+              $transparent_slider = $transparent_wrap.find('.csf--transparent-slider'),
+              $transparent_text   = $transparent_wrap.find('.csf--transparent-text'),
+              $transparent_offset = $transparent_wrap.find('.csf--transparent-offset'),
+              $transparent_button = $transparent_wrap.find('.csf--transparent-button');
 
           if ( $input.val() === 'transparent' ) {
-            $container.addClass('chippymtc--transparent-active');
+            $container.addClass('csf--transparent-active');
           }
 
           $transparent_button.on('click', function() {
             if ( $input.val() !== 'transparent' ) {
               $input.val('transparent').trigger('change').removeClass('iris-error');
-              $container.addClass('chippymtc--transparent-active');
+              $container.addClass('csf--transparent-active');
             } else {
               $input.val( a8cIris._color.toString() ).trigger('change');
-              $container.removeClass('chippymtc--transparent-active');
+              $container.removeClass('csf--transparent-active');
             }
           });
 
@@ -2953,14 +2953,14 @@
                 a8cIris._color._alpha = 1;
                 $transparent_text.text('');
                 $transparent_slider.slider('option', 'value', 100);
-                $container.removeClass('chippymtc--transparent-active');
+                $container.removeClass('csf--transparent-active');
                 $input.trigger('change');
 
               });
 
               $container.on('click', '.wp-picker-default', function() {
 
-                var default_color = CHIPPYMTC.funcs.parse_color( $input.data('default-color') ),
+                var default_color = CSF.funcs.parse_color( $input.data('default-color') ),
                     default_value = parseFloat( default_color.transparent / 100 ),
                     default_text  = default_value < 1 ? default_value : '';
 
@@ -2970,7 +2970,7 @@
 
                 if ( default_color.value === 'transparent' ) {
                   $input.removeClass('iris-error');
-                  $container.addClass('chippymtc--transparent-active');
+                  $container.addClass('csf--transparent-active');
                 }
 
               });
@@ -2986,20 +2986,20 @@
   //
   // ChosenJS
   //
-  $.fn.chippymtc_chosen = function() {
+  $.fn.csf_chosen = function() {
     return this.each( function() {
 
       var $this       = $(this),
           $inited     = $this.parent().find('.chosen-container'),
-          is_sortable = $this.hasClass('chippymtc-chosen-sortable') || false,
-          is_ajax     = $this.hasClass('chippymtc-chosen-ajax') || false,
+          is_sortable = $this.hasClass('csf-chosen-sortable') || false,
+          is_ajax     = $this.hasClass('csf-chosen-ajax') || false,
           is_multiple = $this.attr('multiple') || false,
           set_width   = is_multiple ? '100%' : 'auto',
           set_options = $.extend({
             allow_single_deselect: true,
             disable_search_threshold: 10,
             width: set_width,
-            no_results_text: window.chippymtc_vars.i18n.no_results_text,
+            no_results_text: window.csf_vars.i18n.no_results_text,
           }, $this.data('chosen-settings'));
 
       if ( $inited.length ) {
@@ -3019,12 +3019,12 @@
           width: '100%',
           min_length: 3,
           type_delay: 500,
-          typing_text: window.chippymtc_vars.i18n.typing_text,
-          searching_text: window.chippymtc_vars.i18n.searching_text,
-          no_results_text: window.chippymtc_vars.i18n.no_results_text,
+          typing_text: window.csf_vars.i18n.typing_text,
+          searching_text: window.csf_vars.i18n.searching_text,
+          no_results_text: window.csf_vars.i18n.no_results_text,
         }, $this.data('chosen-settings'));
 
-        $this.CHIPPYMTCAjaxChosen(set_ajax_options);
+        $this.CSFAjaxChosen(set_ajax_options);
 
       } else {
 
@@ -3035,7 +3035,7 @@
       // Chosen keep options order
       if ( is_multiple ) {
 
-        var $hidden_select = $this.parent().find('.chippymtc-hide-select');
+        var $hidden_select = $this.parent().find('.csf-hide-select');
         var $hidden_value  = $hidden_select.val() || [];
 
         $this.on('change', function(obj, result) {
@@ -3056,7 +3056,7 @@
         });
 
         // Chosen order abstract
-        $this.CHIPPYMTCChosenOrder($hidden_value, true);
+        $this.CSFChosenOrder($hidden_value, true);
 
       }
 
@@ -3085,7 +3085,7 @@
 
             var select_options = '';
             var chosen_object  = $this.data('chosen');
-            var $prev_select   = $this.parent().find('.chippymtc-hide-select');
+            var $prev_select   = $this.parent().find('.csf-hide-select');
 
             $chosen_choices.find('.search-choice-close').each( function() {
               var option_array_index = $(this).data('option-array-index');
@@ -3111,12 +3111,12 @@
   //
   // Helper Checkbox Checker
   //
-  $.fn.chippymtc_checkbox = function() {
+  $.fn.csf_checkbox = function() {
     return this.each( function() {
 
       var $this     = $(this),
-          $input    = $this.find('.chippymtc--input'),
-          $checkbox = $this.find('.chippymtc--checkbox');
+          $input    = $this.find('.csf--input'),
+          $checkbox = $this.find('.csf--checkbox');
 
       $checkbox.on('click', function() {
         $input.val( Number( $checkbox.prop('checked') ) ).trigger('change');
@@ -3128,14 +3128,14 @@
   //
   // Helper Check/Uncheck All
   //
-  $.fn.chippymtc_checkbox_all = function() {
+  $.fn.csf_checkbox_all = function() {
     return this.each( function() {
 
       var $this = $(this);
 
       $this.on('click', function() {
 
-        var $inputs = $this.closest('.chippymtc-field-checkbox').find(':input'),
+        var $inputs = $this.closest('.csf-field-checkbox').find(':input'),
             uncheck = false;
 
         $inputs.each(function() {
@@ -3162,11 +3162,11 @@
   //
   // Siblings
   //
-  $.fn.chippymtc_siblings = function() {
+  $.fn.csf_siblings = function() {
     return this.each( function() {
 
       var $this     = $(this),
-          $siblings = $this.find('.chippymtc--sibling'),
+          $siblings = $this.find('.csf--sibling'),
           multiple  = $this.data('multiple') || false;
 
       $siblings.on('click', function() {
@@ -3175,11 +3175,11 @@
 
         if ( multiple ) {
 
-          if ( $sibling.hasClass('chippymtc--active') ) {
-            $sibling.removeClass('chippymtc--active');
+          if ( $sibling.hasClass('csf--active') ) {
+            $sibling.removeClass('csf--active');
             $sibling.find('input').prop('checked', false).trigger('change');
           } else {
-            $sibling.addClass('chippymtc--active');
+            $sibling.addClass('csf--active');
             $sibling.find('input').prop('checked', true).trigger('change');
           }
 
@@ -3187,7 +3187,7 @@
 
           $this.find('input').prop('checked', false);
           $sibling.find('input').prop('checked', true).trigger('change');
-          $sibling.addClass('chippymtc--active').siblings().removeClass('chippymtc--active');
+          $sibling.addClass('csf--active').siblings().removeClass('csf--active');
 
         }
 
@@ -3199,7 +3199,7 @@
   //
   // Help Tooltip
   //
-  $.fn.chippymtc_help = function() {
+  $.fn.csf_help = function() {
     return this.each( function() {
 
       var $this = $(this),
@@ -3209,8 +3209,8 @@
       $this.on({
         mouseenter: function() {
 
-          $tooltip = $( '<div class="chippymtc-tooltip"></div>' ).html( $this.find('.chippymtc-help-text').html() ).appendTo('body');
-          offset_left = ( CHIPPYMTC.vars.is_rtl ) ? ( $this.offset().left + 24 ) : ( $this.offset().left - $tooltip.outerWidth() );
+          $tooltip = $( '<div class="csf-tooltip"></div>' ).html( $this.find('.csf-help-text').html() ).appendTo('body');
+          offset_left = ( CSF.vars.is_rtl ) ? ( $this.offset().left + 24 ) : ( $this.offset().left - $tooltip.outerWidth() );
 
           $tooltip.css({
             top: $this.offset().top - ( ( $tooltip.outerHeight() / 2 ) - 14 ),
@@ -3234,11 +3234,11 @@
   //
   // Customize Refresh
   //
-  $.fn.chippymtc_customizer_refresh = function() {
+  $.fn.csf_customizer_refresh = function() {
     return this.each( function() {
 
       var $this    = $(this),
-          $complex = $this.closest('.chippymtc-customize-complex');
+          $complex = $this.closest('.csf-customize-complex');
 
       if ( $complex.length ) {
 
@@ -3250,7 +3250,7 @@
 
         var $input    = $complex.find(':input'),
             option_id = $complex.data('option-id'),
-            obj       = $input.serializeObjectCHIPPYMTC(),
+            obj       = $input.serializeObjectCSF(),
             data      = ( ! $.isEmptyObject(obj) && obj[unique_id] && obj[unique_id][option_id] ) ? obj[unique_id][option_id] : '',
             control   = window.wp.customize.control(unique_id +'['+ option_id +']');
 
@@ -3265,7 +3265,7 @@
 
       }
 
-      $(document).trigger('chippymtc-customizer-refresh', $this);
+      $(document).trigger('csf-customizer-refresh', $this);
 
     });
   };
@@ -3273,7 +3273,7 @@
   //
   // Customize Listen Form Elements
   //
-  $.fn.chippymtc_customizer_listen = function( options ) {
+  $.fn.csf_customizer_listen = function( options ) {
 
     var settings = $.extend({
       closest: false,
@@ -3283,7 +3283,7 @@
 
       if ( window.wp.customize === undefined ) { return; }
 
-      var $this     = ( settings.closest ) ? $(this).closest('.chippymtc-customize-complex') : $(this),
+      var $this     = ( settings.closest ) ? $(this).closest('.csf-customize-complex') : $(this),
           $input    = $this.find(':input'),
           unique_id = $this.data('unique-id'),
           option_id = $this.data('option-id');
@@ -3292,9 +3292,9 @@
         return;
       }
 
-      $input.on('change keyup chippymtc.change', function() {
+      $input.on('change keyup csf.change', function() {
 
-        var obj = $this.find(':input').serializeObjectCHIPPYMTC();
+        var obj = $this.find(':input').serializeObjectCSF();
         var val = ( !$.isEmptyObject(obj) && obj[unique_id] && obj[unique_id][option_id] ) ? obj[unique_id][option_id] : '';
 
         window.wp.customize.control( unique_id +'['+ option_id +']' ).setting.set( val );
@@ -3313,13 +3313,13 @@
 
     if ( $this.hasClass('open') && !$this.data('inited') ) {
 
-      var $fields  = $this.find('.chippymtc-customize-field');
-      var $complex = $this.find('.chippymtc-customize-complex');
+      var $fields  = $this.find('.csf-customize-field');
+      var $complex = $this.find('.csf-customize-complex');
 
       if ( $fields.length ) {
-        $this.chippymtc_dependency();
-        $fields.chippymtc_reload_script({dependency: false});
-        $complex.chippymtc_customizer_listen();
+        $this.csf_dependency();
+        $fields.csf_reload_script({dependency: false});
+        $complex.csf_customizer_listen();
       }
 
       $this.data('inited', true);
@@ -3331,45 +3331,45 @@
   //
   // Window on resize
   //
-  CHIPPYMTC.vars.$window.on('resize chippymtc.resize', CHIPPYMTC.helper.debounce( function( event ) {
+  CSF.vars.$window.on('resize csf.resize', CSF.helper.debounce( function( event ) {
 
-    var window_width = navigator.userAgent.indexOf('AppleWebKit/') > -1 ? CHIPPYMTC.vars.$window.width() : window.innerWidth;
+    var window_width = navigator.userAgent.indexOf('AppleWebKit/') > -1 ? CSF.vars.$window.width() : window.innerWidth;
 
-    if ( window_width <= 782 && !CHIPPYMTC.vars.onloaded ) {
-      $('.chippymtc-section').chippymtc_reload_script();
-      CHIPPYMTC.vars.onloaded  = true;
+    if ( window_width <= 782 && !CSF.vars.onloaded ) {
+      $('.csf-section').csf_reload_script();
+      CSF.vars.onloaded  = true;
     }
 
-  }, 200)).trigger('chippymtc.resize');
+  }, 200)).trigger('csf.resize');
 
   //
   // Widgets Framework
   //
-  $.fn.chippymtc_widgets = function() {
+  $.fn.csf_widgets = function() {
     return this.each( function() {
 
       $(document).on('widget-added widget-updated', function( event, $widget ) {
 
-        var $fields = $widget.find('.chippymtc-fields');
+        var $fields = $widget.find('.csf-fields');
 
         if ( $fields.length ) {
-          $fields.chippymtc_reload_script();
+          $fields.csf_reload_script();
         }
 
       });
 
       $(document).on('click', '.widget-top', function( event ) {
 
-        var $fields = $(this).parent().find('.chippymtc-fields');
+        var $fields = $(this).parent().find('.csf-fields');
 
         if ( $fields.length ) {
-          $fields.chippymtc_reload_script();
+          $fields.csf_reload_script();
         }
 
       });
 
       $('.widgets-sortables, .control-section-sidebar').on('sortstop', function( event, ui ) {
-        ui.item.find('.chippymtc-fields').chippymtc_reload_script_retry();
+        ui.item.find('.csf-fields').csf_reload_script_retry();
       });
 
     });
@@ -3378,17 +3378,17 @@
   //
   // Nav Menu Options Framework
   //
-  $.fn.chippymtc_nav_menu = function() {
+  $.fn.csf_nav_menu = function() {
     return this.each( function() {
 
       var $navmenu = $(this);
 
       $navmenu.on('click', 'a.item-edit', function() {
-        $(this).closest('li.menu-item').find('.chippymtc-fields').chippymtc_reload_script();
+        $(this).closest('li.menu-item').find('.csf-fields').csf_reload_script();
       });
 
       $navmenu.on('sortstop', function( event, ui ) {
-        ui.item.find('.chippymtc-fields').chippymtc_reload_script_retry();
+        ui.item.find('.csf-fields').csf_reload_script_retry();
       });
 
     });
@@ -3397,13 +3397,13 @@
   //
   // Retry Plugins
   //
-  $.fn.chippymtc_reload_script_retry = function() {
+  $.fn.csf_reload_script_retry = function() {
     return this.each( function() {
 
       var $this = $(this);
 
       if ( $this.data('inited') ) {
-        $this.children('.chippymtc-field-wp_editor').chippymtc_field_wp_editor();
+        $this.children('.csf-field-wp_editor').csf_field_wp_editor();
       }
 
     });
@@ -3412,7 +3412,7 @@
   //
   // Reload Plugins
   //
-  $.fn.chippymtc_reload_script = function( options ) {
+  $.fn.csf_reload_script = function( options ) {
 
     var settings = $.extend({
       dependency: true,
@@ -3426,60 +3426,60 @@
       if ( !$this.data('inited') ) {
 
         // Field plugins
-        $this.children('.chippymtc-field-accordion').chippymtc_field_accordion();
-        $this.children('.chippymtc-field-backup').chippymtc_field_backup();
-        $this.children('.chippymtc-field-background').chippymtc_field_background();
-        $this.children('.chippymtc-field-code_editor').chippymtc_field_code_editor();
-        $this.children('.chippymtc-field-date').chippymtc_field_date();
-        $this.children('.chippymtc-field-datetime').chippymtc_field_datetime();
-        $this.children('.chippymtc-field-fieldset').chippymtc_field_fieldset();
-        $this.children('.chippymtc-field-gallery').chippymtc_field_gallery();
-        $this.children('.chippymtc-field-group').chippymtc_field_group();
-        $this.children('.chippymtc-field-icon').chippymtc_field_icon();
-        $this.children('.chippymtc-field-link').chippymtc_field_link();
-        $this.children('.chippymtc-field-media').chippymtc_field_media();
-        $this.children('.chippymtc-field-map').chippymtc_field_map();
-        $this.children('.chippymtc-field-repeater').chippymtc_field_repeater();
-        $this.children('.chippymtc-field-slider').chippymtc_field_slider();
-        $this.children('.chippymtc-field-sortable').chippymtc_field_sortable();
-        $this.children('.chippymtc-field-sorter').chippymtc_field_sorter();
-        $this.children('.chippymtc-field-spinner').chippymtc_field_spinner();
-        $this.children('.chippymtc-field-switcher').chippymtc_field_switcher();
-        $this.children('.chippymtc-field-tabbed').chippymtc_field_tabbed();
-        $this.children('.chippymtc-field-typography').chippymtc_field_typography();
-        $this.children('.chippymtc-field-upload').chippymtc_field_upload();
-        $this.children('.chippymtc-field-wp_editor').chippymtc_field_wp_editor();
+        $this.children('.csf-field-accordion').csf_field_accordion();
+        $this.children('.csf-field-backup').csf_field_backup();
+        $this.children('.csf-field-background').csf_field_background();
+        $this.children('.csf-field-code_editor').csf_field_code_editor();
+        $this.children('.csf-field-date').csf_field_date();
+        $this.children('.csf-field-datetime').csf_field_datetime();
+        $this.children('.csf-field-fieldset').csf_field_fieldset();
+        $this.children('.csf-field-gallery').csf_field_gallery();
+        $this.children('.csf-field-group').csf_field_group();
+        $this.children('.csf-field-icon').csf_field_icon();
+        $this.children('.csf-field-link').csf_field_link();
+        $this.children('.csf-field-media').csf_field_media();
+        $this.children('.csf-field-map').csf_field_map();
+        $this.children('.csf-field-repeater').csf_field_repeater();
+        $this.children('.csf-field-slider').csf_field_slider();
+        $this.children('.csf-field-sortable').csf_field_sortable();
+        $this.children('.csf-field-sorter').csf_field_sorter();
+        $this.children('.csf-field-spinner').csf_field_spinner();
+        $this.children('.csf-field-switcher').csf_field_switcher();
+        $this.children('.csf-field-tabbed').csf_field_tabbed();
+        $this.children('.csf-field-typography').csf_field_typography();
+        $this.children('.csf-field-upload').csf_field_upload();
+        $this.children('.csf-field-wp_editor').csf_field_wp_editor();
 
         // Field colors
-        $this.children('.chippymtc-field-border').find('.chippymtc-color').chippymtc_color();
-        $this.children('.chippymtc-field-background').find('.chippymtc-color').chippymtc_color();
-        $this.children('.chippymtc-field-color').find('.chippymtc-color').chippymtc_color();
-        $this.children('.chippymtc-field-color_group').find('.chippymtc-color').chippymtc_color();
-        $this.children('.chippymtc-field-link_color').find('.chippymtc-color').chippymtc_color();
-        $this.children('.chippymtc-field-typography').find('.chippymtc-color').chippymtc_color();
+        $this.children('.csf-field-border').find('.csf-color').csf_color();
+        $this.children('.csf-field-background').find('.csf-color').csf_color();
+        $this.children('.csf-field-color').find('.csf-color').csf_color();
+        $this.children('.csf-field-color_group').find('.csf-color').csf_color();
+        $this.children('.csf-field-link_color').find('.csf-color').csf_color();
+        $this.children('.csf-field-typography').find('.csf-color').csf_color();
 
         // Field chosenjs
-        $this.children('.chippymtc-field-select').find('.chippymtc-chosen').chippymtc_chosen();
+        $this.children('.csf-field-select').find('.csf-chosen').csf_chosen();
 
         // Field Checkbox
-        $this.children('.chippymtc-field-checkbox').find('.chippymtc-checkbox').chippymtc_checkbox();
-        $this.children('.chippymtc-field-checkbox').find('.chippymtc-checkbox-all').chippymtc_checkbox_all();
+        $this.children('.csf-field-checkbox').find('.csf-checkbox').csf_checkbox();
+        $this.children('.csf-field-checkbox').find('.csf-checkbox-all').csf_checkbox_all();
 
         // Field Siblings
-        $this.children('.chippymtc-field-button_set').find('.chippymtc-siblings').chippymtc_siblings();
-        $this.children('.chippymtc-field-image_select').find('.chippymtc-siblings').chippymtc_siblings();
-        $this.children('.chippymtc-field-palette').find('.chippymtc-siblings').chippymtc_siblings();
+        $this.children('.csf-field-button_set').find('.csf-siblings').csf_siblings();
+        $this.children('.csf-field-image_select').find('.csf-siblings').csf_siblings();
+        $this.children('.csf-field-palette').find('.csf-siblings').csf_siblings();
 
         // Help Tooptip
-        $this.children('.chippymtc-field').find('.chippymtc-help').chippymtc_help();
+        $this.children('.csf-field').find('.csf-help').csf_help();
 
         if ( settings.dependency ) {
-          $this.chippymtc_dependency();
+          $this.csf_dependency();
         }
 
         $this.data('inited', true);
 
-        $(document).trigger('chippymtc-reload-script', $this);
+        $(document).trigger('csf-reload-script', $this);
 
       }
 
@@ -3491,22 +3491,22 @@
   //
   $(document).ready( function() {
 
-    $('.chippymtc-save').chippymtc_save();
-    $('.chippymtc-options').chippymtc_options();
-    $('.chippymtc-sticky-header').chippymtc_sticky();
-    $('.chippymtc-nav-options').chippymtc_nav_options();
-    $('.chippymtc-nav-metabox').chippymtc_nav_metabox();
-    $('.chippymtc-taxonomy').chippymtc_taxonomy();
-    $('.chippymtc-page-templates').chippymtc_page_templates();
-    $('.chippymtc-post-formats').chippymtc_post_formats();
-    $('.chippymtc-shortcode').chippymtc_shortcode();
-    $('.chippymtc-search').chippymtc_search();
-    $('.chippymtc-confirm').chippymtc_confirm();
-    $('.chippymtc-expand-all').chippymtc_expand_all();
-    $('.chippymtc-onload').chippymtc_reload_script();
-    $('#widgets-editor').chippymtc_widgets();
-    $('#widgets-right').chippymtc_widgets();
-    $('#menu-to-edit').chippymtc_nav_menu();
+    $('.csf-save').csf_save();
+    $('.csf-options').csf_options();
+    $('.csf-sticky-header').csf_sticky();
+    $('.csf-nav-options').csf_nav_options();
+    $('.csf-nav-metabox').csf_nav_metabox();
+    $('.csf-taxonomy').csf_taxonomy();
+    $('.csf-page-templates').csf_page_templates();
+    $('.csf-post-formats').csf_post_formats();
+    $('.csf-shortcode').csf_shortcode();
+    $('.csf-search').csf_search();
+    $('.csf-confirm').csf_confirm();
+    $('.csf-expand-all').csf_expand_all();
+    $('.csf-onload').csf_reload_script();
+    $('#widgets-editor').csf_widgets();
+    $('#widgets-right').csf_widgets();
+    $('#menu-to-edit').csf_nav_menu();
 
   });
 

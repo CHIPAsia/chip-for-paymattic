@@ -3,17 +3,17 @@
  */
 @media only screen and (max-width:1200px){
 
-  .chippymtc-metabox{
+  .csf-metabox{
 
-    .chippymtc-field{
+    .csf-field{
 
-      .chippymtc-title{
+      .csf-title{
         float: none;
         width: 100%;
         margin-bottom: 10px;
       }
 
-      .chippymtc-fieldset{
+      .csf-fieldset{
         float: none;
         width: 100%;
       }
@@ -23,7 +23,7 @@
 
 @media only screen and (max-width:782px){
 
-  .chippymtc-header-inner{
+  .csf-header-inner{
     text-align: center;
 
     h1{
@@ -32,67 +32,67 @@
     }
   }
 
-  .chippymtc-form-result{
+  .csf-form-result{
     float: none;
     margin-right: 0;
     margin-bottom: 10px;
   }
 
-  .chippymtc-search,
-  .chippymtc-header-right,
-  .chippymtc-header-left{
+  .csf-search,
+  .csf-header-right,
+  .csf-header-left{
     width: 100%;
   }
 
-  .chippymtc-search{
+  .csf-search{
     text-align: center;
     margin-bottom: 15px;
   }
 
-  .chippymtc-footer{
+  .csf-footer{
     text-align: center;
   }
 
-  .chippymtc-buttons{
+  .csf-buttons{
     float: none;
   }
 
-  .chippymtc-copyright{
+  .csf-copyright{
     float: none;
     margin-top: 10px;
   }
 
-  .chippymtc-nav,
-  .chippymtc-expand-all,
-  .chippymtc-reset-section,
-  .chippymtc-nav-background{
+  .csf-nav,
+  .csf-expand-all,
+  .csf-reset-section,
+  .csf-nav-background{
     display: none !important;
   }
 
-  .chippymtc-nav-normal + .chippymtc-content{
+  .csf-nav-normal + .csf-content{
     margin-left: 0;
   }
 
-  .chippymtc-section-title,
-  .chippymtc-section{
+  .csf-section-title,
+  .csf-section{
     display: block !important;
   }
 
-  .chippymtc-field{
+  .csf-field{
 
-    .chippymtc-title{
+    .csf-title{
       float: none;
       width: 100%;
       margin-bottom: 10px;
     }
 
-    .chippymtc-fieldset{
+    .csf-fieldset{
       float: none;
       width: 100%;
     }
   }
 
-  .chippymtc-field-color{
+  .csf-field-color{
 
     .button.wp-picker-clear{
       padding: 0 8px;
@@ -101,31 +101,31 @@
     }
   }
 
-  .chippymtc-profile-options,
-  .chippymtc-taxonomy-edit-fields{
+  .csf-profile-options,
+  .csf-taxonomy-edit-fields{
 
-    > .chippymtc-field{
+    > .csf-field{
 
-      > .chippymtc-title{
+      > .csf-title{
         float: none;
         width: 100%;
         margin-bottom: 10px;
       }
 
-      > .chippymtc-fieldset{
+      > .csf-fieldset{
         float: none;
         width: 100%;
       }
     }
   }
 
-  .chippymtc-nav-menu-options{
+  .csf-nav-menu-options{
 
-    > .chippymtc-fields{
+    > .csf-fields{
       margin-left: -10px;
       margin-right: -10px;
 
-      > .chippymtc-field{
+      > .csf-field{
         padding: 10px;
       }
     }
@@ -134,9 +134,9 @@
 
 @media only screen and (max-width: 782px) {
 
-  .chippymtc-modal{
+  .csf-modal{
 
-    .chippymtc-modal-inner{
+    .csf-modal-inner{
       width: 90%;
     }
   }
@@ -144,13 +144,13 @@
 
 @media only screen and (max-height: 750px) {
 
-  .chippymtc-modal{
+  .csf-modal{
 
-    .chippymtc-modal-inner{
+    .csf-modal-inner{
       height: auto;
     }
 
-    .chippymtc-modal-content{
+    .csf-modal-content{
       height: calc(100vh - 200px);
     }
   }

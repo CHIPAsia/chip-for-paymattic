@@ -7,8 +7,8 @@
  * @version 1.0.0
  *
  */
-if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
-  class CHIPPYMTC_Nav_Menu_Options extends CHIPPYMTC_Abstract{
+if ( ! class_exists( 'CSF_Nav_Menu_Options' ) ) {
+  class CSF_Nav_Menu_Options extends CSF_Abstract{
 
     // constans
     public $unique     = '';
@@ -25,8 +25,8 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
     public function __construct( $key, $params ) {
 
       $this->unique     = $key;
-      $this->args       = apply_filters( "chippymtc_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
-      $this->sections   = apply_filters( "chippymtc_{$this->unique}_sections", $params['sections'], $this );
+      $this->args       = apply_filters( "csf_{$this->unique}_args", wp_parse_args( $params['args'], $this->args ), $this );
+      $this->sections   = apply_filters( "csf_{$this->unique}_sections", $params['sections'], $this );
       $this->pre_fields = $this->pre_fields( $this->sections );
 
       add_action( 'wp_nav_menu_item_custom_fields', array( $this, 'wp_nav_menu_item_custom_fields' ), 10, 4 );
@@ -47,11 +47,11 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
 
       if( version_compare( $wp_version, '5.4.0', '<' ) ) {
 
-        if ( ! class_exists( 'CHIPPYMTC_Walker_Nav_Menu_Edit' ) ) {
-          CHIPPYMTC::include_plugin_file( 'functions/walker.php' );
+        if ( ! class_exists( 'CSF_Walker_Nav_Menu_Edit' ) ) {
+          CSF::include_plugin_file( 'functions/walker.php' );
         }
 
-        return 'CHIPPYMTC_Walker_Nav_Menu_Edit';
+        return 'CSF_Walker_Nav_Menu_Edit';
 
       }
 
@@ -96,25 +96,25 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
     //
     public function wp_nav_menu_item_custom_fields( $menu_item_id, $item, $depth, $args ) {
 
-      $errors = ( ! empty( $menu_item_id ) ) ? get_post_meta( $menu_item_id, '_chippymtc_errors_'. $this->unique, true ) : array();
+      $errors = ( ! empty( $menu_item_id ) ) ? get_post_meta( $menu_item_id, '_csf_errors_'. $this->unique, true ) : array();
       $errors = ( ! empty( $errors ) ) ? $errors : array();
       $class  = ( $this->args['class'] ) ? ' '. $this->args['class'] : '';
 
       if ( ! empty( $errors ) ) {
-        delete_post_meta( $menu_item_id, '_chippymtc_errors_'. $this->unique );
+        delete_post_meta( $menu_item_id, '_csf_errors_'. $this->unique );
       }
 
-      echo '<div class="chippymtc chippymtc-nav-menu-options'. esc_attr( $class ) .'">';
+      echo '<div class="csf csf-nav-menu-options'. esc_attr( $class ) .'">';
 
         foreach ( $this->sections as $section ) {
 
-          $section_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="chippymtc-nav-menu-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
+          $section_icon  = ( ! empty( $section['icon'] ) ) ? '<i class="csf-nav-menu-icon '. esc_attr( $section['icon'] ) .'"></i>' : '';
           $section_title = ( ! empty( $section['title'] ) ) ? $section['title'] : '';
 
-          echo '<div class="chippymtc-fields">';
+          echo '<div class="csf-fields">';
 
-          echo ( $section_title || $section_icon ) ? '<div class="chippymtc-nav-menu-title"><h4>'. $section_icon . $section_title .'</h4></div>' : '';
-          echo ( ! empty( $section['description'] ) ) ? '<div class="chippymtc-field chippymtc-section-description">'. $section['description'] .'</div>' : '';
+          echo ( $section_title || $section_icon ) ? '<div class="csf-nav-menu-title"><h4>'. $section_icon . $section_title .'</h4></div>' : '';
+          echo ( ! empty( $section['description'] ) ) ? '<div class="csf-field csf-section-description">'. $section['description'] .'</div>' : '';
 
           if ( ! empty( $section['fields'] ) ) {
 
@@ -128,7 +128,7 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
                 $field['default'] = $this->get_default( $field );
               }
 
-              CHIPPYMTC::field( $field, $this->get_meta_value( $menu_item_id, $field ), $this->unique .'['. $menu_item_id .']', 'menu' );
+              CSF::field( $field, $this->get_meta_value( $menu_item_id, $field ), $this->unique .'['. $menu_item_id .']', 'menu' );
 
             }
 
@@ -217,9 +217,9 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
 
       }
 
-      $data = apply_filters( "chippymtc_{$this->unique}_save", $data, $menu_item_db_id, $this );
+      $data = apply_filters( "csf_{$this->unique}_save", $data, $menu_item_db_id, $this );
 
-      do_action( "chippymtc_{$this->unique}_save_before", $data, $menu_item_db_id, $this );
+      do_action( "csf_{$this->unique}_save_before", $data, $menu_item_db_id, $this );
 
       if ( empty( $data ) ) {
 
@@ -244,14 +244,14 @@ if ( ! class_exists( 'CHIPPYMTC_Nav_Menu_Options' ) ) {
         }
 
         if ( ! empty( $errors ) ) {
-          update_post_meta( $menu_item_db_id, '_chippymtc_errors_'. $this->unique, $errors );
+          update_post_meta( $menu_item_db_id, '_csf_errors_'. $this->unique, $errors );
         }
 
       }
 
-      do_action( "chippymtc_{$this->unique}_saved", $data, $menu_item_db_id, $this );
+      do_action( "csf_{$this->unique}_saved", $data, $menu_item_db_id, $this );
 
-      do_action( "chippymtc_{$this->unique}_save_after", $data, $menu_item_db_id, $this );
+      do_action( "csf_{$this->unique}_save_after", $data, $menu_item_db_id, $this );
 
     }
 
