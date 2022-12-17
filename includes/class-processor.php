@@ -362,6 +362,14 @@ class Chip_Paymattic_Processor {
     );
 
     $submissionModel->where( 'id', $submission->id )->update( $submissionData );
+
+    do_action('wppayform_log_data', [
+      'form_id' => $transaction->form_id,
+      'submission_id' => $transaction->submission_id,
+      'type' => 'info',
+      'created_by' => 'CHIP for Paymattic Plugin',
+      'content' => sprintf( __( 'Transaction Marked as failed and CHIP Transaction ID: %s', 'chip-for-paymattic' ), $vendorTransaction['id'] ),
+    ]);
   }
 
   private function getSuccessURL( $form, $submission )

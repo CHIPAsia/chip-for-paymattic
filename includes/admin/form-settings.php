@@ -22,6 +22,11 @@ function pymtc_chip_form_fields( $form ){
       'class' => $pymtc_form_currency['currency'] == 'MYR' ? 'hidden' : '',
     ),
     array(
+      'type' => 'notice',
+      'style' => 'normal',
+      'content' => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
+    ),
+    array(
       'type'    => 'subheading',
       'content' => 'Credentials',
       'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),

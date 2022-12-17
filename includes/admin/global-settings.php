@@ -25,6 +25,11 @@ $credentials_global_fields = array(
     'class' => $pymtc_global_currency['currency'] == 'MYR' ? 'hidden' : '',
   ),
   array(
+    'type' => 'notice',
+    'style' => 'normal',
+    'content' => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
+  ),
+  array(
     'type'    => 'subheading',
     'content' => 'Credentials',
   ),
