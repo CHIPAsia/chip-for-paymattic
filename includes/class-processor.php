@@ -301,15 +301,15 @@ class Chip_Paymattic_Processor {
       return;
     }
 
-    do_action('wppayform/form_submission_activity_start', $transaction->form_id);
+    do_action( 'wppayform/form_submission_activity_start', $transaction->form_id );
 
     $status = sanitize_text_field( $vendorTransaction['status'] );
 
     $updateData = [
-      'payment_note'  => maybe_serialize($vendorTransaction),
-      'charge_id'     => sanitize_text_field($vendorTransaction['id']),
-      'payment_total' => intval($vendorTransaction['purchase']['total']),
-      'updated_at'    => current_time('Y-m-d H:i:s'),
+      'payment_note'  => maybe_serialize( $vendorTransaction ),
+      'charge_id'     => sanitize_text_field( $vendorTransaction['id'] ),
+      'payment_total' => intval( $vendorTransaction['purchase']['total'] ),
+      'updated_at'    => current_time( 'Y-m-d H:i:s' ),
       'status'        => 'paid',
     ];
 
@@ -319,7 +319,7 @@ class Chip_Paymattic_Processor {
     $submissionModel = new Submission();
     $submissionData  = array(
       'payment_status' => $status,
-      'updated_at'     => current_time('Y-m-d H:i:s')
+      'updated_at'     => current_time( 'Y-m-d H:i:s' )
     );
 
     $submissionModel->where( 'id', $submission->id )->update( $submissionData );
@@ -334,8 +334,8 @@ class Chip_Paymattic_Processor {
       'content' => sprintf( __( 'Transaction Marked as paid and CHIP Transaction ID: %s', 'chip-for-paymattic' ), $updateData['charge_id'] ),
     ]);
 
-    do_action('wppayform/form_payment_success_chip', $submission, $transaction, $transaction->form_id, $updateData);
-    do_action('wppayform/form_payment_success', $submission, $transaction, $transaction->form_id, $updateData);
+    do_action( 'wppayform/form_payment_success_chip', $submission, $transaction, $transaction->form_id, $updateData );
+    do_action( 'wppayform/form_payment_success', $submission, $transaction, $transaction->form_id, $updateData );
   }
 
   private function handleFailed( $submission, $transaction, $vendorTransaction ) {
@@ -347,8 +347,8 @@ class Chip_Paymattic_Processor {
     $status = 'failed';
 
     $updateData = [
-      'payment_note'  => maybe_serialize($vendorTransaction),
-      'updated_at'    => current_time('Y-m-d H:i:s'),
+      'payment_note'  => maybe_serialize( $vendorTransaction ),
+      'updated_at'    => current_time( 'Y-m-d H:i:s' ),
       'status'        => $status,
     ];
 
@@ -358,44 +358,45 @@ class Chip_Paymattic_Processor {
     $submissionModel = new Submission();
     $submissionData  = array(
       'payment_status' => $status,
-      'updated_at'     => current_time('Y-m-d H:i:s')
+      'updated_at'     => current_time( 'Y-m-d H:i:s' )
     );
 
     $submissionModel->where( 'id', $submission->id )->update( $submissionData );
   }
 
-  private function getSuccessURL($form, $submission)
+  private function getSuccessURL( $form, $submission )
   {
       // Check If the form settings have success URL
-      $confirmation = Form::getConfirmationSettings($form->ID);
-      $confirmation = ConfirmationHelper::parseConfirmation($confirmation, $submission);
+      $confirmation = Form::getConfirmationSettings( $form->ID );
+      $confirmation = ConfirmationHelper::parseConfirmation( $confirmation, $submission );
       if (
-          ($confirmation['redirectTo'] == 'customUrl' && $confirmation['customUrl']) ||
-          ($confirmation['redirectTo'] == 'customPage' && $confirmation['customPage'])
+          ( $confirmation['redirectTo'] == 'customUrl' && $confirmation['customUrl'] ) ||
+          ( $confirmation['redirectTo'] == 'customPage' && $confirmation['customPage'] )
       ) {
-          if ($confirmation['redirectTo'] == 'customUrl') {
+          if ( $confirmation['redirectTo'] == 'customUrl' ) {
               $url = $confirmation['customUrl'];
           } else {
-              $url = get_permalink(intval($confirmation['customPage']));
+              $url = get_permalink( intval( $confirmation['customPage'] ) );
           }
-          $url = add_query_arg(array(
+          $url = add_query_arg( array(
               'payment_method' => 'chip'
-          ), $url);
-          return PlaceholderParser::parse($url, $submission);
+          ), $url );
+          return PlaceholderParser::parse( $url, $submission );
       }
       // now we have to check for global Success Page
       $globalSettings = get_option('wppayform_confirmation_pages');
+
       if (isset($globalSettings['confirmation']) && $globalSettings['confirmation']) {
-          return add_query_arg(array(
-              'wpf_submission' => $submission->submission_hash,
-              'payment_method' => 'chip'
-          ), get_permalink(intval($globalSettings['confirmation'])));
-      }
-      // In case we don't have global settings
-      return add_query_arg(array(
+        return add_query_arg(array(
           'wpf_submission' => $submission->submission_hash,
           'payment_method' => 'chip'
-      ), home_url());
+        ), get_permalink( intval( $globalSettings['confirmation'] ) ) );
+      }
+      // In case we don't have global settings
+      return add_query_arg( array(
+        'wpf_submission' => $submission->submission_hash,
+        'payment_method' => 'chip'
+      ), home_url() );
   }
 
   public function callback() {
@@ -411,11 +412,11 @@ class Chip_Paymattic_Processor {
 
   private function success_callback( $submission_id ) {
 
-    $submission  = (new Submission())->getSubmission( $submission_id );
+    $submission  = ( new Submission() )->getSubmission( $submission_id );
     $option      = $this->get_settings( $submission->form_id );
     $transaction = $this->getTransaction( $submission_id );
 
-    if (!$transaction || !$submission) {
+    if ( !$transaction || !$submission ) {
       return;
     }
 
