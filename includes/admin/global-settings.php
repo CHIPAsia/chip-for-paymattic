@@ -99,7 +99,7 @@ $miscellaneous_global_fields = array(
   array(
     'type'    => 'notice',
     'style'   => 'danger',
-    'content' => __( 'Set CHIP logo failed!.', 'chip-for-paymattic' ),
+    'content' => __( 'Set CHIP logo failed!', 'chip-for-paymattic' ),
     'class'   => get_option( 'paymattic_chip_inject_logo', 'success' ) == 'success' ? 'hidden' : '',
 
     'dependency'  => array( ['inject-chip-logo', '==', 'true'] ),

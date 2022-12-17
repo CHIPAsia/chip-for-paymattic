@@ -54,9 +54,9 @@ class Chip_Paymattic {
       include $includes_dir . 'admin/global-settings.php';
       include $includes_dir . 'admin/form-settings.php';
       include $includes_dir . 'admin/backup-settings.php';
-      include $includes_dir . 'admin/class-inject-chip-logo.php';
     }
 
+    include $includes_dir . 'class-inject-chip-logo.php';
     include $includes_dir . 'class-element.php';
     include $includes_dir . 'class-processor.php';
   }
