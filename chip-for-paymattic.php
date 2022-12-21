@@ -3,7 +3,7 @@
 /**
  * Plugin Name: CHIP for Paymattic
  * Plugin URI: https://wordpress.org/plugins/chip-for-paymattic/
- * Description: Cash, Card and Coin Handling Integrated Platform
+ * Description: CHIP - Better Payment & Business Solutions
  * Version: 1.0.0
  * Author: Chip In Sdn Bhd
  * Author URI: https://www.chip-in.asia
