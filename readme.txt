@@ -19,9 +19,11 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 == Screenshots ==
 * Fill up the form with Brand ID and Secret Key on Global Configuration.
 * Fill up the form with Brand ID and Secret Key on Form-specific Configuration.
+* Form editor page.
 * Form that have been integrated with CHIP.
 * Test mode payment page.
 * Confirmation page after successful payment.
+* List of successful paid entries.
 
 == Changelog ==
 
