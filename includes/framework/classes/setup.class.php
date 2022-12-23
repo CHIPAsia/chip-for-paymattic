@@ -395,10 +395,12 @@ if ( ! class_exists( 'CSF_Setup' ) ) {
       if ( self::$premium ) {
         self::include_plugin_file( 'classes/customize-options.class.php' );
         self::include_plugin_file( 'classes/metabox-options.class.php'   );
+        self::include_plugin_file( 'classes/nav-menu-options.class.php'  );
         self::include_plugin_file( 'classes/profile-options.class.php'   );
         self::include_plugin_file( 'classes/shortcode-options.class.php' );
         self::include_plugin_file( 'classes/taxonomy-options.class.php'  );
         self::include_plugin_file( 'classes/widget-options.class.php'    );
+        self::include_plugin_file( 'classes/comment-options.class.php'   );
       }
 
       // Include all framework fields

@@ -32,7 +32,7 @@ if ( ! class_exists( 'CSF_Field_radio' ) ) {
 
         if ( is_array( $options ) && ! empty( $options ) ) {
 
-          echo '<ul'. esc_attr($inline_class) .'>';
+          echo '<ul'. $inline_class .'>';
 
           foreach ( $options as $option_key => $option_value ) {
 
