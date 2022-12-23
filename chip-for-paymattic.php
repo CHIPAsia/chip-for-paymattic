@@ -94,5 +94,5 @@ function load_chip_for_paymattic() {
 add_action( 'plugins_loaded', 'load_chip_for_paymattic_csf' );
 
 function load_chip_for_paymattic_csf() {
-  include plugin_dir_path( __FILE__ ) . 'includes/framework/classes/setup.class.php';
+  include plugin_dir_path( __FILE__ ) . 'includes/codestar-framework/classes/setup.class.php';
 }
