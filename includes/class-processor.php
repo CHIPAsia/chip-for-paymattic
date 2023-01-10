@@ -187,10 +187,11 @@ class Chip_Paymattic_Processor {
 
   private function get_settings( $form_id ) {
 
-    $options = get_option( PYMTC_CHIP_FSLUG );
-    $postfix = '';
+    $options  = get_option( PYMTC_CHIP_FSLUG );
+    $postfix  = '';
+    $form_cid = 'form-customize-' . $form_id;
 
-    if ( $options['form-customize-' . $form_id] ) {
+    if ( array_key_exists( $form_cid, $options ) AND $options[$form_cid] ) {
       $postfix = "-$form_id";
     }
 

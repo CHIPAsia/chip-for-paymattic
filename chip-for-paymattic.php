@@ -4,7 +4,7 @@
  * Plugin Name: CHIP for Paymattic
  * Plugin URI: https://wordpress.org/plugins/chip-for-paymattic/
  * Description: CHIP - Better Payment & Business Solutions
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Chip In Sdn Bhd
  * Author URI: https://www.chip-in.asia
  *
@@ -15,7 +15,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
 
-define('PYMTC_CHIP_MODULE_VERSION', 'v1.0.0');
+define('PYMTC_CHIP_MODULE_VERSION', 'v1.0.1');
 
 class Chip_Paymattic {
 
