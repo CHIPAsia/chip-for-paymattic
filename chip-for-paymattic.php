@@ -56,8 +56,10 @@ class Chip_Paymattic {
       include $includes_dir . 'admin/backup-settings.php';
     }
 
-    include $includes_dir . 'class-inject-chip-logo.php';
+    // No longer needed as newer version of Paymattic rely on definiton in class-settings.php
+    // include $includes_dir . 'class-inject-chip-logo.php';
     include $includes_dir . 'class-element.php';
+    include $includes_dir . 'class-settings.php';
     include $includes_dir . 'class-processor.php';
   }
 

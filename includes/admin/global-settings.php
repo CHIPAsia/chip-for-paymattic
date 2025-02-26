@@ -89,21 +89,6 @@ $miscellaneous_global_fields = array(
     'dependency'  => array( ['due-strict', '==', 'true'] ),
     'validate'    => 'csf_validate_numeric',
   ),
-  array(
-    'id'    => 'inject-chip-logo',
-    'type'  => 'checkbox',
-    'title' => __( 'Set CHIP Logo', 'chip-for-paymattic' ),
-    'desc'  => sprintf( __( 'By activating this option, you agree to allow the plugin to add CHIP Icon to Paymattic. This will not work for WordPress installed on ephemeral file system. Source icon: %s. Target location: %s', 'chip-for-paymattic' ), PYMTC_CHIP_URL . 'assets/logo-2.svg', WPPAYFORM_DIR . 'assets/images/payment-logo/chip.svg' ),
-    'help'  => __( 'By defaullt Paymattic didn\'t bundle together with CHIP logo. Tick this option to inject logo to Paymattic to fix broken icon.', 'chip-for-paymattic' ),
-  ),
-  array(
-    'type'    => 'notice',
-    'style'   => 'danger',
-    'content' => __( 'Set CHIP logo failed!', 'chip-for-paymattic' ),
-    'class'   => get_option( 'paymattic_chip_inject_logo', 'success' ) == 'success' ? 'hidden' : '',
-
-    'dependency'  => array( ['inject-chip-logo', '==', 'true'] ),
-  ),
 );
 
 CSF_Setup::createSection( $slug, array(

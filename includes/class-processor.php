@@ -25,6 +25,8 @@ class Chip_Paymattic_Processor {
   }
 
   public function __construct() {
+    (new ChipSettings())->init();
+
     $this->add_filters();
     $this->add_actions();
   }
