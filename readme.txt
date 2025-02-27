@@ -2,9 +2,9 @@
 Contributors: chipasia, wanzulnet
 Tags: chip
 Requires at least: 4.7
-Tested up to: 6.1
-Stable tag: 1.0.1
-Requires PHP: 7.1
+Tested up to: 6.7
+Stable tag: 1.0.2
+Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,11 +27,9 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.0.1 - 2023-01-10 =
-* Fixed - Error when new forms created using global configuration.
-
-= 1.0.0 - 2022-12-02 =
-* New - Intial Release
+= 1.0.2 - 2025-02-27 =
+* New - Updated CSF.
+* Fixed - Fixed issue with missing CHIP icon.
 
 == Installation ==
 
@@ -67,7 +65,7 @@ No.
 
 = Where can I find documentation? =
 
-You can visit our [API documentation](https://developer.chip-in.asia/) for your reference.
+You can visit our [API documentation](https://docs.chip-in.asia/) for your reference.
 
 = What CHIP API services used in this plugin? =
 
@@ -86,6 +84,6 @@ This plugin rely on CHIP API ([PAYMATTIC_CHIP_ROOT_URL](https://gate.chip-in.asi
 
 [Privacy Policy](https://www.chip-in.asia/privacy-policy)
 
-[API Documentation](https://developer.chip-in.asia/)
+[API Documentation](https://docs.chip-in.asia/)
 
 [CHIP Merchants & DEV Community](https://www.facebook.com/groups/3210496372558088)

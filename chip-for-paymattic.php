@@ -3,19 +3,19 @@
 /**
  * Plugin Name: CHIP for Paymattic
  * Plugin URI: https://wordpress.org/plugins/chip-for-paymattic/
- * Description: CHIP - Better Payment & Business Solutions
- * Version: 1.0.1
+ * Description: CHIP - Digital Finance Platform
+ * Version: 1.0.2
  * Author: Chip In Sdn Bhd
  * Author URI: https://www.chip-in.asia
  *
- * Copyright: © 2022 CHIP
+ * Copyright: © 2025 CHIP
  * License: GNU General Public License v3.0
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 if ( ! defined( 'ABSPATH' ) ) { die; } // Cannot access directly.
 
-define('PYMTC_CHIP_MODULE_VERSION', 'v1.0.1');
+define('PYMTC_CHIP_MODULE_VERSION', 'v1.0.2');
 
 class Chip_Paymattic {
 
@@ -42,7 +42,7 @@ class Chip_Paymattic {
     define( 'PYMTC_CHIP_URL', plugin_dir_url( PYMTC_CHIP_FILE ) );
     define( 'PYMTC_CHIP_FSLUG', 'paymattic_chip' );
 
-    // This is CHIP API URL Endpoint as per documented in: https://developer.chip-in.asia/api
+    // This is CHIP API URL Endpoint as per documented in: https://docs.chip-in.asia/
     define( 'PYMTC_CHIP_ROOT_URL', 'https://gate.chip-in.asia/' );
   }
 
