@@ -14,6 +14,7 @@ class ChipSettings extends BasePaymentMethod
     public function __construct()
     {
       $logo_url = apply_filters( 'paymattic_chip_logo_url_settings', PYMTC_CHIP_URL . 'assets/chip.svg' );
+      add_filter( 'wppayform_payment_method_settings', array( $this, 'get_settings' ), 10, 1 );
     /**
      * Automatically create global payment settings page
      * @param  String: key, title, routes_query, 'logo')
@@ -135,5 +136,15 @@ class ChipSettings extends BasePaymentMethod
             static::isLive($formId),
             static::getSettings()
         );
+    }
+
+    public function get_settings( $methods ) {
+      $methods['chip'] = array(
+        'title'       => __( 'CHIP', 'chip-for-paymattic' ),
+        'route_name'  => 'chip',
+        'svg'         => PYMTC_CHIP_URL . 'assets/chip.svg',
+        'route_query' => [],
+      );
+      return $methods;
     }
 }
