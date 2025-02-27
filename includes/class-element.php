@@ -118,7 +118,8 @@ class Chip_Paymattic_Element extends BaseComponent
         )
       )
     );
-    return $methods;
+    
+    return apply_filters( 'chip_paymattic_push_payment_method_return', $methods, $this );
   }
 }
 

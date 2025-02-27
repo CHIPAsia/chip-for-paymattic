@@ -13,6 +13,7 @@ class ChipSettings extends BasePaymentMethod
 
     public function __construct()
     {
+      $logo_url = apply_filters( 'chip_paymattic_logo_url_settings', PYMTC_CHIP_URL . 'assets/chip.svg' );
     /**
      * Automatically create global payment settings page
      * @param  String: key, title, routes_query, 'logo')
@@ -21,7 +22,7 @@ class ChipSettings extends BasePaymentMethod
             'chip',
             'CHIP',
             [],
-            PYMTC_CHIP_URL . 'assets/chip.svg'
+            $logo_url
         );
 
     }
