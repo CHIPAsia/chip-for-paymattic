@@ -21,7 +21,7 @@ class ChipSettings extends BasePaymentMethod
             'chip',
             'CHIP',
             [],
-            PYMTC_CHIP_URL . 'assets/logo-2.svg'
+            PYMTC_CHIP_URL . 'assets/chip.svg'
         );
 
     }

@@ -31,7 +31,7 @@ class Chip_Paymattic_Inject_Chip_logo {
       return;
     }
 
-    $source_icon_path = PYMTC_CHIP_DIR_PATH . 'assets/logo-2.svg';
+    $source_icon_path = PYMTC_CHIP_DIR_PATH . 'assets/chip.svg';
     $target_icon_path = WPPAYFORM_DIR . 'assets/images/payment-logo/chip.svg';
 
     if ( !wp_is_writable( dirname( $target_icon_path ) ) OR !wp_is_file_mod_allowed( 'paymattic_chip_inject_logo' ) ) {
