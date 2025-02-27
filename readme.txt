@@ -1,7 +1,7 @@
 === CHIP for Paymattic ===
 Contributors: chipasia, wanzulnet
 Tags: chip
-Requires at least: 4.7
+Requires at least: 6.0
 Tested up to: 6.7
 Stable tag: 1.0.2
 Requires PHP: 7.4
@@ -35,8 +35,8 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 = Minimum Requirements =
 
-* WordPress 5.9 or greater
-* PaymatticPro 4.3.1 or greater
+* WordPress 6.0 or greater
+* PaymatticPro 4.6.0 or greater
 
 = Automatic installation =
 
