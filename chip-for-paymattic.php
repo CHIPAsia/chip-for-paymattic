@@ -7,7 +7,6 @@
  * Version: 1.0.2
  * Author: Chip In Sdn Bhd
  * Author URI: https://www.chip-in.asia
- * Requires Plugins: wp-payment-form-pro
  *
  * Copyright: © 2025 CHIP
  * License: GNU General Public License v3.0
