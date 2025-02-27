@@ -8,6 +8,8 @@
 class Chip_Paymattic_API
 {
   private static $_instance;
+  private $secret_key;
+  private $brand_id;
 
   public static function get_instance( $secret_key, $brand_id ) {
     if ( self::$_instance == null ) {

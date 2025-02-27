@@ -109,6 +109,7 @@ class Chip_Paymattic_Element extends BaseComponent
     $methods['chip'] = array(
       'label'    => $payment_title,
       'isActive' => true,
+      'logo' => PYMTC_CHIP_URL . '/assets/chip.svg',
       'editor_elements' => array(
         'label' => array(
           'label'   => __( 'Payment Option Label', 'chip-for-paymattic' ),
@@ -117,7 +118,8 @@ class Chip_Paymattic_Element extends BaseComponent
         )
       )
     );
-    return $methods;
+    
+    return apply_filters( 'paymattic_chip_push_payment_method_return', $methods, $this );
   }
 }
 

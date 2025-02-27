@@ -25,6 +25,8 @@ class Chip_Paymattic_Processor {
   }
 
   public function __construct() {
+    (new ChipSettings())->init();
+
     $this->add_filters();
     $this->add_actions();
   }
@@ -131,6 +133,14 @@ class Chip_Paymattic_Processor {
         ]),
       ),
     );
+
+    foreach ( $params['client'] as $key => $value ) {
+			if ( empty( $value ) ) {
+				unset( $params['client'][ $key ] );
+			}
+		}
+
+    $params = apply_filters( 'paymattic_chip_purchase_params', $params, $this );
 
     $chip    = Chip_Paymattic_API::get_instance( $option['secret_key'], $option['brand_id'] );
     $payment = $chip->create_payment( $params );
