@@ -79,22 +79,14 @@ class Chip_Paymattic {
   }
 }
 
-// it must load after paymattic plugin loaded
-add_action( 'plugins_loaded', 'load_chip_for_paymattic', 11 );
+add_action( 'init', 'load_chip_for_paymattic_csf', 0 );
 
-function load_chip_for_paymattic() {
+function load_chip_for_paymattic_csf() {
+  include plugin_dir_path( __FILE__ ) . 'includes/codestar-framework/classes/setup.class.php';
 
   if ( !class_exists( 'WPPayFormPro' ) || !class_exists( 'WPPayFormPro\GateWays\BasePaymentMethod' ) ) {
     return;
   }
 
   Chip_Paymattic::get_instance();
-}
-
-// csf must load by default priority
-// and shall not tied to load_chip_for_paymattic
-add_action( 'plugins_loaded', 'load_chip_for_paymattic_csf' );
-
-function load_chip_for_paymattic_csf() {
-  include plugin_dir_path( __FILE__ ) . 'includes/codestar-framework/classes/setup.class.php';
 }
