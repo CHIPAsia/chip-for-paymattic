@@ -1,9 +1,9 @@
 === CHIP for Paymattic ===
 Contributors: chipasia, wanzulnet
 Tags: chip
-Requires at least: 6.0
-Tested up to: 6.7
-Stable tag: 1.0.2
+Requires at least: 6.1
+Tested up to: 6.8
+Stable tag: 1.0.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,15 +27,14 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.0.2 - 2025-02-27 =
-* New - Updated CSF.
-* Fixed - Fixed issue with missing CHIP icon.
+= 1.0.3 - 2025-05-02 =
+* Fixed - Fixed issue with load_textdomain.
 
 == Installation ==
 
 = Minimum Requirements =
 
-* WordPress 6.0 or greater
+* WordPress 6.1 or greater
 * PaymatticPro 4.6.0 or greater
 
 = Automatic installation =
