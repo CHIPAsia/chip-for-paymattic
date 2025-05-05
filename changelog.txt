@@ -1,5 +1,12 @@
 == Changelog ==
 
+= 1.0.3 - 2025-05-02 =
+* Fixed - Fixed issue with load_textdomain.
+
+= 1.0.2 - 2025-02-27 =
+* New - Updated CSF.
+* Fixed - Fixed issue with missing CHIP icon.
+
 = 1.0.1 - 2023-01-10 =
 * Fixed - Error when new forms created using global configuration.
 
