@@ -7,6 +7,8 @@
  * Version: 1.0.3
  * Author: Chip In Sdn Bhd
  * Author URI: https://www.chip-in.asia
+ * Requires PHP: 7.4
+ * Requires at least: 6.1
  *
  * Copyright: © 2025 CHIP
  * License: GNU General Public License v3.0
