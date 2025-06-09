@@ -1,0 +1,55 @@
+name: Paymattic - Stable Release
+
+on:
+  push:
+    tags:
+      - 'paymattic-release-v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  deploy:
+    name: Tag version as stable
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v3
+
+      - name: Prepare and Sync Files
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y subversion
+
+          svn checkout "https://plugins.svn.wordpress.org/chip-for-paymattic/" svn \
+            --username "${SVN_USERNAME}" \
+            --password "${SVN_PASSWORD}" \
+            --non-interactive --trust-server-cert
+
+          mkdir deploy
+          shopt -s extglob
+          cp -r !(deploy|.git|.github|svn) deploy/
+
+          rsync -avc --delete --exclude=".svn" ./deploy/ ./svn/trunk/
+
+      - name: Files Changes
+        run: |
+          cd svn/trunk
+          svn status | grep '^?' | cut -c9- | xargs -d '\n' -r svn add
+          svn status | grep '^M' || echo "No modified files"
+          svn status | grep '^!' | cut -c9- | xargs -d '\n' -r svn delete
+
+      - name: Upload Files to SVN
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          cd svn/trunk
+          if [[ -n "$(svn status)" ]]; then
+            svn commit -m "${{ steps.tag_message.outputs.tag_message }}" \
+              --username "${SVN_USERNAME}" \
+              --password "${SVN_PASSWORD}" \
+              --non-interactive --trust-server-cert
+          else
+            echo "No changes to commit."
+          fi
