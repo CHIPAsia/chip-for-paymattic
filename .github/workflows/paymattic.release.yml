@@ -11,45 +11,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout GitHub repository
+      - name: Checkout Git repo
         uses: actions/checkout@v3
 
-      - name: Prepare and Sync Files
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      - name: Extract version from tag
+        id: vars
         run: |
-          sudo apt-get update && sudo apt-get install -y subversion
+          TAG=${GITHUB_REF##*/}
+          VERSION=${TAG#paymattic-release-v}
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
-          svn checkout "https://plugins.svn.wordpress.org/chip-for-paymattic/" svn \
-            --username "${SVN_USERNAME}" \
-            --password "${SVN_PASSWORD}" \
-            --non-interactive --trust-server-cert
+      - name: Install SVN
+        run: sudo apt-get install -y subversion
 
-          mkdir deploy
-          shopt -s extglob
-          cp -r !(deploy|.git|.github|svn) deploy/
-
-          rsync -avc --delete --exclude=".svn" ./deploy/ ./svn/trunk/
-
-      - name: Files Changes
+      - name: Checkout SVN /tags folder
         run: |
-          cd svn/trunk
-          svn status | grep '^?' | cut -c9- | xargs -d '\n' -r svn add
-          svn status | grep '^M' || echo "No modified files"
-          svn status | grep '^!' | cut -c9- | xargs -d '\n' -r svn delete
+          svn checkout --username "$SVN_USERNAME" --password "$SVN_PASSWORD" --non-interactive --trust-server-cert https://plugins.svn.wordpress.org/chip-for-paymattic/ svn-tags
 
-      - name: Upload Files to SVN
-        env:
-          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+      - name: Copy readme.txt from the latest version in /tags
+        id: copy-readme
         run: |
-          cd svn/trunk
-          if [[ -n "$(svn status)" ]]; then
-            svn commit -m "${{ steps.tag_message.outputs.tag_message }}" \
-              --username "${SVN_USERNAME}" \
-              --password "${SVN_PASSWORD}" \
-              --non-interactive --trust-server-cert
-          else
-            echo "No changes to commit."
+          cd svn-tags
+
+          latest_tag=$(ls -v tags | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | tail -n 1)
+
+          if [ -z "$latest_tag" ]; then
+            echo "❌ No versioned tags found in /tags."
+            exit 1
           fi
+
+          echo "Latest tag is: $latest_tag"
+
+          cp "tags/$latest_tag/readme.txt" trunk/readme.txt
+
+          echo "🔍 Checking SVN status:"
+          if svn status | grep -q '^M.*trunk/readme.txt'; then
+            echo "✅ readme.txt was updated."
+          else
+            echo "ℹ️ No change detected in readme.txt. Nothing to commit."
+            exit 0
+          fi
+
+      - name: Commit updated readme.txt to SVN
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          VERSION="${{ steps.vars.outputs.version }}"
+
+          cd svn-tags
+          svn commit trunk/readme.txt -m "Tag version $VERSION as stable" \
+            --username "$SVN_USERNAME" \
+            --password "$SVN_PASSWORD" \
+            --non-interactive --trust-server-cert
