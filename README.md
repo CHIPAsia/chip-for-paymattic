@@ -44,12 +44,12 @@ Welcome to Wordpress Collaboration Workflow
 
 - Upload files
   ```
-  git tag paymattic_upload-v<[0-9]+.[0-9]+.[0-9]+>
+  git tag paymattic-upload-v<[0-9]+.[0-9]+.[0-9]+>
   ```
 
 - Release stable version
   ```
-  git tag paymattic_release-v<[0-9]+.[0-9]+.[0-9]+>
+  git tag paymattic-release-v<[0-9]+.[0-9]+.[0-9]+>
   ```
 
 
