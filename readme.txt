@@ -1,9 +1,9 @@
 === CHIP for Paymattic ===
-Contributors: chipasia, wanzulnet
+Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 6.8
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,10 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.0.3 - 2025-05-02 =
-* Fixed - Fixed issue with load_textdomain.
+= 1.0.4 - 2025-06-17 =
+* Added - Automation on release deployment.
+
+[See changelog for all versions](https://raw.githubusercontent.com/CHIPAsia/chip-for-paymattic/main/changelog.txt).
 
 == Installation ==
 
