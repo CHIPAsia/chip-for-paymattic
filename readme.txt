@@ -3,7 +3,7 @@ Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 6.8
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,7 +27,7 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.0.4 - 2025-06-17 =
+= 1.0.5 - 2025-06-19 =
 * Added - Automation on release deployment.
 
 [See changelog for all versions](https://raw.githubusercontent.com/CHIPAsia/chip-for-paymattic/main/changelog.txt).
