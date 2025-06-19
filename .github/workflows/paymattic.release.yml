@@ -1,9 +1,7 @@
 name: Paymattic - Stable Release
 
 on:
-  push:
-    tags:
-      - 'paymattic-release-v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -13,13 +11,6 @@ jobs:
     steps:
       - name: Checkout Git repo
         uses: actions/checkout@v3
-
-      - name: Extract version from tag
-        id: vars
-        run: |
-          TAG=${GITHUB_REF##*/}
-          VERSION=${TAG#paymattic-release-v}
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Install SVN
         run: sudo apt-get install -y subversion
@@ -40,7 +31,7 @@ jobs:
             exit 1
           fi
 
-          echo "Latest tag is: $latest_tag"
+          echo "latest_tag=$latest_tag" >> "$GITHUB_OUTPUT"
 
           cp "tags/$latest_tag/readme.txt" trunk/readme.txt
 
@@ -57,10 +48,9 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
         run: |
-          VERSION="${{ steps.vars.outputs.version }}"
-
           cd svn-tags
-          svn commit trunk/readme.txt -m "Tag version $VERSION as stable" \
+
+          svn commit trunk/readme.txt -m "Tag version ${{ steps.copy-readme.outputs.latest_tag }} as stable" \
             --username "$SVN_USERNAME" \
             --password "$SVN_PASSWORD" \
             --non-interactive --trust-server-cert
