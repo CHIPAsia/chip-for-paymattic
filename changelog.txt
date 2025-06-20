@@ -1,5 +1,8 @@
 == Changelog ==
 
+= 1.0.5 - 2025-06-19 =
+* Added - Automation on release deployment.
+
 = 1.0.4 - 2025-06-17 =
 * Added - Automation on release deployment.
 
