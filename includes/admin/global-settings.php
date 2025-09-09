@@ -63,13 +63,6 @@ $miscellaneous_global_fields = array(
     'default'     => 'CHIP',
   ),
   array(
-    'id'    => 'send-receipt',
-    'type'  => 'switcher',
-    'title' => __( 'Purchase Send Receipt', 'chip-for-paymattic' ),
-    'desc'  => __( 'Send receipt upon payment completion.', 'chip-for-paymattic' ),
-    'help'  => __( 'Whether to send receipt email when it\'s paid. If configured, the receipt email will be send by CHIP. Default is off.', 'chip-for-paymattic' ),
-  ),
-  array(
     'id'      => 'due-strict',
     'type'    => 'switcher',
     'title'   => __( 'Due Strict', 'chip-for-paymattic' ),

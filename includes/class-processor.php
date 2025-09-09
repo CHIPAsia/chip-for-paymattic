@@ -125,7 +125,6 @@ class Chip_Paymattic_Processor {
 			'creator_agent'    => 'Paymattic: ' . PYMTC_CHIP_MODULE_VERSION,
 			'reference'        => $transaction->id,
 			'platform'         => 'paymattic',
-			'send_receipt'     => $option['send_rcpt'],
 			'due'              => time() + ( absint( $option['due_time'] ) * 60 ),
 			'brand_id'         => $option['brand_id'],
 			'client'           => array(
@@ -237,7 +236,6 @@ class Chip_Paymattic_Processor {
 		return array(
 			'secret_key' => $options[ 'secret-key' . $postfix ],
 			'brand_id'   => $options[ 'brand-id' . $postfix ],
-			'send_rcpt'  => empty( $options[ 'send-receipt' . $postfix ] ) ? false : $options[ 'send-receipt' . $postfix ],
 			'due_strict' => empty( $options[ 'due-strict' . $postfix ] ) ? false : $options[ 'due-strict' . $postfix ],
 			'due_time'   => $options[ 'due-strict-timing' . $postfix ],
 		);
