@@ -267,6 +267,12 @@ class Chip_Paymattic_Processor {
 			if ( $transaction->charge_id ) {
 				$transaction->transaction_url = $url . $transaction->charge_id . '/';
 			}
+
+			if ( $transaction->status == 'paid' ) {
+				$transaction->transaction_url .= 'receipt/';
+			} else {
+				$transaction->transaction_url .= 'invoice/';
+			}
 		}
 		return $transactions;
 	}
