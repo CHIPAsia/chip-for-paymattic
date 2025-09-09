@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.1.0 - 2025-09-09 =
+* Fixed - Issue with View on CHIP.
+* Removed - Send receipt option.
+
 = 1.0.5 - 2025-06-19 =
 * Added - Automation on release deployment.
 

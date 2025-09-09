@@ -3,7 +3,7 @@ Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 6.8
-Stable tag: 1.0.5
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,8 +27,9 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.0.5 - 2025-06-19 =
-* Added - Automation on release deployment.
+= 1.1.0 - 2025-09-09 =
+* Fixed - Issue with View on CHIP.
+* Removed - Send receipt option.
 
 [See changelog for all versions](https://raw.githubusercontent.com/CHIPAsia/chip-for-paymattic/main/changelog.txt).
 
@@ -76,6 +77,20 @@ This plugin rely on CHIP API ([PAYMATTIC_CHIP_ROOT_URL](https://gate.chip-in.asi
     - This is for accepting payment
   - **/purchases/<id\>**
     - This is for getting payment status from CHIP
+
+= CHIP logo not appearing in Paymattic dashboard? =
+
+If the CHIP logo is not appearing in your Paymattic dashboard, this is because Paymattic doesn't bundle the CHIP logo in their plugin. To fix this, add the following code to your `.htaccess` file **before** the `#BEGIN WORDPRESS` line:
+
+```
+# BEGIN Custom Redirects
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteRule ^wp-content/plugins/wp-payment-form/assets/images/gateways/chip\.svg$ /wp-content/plugins/chip-for-paymattic/assets/chip.svg [L]
+</IfModule>
+# END Custom Redirects
+```
 
 == Links ==
 
