@@ -78,6 +78,20 @@ This plugin rely on CHIP API ([PAYMATTIC_CHIP_ROOT_URL](https://gate.chip-in.asi
   - **/purchases/<id\>**
     - This is for getting payment status from CHIP
 
+= CHIP logo not appearing in Paymattic dashboard? =
+
+If the CHIP logo is not appearing in your Paymattic dashboard, this is because Paymattic doesn't bundle the CHIP logo in their plugin. To fix this, add the following code to your `.htaccess` file **before** the `#BEGIN WORDPRESS` line:
+
+```
+# BEGIN Custom Redirects
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteRule ^wp-content/plugins/wp-payment-form/assets/images/gateways/chip\.svg$ /wp-content/plugins/chip-for-paymattic/assets/chip.svg [L]
+</IfModule>
+# END Custom Redirects
+```
+
 == Links ==
 
 [CHIP Website](https://www.chip-in.asia)
