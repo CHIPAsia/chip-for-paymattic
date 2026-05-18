@@ -18,7 +18,7 @@ function pymtc_chip_form_fields( $form ){
     array(
       'type'    => 'notice',
       'style'   => 'danger',
-      'content' => sprintf( __( 'The default currency is set to non compatible currencies! %sClick here%s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url('admin.php?page=wppayform.php#/edit-form/' . $form->ID . '/settings/currency_settings') . ' >', '</a>' ),
+      'content' => sprintf( __( 'The default currency is set to non compatible currencies! %sClick here%s to update currency configuration.', 'chip-for-paymattic' ), '<a target="_blank" href=' . admin_url('admin.php?page=wppayform.php#/edit-form/' . $form->ID . '/settings/currency_settings') . ' rel="noopener noreferrer">', '</a>' ),
       'class'   => $pymtc_form_currency['currency'] == 'MYR' ? 'hidden' : '',
     ),
     array(

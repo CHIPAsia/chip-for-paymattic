@@ -12,7 +12,7 @@ class Chip_Paymattic_API {
 	private $brand_id;
 
 	public static function get_instance( $secret_key, $brand_id ) {
-		if ( self::$_instance == null ) {
+		if ( self::$_instance === null ) {
 			self::$_instance = new self( $secret_key, $brand_id );
 		}
 
@@ -49,7 +49,7 @@ class Chip_Paymattic_API {
 
 	public function was_payment_successful( $payment_id ) {
 		$result = $this->get_payment( $payment_id );
-		return $result && $result['status'] == 'paid';
+		return $result && $result['status'] === 'paid';
 	}
 
 	public function get_public_key() {
@@ -102,6 +102,10 @@ class Chip_Paymattic_API {
 				'body'      => $params,
 			)
 		);
+
+		if ( is_wp_error( $wp_request ) ) {
+			return null;
+		}
 
 		$response = wp_remote_retrieve_body( $wp_request );
 

@@ -17,7 +17,7 @@ class Chip_Paymattic_Processor {
 	private $supported_currencies = array( 'MYR' );
 
 	public static function get_instance() {
-		if ( self::$_instance == null ) {
+		if ( self::$_instance === null ) {
 			self::$_instance = new self();
 		}
 
@@ -55,7 +55,7 @@ class Chip_Paymattic_Processor {
 		// Now We have to analyze the elements and return our payment method
 
 		foreach ( $elements as $element ) {
-			if ( ( isset( $element['type'] ) && $element['type'] == 'chip_gateway_element' ) ) {
+			if ( ( isset( $element['type'] ) && $element['type'] === 'chip_gateway_element' ) ) {
 				return 'chip';
 			}
 		}
@@ -165,13 +165,13 @@ class Chip_Paymattic_Processor {
 					'type'          => 'failed',
 					'created_by'    => 'CHIP for Paymattic',
 					'title'         => __( 'Failure to create purchase', 'chip-for-paymattic' ),
-					'content'       => sprintf( __( 'User is not redirected to CHIP since failure to create purchase: %s', 'chip-for-paymattic' ), print_r( $payment, true ) ),
+					'content'       => __( 'User is not redirected to CHIP since failure to create purchase.', 'chip-for-paymattic' ),
 				)
 			);
 
 			wp_send_json_error(
 				array(
-					'message' => sprintf( __( 'Failed to create purchase: %s', 'chip-for-paymattic' ), print_r( $payment, true ) ),
+					'message' => __( 'Failed to create purchase. Please check your CHIP configuration.', 'chip-for-paymattic' ),
 				),
 				422
 			);
@@ -198,7 +198,7 @@ class Chip_Paymattic_Processor {
 			)
 		);
 
-		if ( $payment['is_test'] == true ) {
+		if ( $payment['is_test'] === true ) {
 
 			do_action(
 				'wppayform_log_data',
@@ -243,9 +243,13 @@ class Chip_Paymattic_Processor {
 
 	private function is_form_currency_supported( $currency ) {
 
-		if ( ! in_array( $currency, $this->supported_currencies ) ) {
-			printf( __( 'Error! Currency not supported. The only supported currency is MYR and the current currency is %s.', 'chip-for-paymattic' ), esc_html( $currency ) );
-			exit( 200 );
+		if ( ! in_array( $currency, $this->supported_currencies, true ) ) {
+			wp_send_json_error(
+				array(
+					'message' => sprintf( __( 'Error! Currency not supported. The only supported currency is MYR and the current currency is %s.', 'chip-for-paymattic' ), esc_html( $currency ) ),
+				),
+				422
+			);
 		}
 	}
 
@@ -266,7 +270,7 @@ class Chip_Paymattic_Processor {
 				$transaction->transaction_url = $url . $transaction->charge_id . '/';
 			}
 
-			if ( $transaction->status == 'paid' ) {
+			if ( $transaction->status === 'paid' ) {
 				$transaction->transaction_url .= 'receipt/';
 			} else {
 				$transaction->transaction_url .= 'invoice/';
@@ -289,7 +293,7 @@ class Chip_Paymattic_Processor {
 
 		$submission_id = absint( $data['wppayform_payment'] );
 
-		if ( $data['payment_method'] != 'chip' ) {
+		if ( $data['payment_method'] !== 'chip' ) {
 			return;
 		}
 
@@ -308,27 +312,29 @@ class Chip_Paymattic_Processor {
 			"SELECT GET_LOCK('pymtc_chip_payment_$submission_id', 15);"
 		);
 
-		$transaction = $this->getTransaction( $submission_id );
+		try {
+			$transaction = $this->getTransaction( $submission_id );
 
-		if ( $transaction->id != $payment['reference'] ) {
-			return;
+			if ( $transaction->id !== $payment['reference'] ) {
+				return;
+			}
+
+			if ( $transaction->status !== 'paid' && $payment['status'] === 'paid' ) {
+				$this->handlePaid( $submission, $transaction, $payment );
+			}
+
+			if ( $transaction->status !== 'failed' && $payment['status'] !== 'paid' ) {
+				$this->handleFailed( $submission, $transaction, $payment );
+			}
+		} finally {
+			$GLOBALS['wpdb']->get_results(
+				"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
+			);
 		}
-
-		if ( $transaction->status != 'paid' && $payment['status'] == 'paid' ) {
-			$this->handlePaid( $submission, $transaction, $payment );
-		}
-
-		if ( $transaction->status != 'failed' && $payment['status'] != 'paid' ) {
-			$this->handleFailed( $submission, $transaction, $payment );
-		}
-
-		$GLOBALS['wpdb']->get_results(
-			"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
-		);
 
 		$redirect_url = $this->getSuccessURL( Form::getForm( $transaction->form_id ), $submission );
 
-		wp_redirect( $redirect_url );
+		wp_redirect( esc_url( $redirect_url ) );
 		exit;
 	}
 
@@ -344,7 +350,7 @@ class Chip_Paymattic_Processor {
 
 	private function handlePaid( $submission, $transaction, $vendorTransaction ) {
 
-		if ( ! $transaction || $transaction->payment_method != 'chip' ) {
+		if ( ! $transaction || $transaction->payment_method !== 'chip' ) {
 			return;
 		}
 
@@ -390,7 +396,7 @@ class Chip_Paymattic_Processor {
 
 	private function handleFailed( $submission, $transaction, $vendorTransaction ) {
 
-		if ( ! $transaction || $transaction->payment_method != 'chip' ) {
+		if ( ! $transaction || $transaction->payment_method !== 'chip' ) {
 			return;
 		}
 
@@ -470,7 +476,7 @@ class Chip_Paymattic_Processor {
 
 	public function callback() {
 
-		if ( ! isset( $_GET['payment_method'] ) or $_GET['payment_method'] != 'chip' ) {
+		if ( ! isset( $_GET['payment_method'] ) or sanitize_text_field( wp_unslash( $_GET['payment_method'] ) ) !== 'chip' ) {
 			return;
 		}
 
@@ -496,19 +502,21 @@ class Chip_Paymattic_Processor {
 			"SELECT GET_LOCK('pymtc_chip_payment_$submission_id', 15);"
 		);
 
-		$transaction = $this->getTransaction( $submission_id );
+		try {
+			$transaction = $this->getTransaction( $submission_id );
 
-		if ( $transaction->id != $payment['reference'] ) {
-			return;
+			if ( $transaction->id !== $payment['reference'] ) {
+				return;
+			}
+
+			if ( $transaction->status !== 'paid' && $payment['status'] === 'paid' ) {
+				$this->handlePaid( $submission, $transaction, $payment );
+			}
+		} finally {
+			$GLOBALS['wpdb']->get_results(
+				"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
+			);
 		}
-
-		if ( $transaction->status != 'paid' && $payment['status'] == 'paid' ) {
-			$this->handlePaid( $submission, $transaction, $payment );
-		}
-
-		$GLOBALS['wpdb']->get_results(
-			"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
-		);
 	}
 }
 

@@ -13,7 +13,7 @@ class Chip_Paymattic_Element extends BaseComponent {
 	private static $_instance;
 
 	public static function get_instance() {
-		if ( self::$_instance == null ) {
+		if ( self::$_instance === null ) {
 			self::$_instance = new self();
 		}
 
@@ -98,7 +98,7 @@ class Chip_Paymattic_Element extends BaseComponent {
 	private function is_supported_currency( $form_id ) {
 		$currency_setting = Form::getCurrencySettings( $form_id );
 
-		return Arr::get( $currency_setting, 'currency' ) == 'MYR';
+		return Arr::get( $currency_setting, 'currency' ) === 'MYR';
 	}
 
 	public function renderForMultiple( $paymentSettings, $form, $elements ) {
