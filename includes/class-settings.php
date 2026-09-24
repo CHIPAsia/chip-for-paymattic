@@ -1,4 +1,9 @@
 <?php
+/**
+ * Payment method settings for CHIP for Paymattic.
+ *
+ * @package CHIPForPaymattic
+ */
 
 use WPPayFormPro\GateWays\BasePaymentMethod;
 use WPPayForm\Framework\Support\Arr;
@@ -8,9 +13,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * CHIP payment method settings for Paymattic.
+ */
 class ChipSettings extends BasePaymentMethod {
 
 
+	/**
+	 * Constructor. Registers the plugin's hooks.
+	 *
+	 * @return void
+	 */
 	public function __construct() {
 		$logo_url = apply_filters( 'paymattic_chip_logo_url_settings', PYMTC_CHIP_URL . 'assets/chip.svg' );
 		add_filter( 'wppayform_payment_method_settings', array( $this, 'get_settings' ), 10, 1 );
@@ -28,8 +41,10 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
-	 * @function mapperSettings, To map key => value before store
-	 * @function validateSettings, To validate before save settings
+	 * Registers the settings filters used by Paymattic's settings screen.
+	 *
+	 * Paymattic calls mapperSettings() before storing and validateSettings()
+	 * before saving, so both are wired up here.
 	 */
 	public function init() {
 		add_filter( 'wppayform_payment_method_settings_mapper_' . $this->key, array( $this, 'mapperSettings' ) );
@@ -37,7 +52,9 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
-	 * @return Array of global fields
+	 * Returns the global fields for this payment method.
+	 *
+	 * @return array The global fields.
 	 */
 	public function globalFields(): array {
 		return array(
@@ -53,18 +70,10 @@ class ChipSettings extends BasePaymentMethod {
 					'hosted' => 'Hosted checkout style',
 				),
 			),
-			// 'secret_key' => array(
-			// 'value' => '',
-			// 'label' => __('Secret Key', 'wp-payment-form'),
-			// 'type' => 'text',
-			// 'placeholder' => __('CHIP API Secret', 'wp-payment-form')
-			// ),
-			// 'brand_id' => array(
-			// 'value' => '',
-			// 'label' => __('Brand ID', 'wp-payment-form'),
-			// 'type' => 'text',
-			// 'placeholder' => __('CHIP Brand ID', 'wp-payment-form')
-			// ),
+			// The secret key and brand id fields are intentionally absent here:
+			// this plugin collects them on its own settings screen (see
+			// includes/admin/global-settings.php) because they are stored per
+			// form as well as globally.
 			'desc'          => array(
 				'value' => '<div> <p style="color: #d48916;">CHIP for Paymattic can be configured through Paymattic Pro >> <a href="' . admin_url( 'admin.php?page=chip-for-paymattic' ) . '" target="_blank" rel="noopener">CHIP Settings</a>.</p> </div>',
 				'label' => __( 'Note', 'wp-payment-form' ),
@@ -78,7 +87,9 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
-	 * @return Array of default fields
+	 * Returns the default value for each settings key.
+	 *
+	 * @return array The default values.
 	 */
 	public static function settingsKeys(): array {
 		return array(
@@ -90,7 +101,9 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
-	 * @return Array of global_payments settings fields
+	 * Returns the payment settings Paymattic renders on its settings screen.
+	 *
+	 * @return array The settings fields.
 	 */
 	public function getPaymentSettings(): array {
 		$settings = $this->mapper(
@@ -104,11 +117,22 @@ class ChipSettings extends BasePaymentMethod {
 		);
 	}
 
+	/**
+	 * Returns the saved settings with defaults applied.
+	 *
+	 * @return array
+	 */
 	public static function getSettings() {
 		$settings = get_option( 'wppayform_payment_settings_chip', array() );
 		return wp_parse_args( $settings, static::settingsKeys() );
 	}
 
+	/**
+	 * Maps stored settings to the shape Paymattic expects.
+	 *
+	 * @param mixed $settings The settings.
+	 * @return array
+	 */
 	public function mapperSettings( $settings ) {
 		return $this->mapper(
 			static::settingsKeys(),
@@ -118,6 +142,13 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 
+	/**
+	 * Returns the CHIP API routes used for a given mode.
+	 *
+	 * @param mixed $isLive The isLive.
+	 * @param mixed $settings The settings.
+	 * @return array
+	 */
 	public static function ApiRoutes( $isLive, $settings ) {
 		return array(
 			'secret_key' => Arr::get( $settings, 'secret_key' ),
@@ -125,6 +156,12 @@ class ChipSettings extends BasePaymentMethod {
 		);
 	}
 
+	/**
+	 * Returns the API credentials for a form, falling back to the global ones.
+	 *
+	 * @param mixed $formId The formId.
+	 * @return array
+	 */
 	public static function getApiKeys( $formId = false ) {
 		return static::ApiRoutes(
 			static::isLive( $formId ),
@@ -132,6 +169,12 @@ class ChipSettings extends BasePaymentMethod {
 		);
 	}
 
+	/**
+	 * Resolves the CHIP settings for a form, falling back to the global ones.
+	 *
+	 * @param mixed $methods The methods.
+	 * @return array
+	 */
 	public function get_settings( $methods ) {
 		$methods['chip'] = array(
 			'title'       => __( 'CHIP', 'chip-for-paymattic' ),

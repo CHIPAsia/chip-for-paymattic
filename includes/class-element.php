@@ -1,4 +1,9 @@
 <?php
+/**
+ * Payment element for CHIP for Paymattic.
+ *
+ * @package CHIPForPaymattic
+ */
 
 use WPPayForm\App\Modules\FormComponents\BaseComponent;
 use WPPayForm\Framework\Support\Arr;
@@ -8,18 +13,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * The CHIP payment element rendered inside a Paymattic form.
+ */
 class Chip_Paymattic_Element extends BaseComponent {
 
+	/**
+	 * Single instance of the class.
+	 *
+	 * @var object|null
+	 */
 	private static $_instance;
 
+	/**
+	 * Gets the single instance of the class.
+	 *
+	 * @return object
+	 */
 	public static function get_instance() {
-		if ( self::$_instance == null ) {
+		if ( null === self::$_instance ) {
 			self::$_instance = new self();
 		}
 
 		return self::$_instance;
 	}
 
+	/**
+	 * Constructor. Registers the plugin's hooks.
+	 */
 	public function __construct() {
 
 		parent::__construct( 'chip_gateway_element', 27 );
@@ -37,6 +58,11 @@ class Chip_Paymattic_Element extends BaseComponent {
 		add_filter( 'wppayform/available_payment_methods', array( $this, 'push_payment_method' ), 2, 1 );
 	}
 
+	/**
+	 * Tells Paymattic which component renders this payment method.
+	 *
+	 * @return string
+	 */
 	public function component() {
 		return array(
 			'type'             => 'chip_gateway_element',
@@ -59,6 +85,14 @@ class Chip_Paymattic_Element extends BaseComponent {
 		);
 	}
 
+	/**
+	 * Renders the payment element.
+	 *
+	 * @param string $element The element.
+	 * @param string $form The form.
+	 * @param string $elements The elements.
+	 * @return string
+	 */
 	public function render( $element, $form, $elements ) {
 		if ( ! $this->validate_api( $form->ID ) ) { ?>
 		<p style="color: red">You did not configure CHIP payment gateway. Please configure CHIP payment
@@ -76,9 +110,17 @@ class Chip_Paymattic_Element extends BaseComponent {
 		echo '<input data-wpf_payment_method="chip" type="hidden" name="__chip_payment_gateway" value="chip" />';
 	}
 
+	/**
+	 * Checks that the form has usable CHIP credentials.
+	 *
+	 * @param mixed $form_id The form id.
+	 * @return bool
+	 */
 	private function validate_api( $form_id ) {
 
-		if ( ! ( $options = get_option( PYMTC_CHIP_FSLUG ) ) ) {
+		$options = get_option( PYMTC_CHIP_FSLUG );
+
+		if ( empty( $options ) ) {
 			return false;
 		}
 
@@ -95,12 +137,26 @@ class Chip_Paymattic_Element extends BaseComponent {
 		return true;
 	}
 
+	/**
+	 * Checks whether the form's currency is supported by CHIP.
+	 *
+	 * @param mixed $form_id The form id.
+	 * @return bool
+	 */
 	private function is_supported_currency( $form_id ) {
 		$currency_setting = Form::getCurrencySettings( $form_id );
 
-		return Arr::get( $currency_setting, 'currency' ) == 'MYR';
+		return 'MYR' === Arr::get( $currency_setting, 'currency' );
 	}
 
+	/**
+	 * Renders the payment element when several methods are offered.
+	 *
+	 * @param mixed $paymentSettings The paymentSettings.
+	 * @param mixed $form The form.
+	 * @param mixed $elements The elements.
+	 * @return void
+	 */
 	public function renderForMultiple( $paymentSettings, $form, $elements ) {
 		$component                  = $this->component();
 		$component['id']            = 'chip_gateway_element';
@@ -109,6 +165,12 @@ class Chip_Paymattic_Element extends BaseComponent {
 		$this->render( $component, $form, $elements );
 	}
 
+	/**
+	 * Registers CHIP in Paymattic's payment method list.
+	 *
+	 * @param mixed $methods The methods.
+	 * @return array
+	 */
 	public function push_payment_method( $methods ) {
 
 		$options       = get_option( PYMTC_CHIP_FSLUG );
