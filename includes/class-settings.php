@@ -157,14 +157,20 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
-	 * Returns the API credentials for a form, falling back to the global ones.
+	 * Returns the API credentials for a form.
+	 *
+	 * CHIP uses a single credential pair and reports test mode per purchase
+	 * (the transaction's payment_mode), so there is no live/test key split to
+	 * resolve and no isLive() state to read. The previous code called a static
+	 * isLive() that this class never defined, which made every call to this
+	 * method die with a fatal error. ApiRoutes() does not read the flag.
 	 *
 	 * @param mixed $formId The formId.
 	 * @return array
 	 */
 	public static function getApiKeys( $formId = false ) {
 		return static::ApiRoutes(
-			static::isLive( $formId ),
+			false,
 			static::getSettings()
 		);
 	}

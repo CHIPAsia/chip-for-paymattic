@@ -3,7 +3,7 @@ Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 7.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,9 +27,14 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.1.1 - 2026-09-24 =
-* Changed - The bundled settings framework was replaced with our own. Your saved settings are kept exactly as they were, so nothing needs to be reconfigured.
-* Fixed   - Changing settings from a crafted link is no longer possible, and saving settings now also checks that the user is allowed to manage the site.
+= 1.1.2 - 2026-09-24 =
+* Fixed   - When a payment cannot be started, the reason reported by CHIP is now shown. The full response is kept in the activity log instead of being printed to the page.
+* Fixed   - If CHIP cannot be reached, the form now reports the connection problem instead of appearing to do nothing.
+* Fixed   - A form using a currency CHIP does not support (anything other than MYR) is now rejected with an error instead of being left waiting.
+* Fixed   - The CHIP logo is now served by this plugin, so it no longer depends on a copy placed inside Paymattic.
+* Fixed   - The payment lock is always released, so a repeated callback for the same submission can no longer stall.
+* Fixed   - Internal settings code no longer calls a method that does not exist.
+* Changed - The plugin now passes the WordPress coding standards and is checked on PHP 7.4 through 8.5.
 
 [See changelog for all versions](https://raw.githubusercontent.com/CHIPAsia/chip-for-paymattic/main/changelog.txt).
 
