@@ -3,7 +3,7 @@ Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 7.1
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -27,15 +27,11 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 
 == Changelog ==
 
-= 1.1.2 - 2026-09-24 =
-* Fixed   - When a payment cannot be started, the reason reported by CHIP is now shown. The full response is kept in the activity log instead of being printed to the page.
-* Fixed   - If CHIP cannot be reached, the form now reports the connection problem instead of appearing to do nothing.
-* Fixed   - A form using a currency CHIP does not support (anything other than MYR) is now rejected with an error instead of being left waiting.
-* Fixed   - The CHIP logo is now served by this plugin, so it no longer depends on a copy placed inside Paymattic.
-* Fixed   - The payment lock is always released, so a repeated callback for the same submission can no longer stall.
-* Fixed   - Internal settings code no longer calls a method that does not exist.
-* Changed - The plugin now passes the WordPress coding standards and is checked on PHP 7.4 through 8.5.
-
+= 1.1.3 - 2026-09-24 =
+* Fixed   - Saving the CHIP credentials from Paymattic's own payment settings screen now works. It previously stopped with an error before storing anything.
+* Fixed   - The button that checks the CHIP credentials now answers. It previously stopped with an error instead of reporting whether the credentials work.
+* Fixed   - Credentials that CHIP rejects are now reported as not working. A response from CHIP that was not a success used to be read as if it were one, so an invalid Secret Key and Brand ID could look correct.
+* Fixed   - A form that uses its own CHIP credentials no longer uses the credentials of another form.
 [See changelog for all versions](https://raw.githubusercontent.com/CHIPAsia/chip-for-paymattic/main/changelog.txt).
 
 == Installation ==
