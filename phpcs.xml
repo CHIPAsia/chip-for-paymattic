@@ -68,7 +68,7 @@
 		<exclude-pattern>includes/class-chip-ff-settings.php</exclude-pattern>
 	</rule>
 	<!--
-		The five files below hold Paymattic's own vocabulary: its model objects
+		The four files below hold Paymattic's own vocabulary: its model objects
 		($vendorTransaction, $transactionModel, $submissionModel, $globalSettings)
 		and its method naming convention (camelCase, e.g. getSettings(),
 		mapperSettings(), ApiRoutes()). Chip_Paymattic_Element extends
@@ -83,11 +83,10 @@
 		<exclude-pattern>includes/class-element.php</exclude-pattern>
 		<exclude-pattern>includes/class-settings.php</exclude-pattern>
 		<exclude-pattern>includes/class-api.php</exclude-pattern>
-		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
 	</rule>
 
 	<!--
-		Same five files, same reason as above: the camelCase method names are
+		Same four files, same reason as above: the camelCase method names are
 		Paymattic's convention and are called through its base classes.
 	-->
 	<rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
@@ -95,7 +94,6 @@
 		<exclude-pattern>includes/class-element.php</exclude-pattern>
 		<exclude-pattern>includes/class-settings.php</exclude-pattern>
 		<exclude-pattern>includes/class-api.php</exclude-pattern>
-		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
 	</rule>
 	<!--
 		The text domain 'wp-payment-form' is Paymattic's own bundled domain. These
@@ -109,26 +107,15 @@
 	</rule>
 
 	<!--
-		These five file names and the class name in the last of them predate this
-		work and are referenced by the plugin bootstrap (and, for ChipSettings, by
-		Paymattic's payment-method registry). Renaming them is a separate,
-		behaviour-risking change, so the file-name/class-name sniffs are off for
-		these files only.
+		These four file names predate this work and are referenced by the plugin
+		bootstrap (and, for ChipSettings, by Paymattic's payment-method
+		registry). Renaming them is a separate, behaviour-risking change, so the
+		file-name sniff is off for these files only.
 	-->
 	<rule ref="WordPress.Files.FileName">
 		<exclude-pattern>includes/class-api.php</exclude-pattern>
 		<exclude-pattern>includes/class-element.php</exclude-pattern>
-		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
 		<exclude-pattern>includes/class-processor.php</exclude-pattern>
 		<exclude-pattern>includes/class-settings.php</exclude-pattern>
-	</rule>
-	<!--
-		includes/class-inject-chip-logo.php is not loaded by the bootstrap
-		(see the note in chip-for-paymattic.php), so it never runs. It is kept
-		for reference, and the class-name/comment sniffs are off for it rather
-		than renaming a class nothing calls.
-	-->
-	<rule ref="PEAR.NamingConventions.ValidClassName">
-		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
 	</rule>
 </ruleset>
