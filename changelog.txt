@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.1.1 - 2026-09-24 =
+* Changed - The bundled settings framework was replaced with our own. Your saved settings are kept exactly as they were, so nothing needs to be reconfigured.
+* Fixed   - Changing settings from a crafted link is no longer possible, and saving settings now also checks that the user is allowed to manage the site.
+
 = 1.1.0 - 2025-09-09 =
 * Fixed - Issue with View on CHIP.
 * Removed - Send receipt option.
