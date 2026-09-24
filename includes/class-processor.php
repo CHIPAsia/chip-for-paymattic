@@ -322,9 +322,17 @@ class Chip_Paymattic_Processor {
 	private function is_form_currency_supported( $currency ) {
 
 		if ( ! in_array( $currency, $this->supported_currencies, true ) ) {
-			/* translators: %s: the currency code configured on the form. */
-			echo esc_html( sprintf( __( 'Error! Currency not supported. The only supported currency is MYR and the current currency is %s.', 'chip-for-paymattic' ), $currency ) );
-			exit( 200 );
+			// This runs inside the AJAX request that starts a purchase, so the
+			// failure is reported the same way as the other error exits here:
+			// a JSON body with 422. It previously echoed a bare string with an
+			// HTTP 200, which a client cannot tell apart from success.
+			wp_send_json_error(
+				array(
+					/* translators: %s: the currency code configured on the form. */
+					'message' => sprintf( __( 'Error! Currency not supported. The only supported currency is MYR and the current currency is %s.', 'chip-for-paymattic' ), $currency ),
+				),
+				422
+			);
 		}
 	}
 
@@ -413,28 +421,34 @@ class Chip_Paymattic_Processor {
 			"SELECT GET_LOCK('pymtc_chip_payment_$submission_id', 15);"
 		);
 
-		$transaction = $this->getTransaction( $submission_id );
+		// The lock is released in a finally block. Every early return below
+		// would otherwise leave it held for the rest of the connection, and on
+		// a persistent connection that blocks the next callback for this
+		// submission until the lock times out.
+		try {
+			$transaction = $this->getTransaction( $submission_id );
 
-		if ( (int) $transaction->id !== (int) $payment['reference'] ) {
-			return;
+			if ( (int) $transaction->id !== (int) $payment['reference'] ) {
+				return;
+			}
+
+			if ( 'paid' !== $transaction->status && 'paid' === $payment['status'] ) {
+				$this->handlePaid( $submission, $transaction, $payment );
+			}
+
+			if ( 'failed' !== $transaction->status && 'paid' !== $payment['status'] ) {
+				$this->handleFailed( $submission, $transaction, $payment );
+			}
+		} finally {
+			$GLOBALS['wpdb']->get_results(
+				"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
+			);
 		}
-
-		if ( 'paid' !== $transaction->status && 'paid' === $payment['status'] ) {
-			$this->handlePaid( $submission, $transaction, $payment );
-		}
-
-		if ( 'failed' !== $transaction->status && 'paid' !== $payment['status'] ) {
-			$this->handleFailed( $submission, $transaction, $payment );
-		}
-
-		$GLOBALS['wpdb']->get_results(
-			"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
-		);
 
 		$redirect_url = $this->getSuccessURL( Form::getForm( $transaction->form_id ), $submission );
 
 		// phpcs:ignore WordPress.Security.SafeRedirect.wp_redirect_wp_redirect -- the payer is sent to CHIP's external checkout host, which wp_safe_redirect() would block.
-		wp_redirect( $redirect_url );
+		wp_redirect( esc_url( $redirect_url ) );
 		exit;
 	}
 
@@ -680,19 +694,22 @@ class Chip_Paymattic_Processor {
 			"SELECT GET_LOCK('pymtc_chip_payment_$submission_id', 15);"
 		);
 
-		$transaction = $this->getTransaction( $submission_id );
+		// Released in a finally block; see the note in redirect().
+		try {
+			$transaction = $this->getTransaction( $submission_id );
 
-		if ( (int) $transaction->id !== (int) $payment['reference'] ) {
-			return;
+			if ( (int) $transaction->id !== (int) $payment['reference'] ) {
+				return;
+			}
+
+			if ( 'paid' !== $transaction->status && 'paid' === $payment['status'] ) {
+				$this->handlePaid( $submission, $transaction, $payment );
+			}
+		} finally {
+			$GLOBALS['wpdb']->get_results(
+				"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
+			);
 		}
-
-		if ( 'paid' !== $transaction->status && 'paid' === $payment['status'] ) {
-			$this->handlePaid( $submission, $transaction, $payment );
-		}
-
-		$GLOBALS['wpdb']->get_results(
-			"SELECT RELEASE_LOCK('pymtc_chip_payment_$submission_id');"
-		);
 	}
 }
 

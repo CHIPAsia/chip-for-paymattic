@@ -32,7 +32,7 @@ $credentials_global_fields = array(
 		'type'    => 'notice',
 		'style'   => 'danger',
 		/* translators: 1: opening link tag, 2: closing link tag. */
-		'content' => sprintf( __( 'The default currency is set to non compatible currencies! %1$sClick here%2$s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url( 'admin.php?page=wppayform_settings' ) . ' >', '</a>' ),
+		'content' => sprintf( __( 'The default currency is set to non compatible currencies! %1$sClick here%2$s to update currency configuration.', 'chip-for-paymattic' ), '<a target="_blank" rel="noopener noreferrer" href="' . admin_url( 'admin.php?page=wppayform_settings' ) . '">', '</a>' ),
 		'class'   => 'MYR' === $pymtc_global_currency['currency'] ? 'hidden' : '',
 	),
 	array(

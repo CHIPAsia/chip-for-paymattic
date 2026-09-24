@@ -208,6 +208,13 @@ class Chip_Paymattic_API {
 			)
 		);
 
+		// A transport failure (DNS, TLS, timeout) returns WP_Error. Without this
+		// guard the body is read as an empty string and every caller sees an
+		// unrecognisable "invalid response" instead of a failed request.
+		if ( is_wp_error( $wp_request ) ) {
+			return null;
+		}
+
 		$response = wp_remote_retrieve_body( $wp_request );
 
 		$code = wp_remote_retrieve_response_code( $wp_request );
