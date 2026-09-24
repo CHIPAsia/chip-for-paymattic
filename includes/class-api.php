@@ -18,11 +18,15 @@
 class Chip_Paymattic_API {
 
 	/**
-	 * Single instance of the class.
+	 * One instance per credential pair, keyed by the pair itself.
 	 *
-	 * @var object|null
+	 * A single shared instance would reuse whichever pair was requested first,
+	 * so a form that overrides its credentials would silently be charged
+	 * against another form's brand.
+	 *
+	 * @var array<string, self>
 	 */
-	private static $_instance;
+	private static $instances = array();
 	/**
 	 * The account secret key.
 	 *
@@ -38,18 +42,20 @@ class Chip_Paymattic_API {
 	private $brand_id;
 
 	/**
-	 * Gets the single instance of the class.
+	 * Gets the instance for a credential pair.
 	 *
 	 * @param object $secret_key The secret key.
 	 * @param object $brand_id The brand id.
 	 * @return object
 	 */
 	public static function get_instance( $secret_key, $brand_id ) {
-		if ( null === self::$_instance ) {
-			self::$_instance = new self( $secret_key, $brand_id );
+		$key = md5( $secret_key . '|' . $brand_id );
+
+		if ( ! isset( self::$instances[ $key ] ) ) {
+			self::$instances[ $key ] = new self( $secret_key, $brand_id );
 		}
 
-		return self::$_instance;
+		return self::$instances[ $key ];
 	}
 
 	/**
@@ -219,11 +225,13 @@ class Chip_Paymattic_API {
 
 		$code = wp_remote_retrieve_response_code( $wp_request );
 
-		switch ( $code ) {
-			case 200:
-			case 201:
-				break;
-			default:
+		// Only a 2xx response carries usable data. Every other status is an
+		// error envelope, including 401 authentication_failed and 405
+		// method_not_allowed, and must not be mistaken for a result. Returning
+		// the body regardless is what let an invalid credential pair look like
+		// a successful call.
+		if ( $code < 200 || $code >= 300 ) {
+			return null;
 		}
 
 		return $response;
