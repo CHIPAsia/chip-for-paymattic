@@ -6,7 +6,7 @@ $slug = PYMTC_CHIP_FSLUG;
 
 $pymtc_global_currency = GeneralSettings::getGlobalCurrencySettings();
 
-CSF_Setup::createOptions( $slug, array(
+CHIP_FF_Settings::createOptions( $slug, array(
   'framework_title' => sprintf( __( 'CHIP for Paymattic %1$s%3$s%2$s', 'chip-for-paymattic' ), '<small>', '</small>', PYMTC_CHIP_MODULE_VERSION ),
 
   'menu_title'  => __( 'CHIP Settings', 'chip-for-paymattic' ),
@@ -80,17 +80,17 @@ $miscellaneous_global_fields = array(
     'default'     => '60',
     'placeholder' => '60',
     'dependency'  => array( ['due-strict', '==', 'true'] ),
-    'validate'    => 'csf_validate_numeric',
+    'validate'    => 'pymtc_chip_validate_numeric',
   ),
 );
 
-CSF_Setup::createSection( $slug, array(
+CHIP_FF_Settings::createSection( $slug, array(
   'id'    => 'global-configuration',
   'title' => __( 'Global Configuration', 'chip-for-paymattic' ),
   'icon'  => 'fa fa-home',
 ) );
 
-CSF_Setup::createSection( $slug, array(
+CHIP_FF_Settings::createSection( $slug, array(
   'parent'      => 'global-configuration',
   'id'          => 'credentials',
   'title'       => __( 'Credentials', 'chip-for-paymattic' ),
@@ -98,7 +98,7 @@ CSF_Setup::createSection( $slug, array(
   'fields'      => $credentials_global_fields,
 ) );
 
-CSF_Setup::createSection( $slug, array(
+CHIP_FF_Settings::createSection( $slug, array(
   'parent'      => 'global-configuration',
   'id'          => 'miscellaneous',
   'title'       => __( 'Miscellaneous', 'chip-for-paymattic' ),

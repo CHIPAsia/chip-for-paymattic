@@ -13,7 +13,7 @@ class Chip_Paymattic_Inject_Chip_logo {
 	}
 
 	public function __construct() {
-		add_action( 'csf_paymattic_chip_save_before', array( $this, 'inject_chip_logo' ), 10, 2 );
+		add_action( 'chip_ff_paymattic_chip_save_before', array( $this, 'inject_chip_logo' ), 10, 2 );
 		add_action( 'upgrader_process_complete', array( $this, 'reinject_chip_logo' ), 10, 2 );
 	}
 
