@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<ruleset name="CHIP for Paymattic">
+	<description>PHPCS ruleset for the CHIP for Paymattic plugin.</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+
+	<!-- Only scan PHP files -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Exclude paths -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/assets/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
+	<exclude-pattern>/dist/*</exclude-pattern>
+
+	<!-- Use WordPress coding standards -->
+	<rule ref="WordPress">
+	</rule>
+
+	<!-- Set minimum supported PHP version -->
+	<config name="minimum_supported_wp_version" value="6.1"/>
+	<config name="testVersion" value="7.4-"/>
+
+	<!-- Text domain -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="chip-for-paymattic"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!--
+		PSR2_Classes_PropertyDeclaration: the WordPress pseudo-singleton pattern
+		uses $_instance. Renaming it would change the pattern shared with
+		chip-for-fluent-forms and cff-gateway-charges.
+	-->
+	<rule ref="PSR2.Classes.PropertyDeclaration">
+		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
+	</rule>
+
+	<!--
+		The main plugin file holds both the Chip_Paymattic class and the
+		standalone load_chip_for_paymattic_csf() bootstrapping function hooked
+		to 'init'. Splitting them would change the plugin entry point.
+	-->
+	<rule ref="Universal.Files.SeparateFunctionsFromOO">
+		<exclude-pattern>chip-for-paymattic.php</exclude-pattern>
+	</rule>
+
+	<!--
+		WordPress resolves the plugin from this exact file name, so it cannot be
+		renamed to match a class. Same single exclusion as the sibling plugins.
+	-->
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>chip-for-paymattic.php</exclude-pattern>
+	</rule>
+
+	<!--
+		The settings framework keeps the createOptions()/createSection() method
+		names it inherited from the Codestar Framework it replaced. Those names
+		are the call site contract in includes/admin/*.php, so renaming them
+		would be churn across every settings file for no behavioural gain.
+	-->
+	<rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+		<exclude-pattern>includes/class-chip-ff-settings.php</exclude-pattern>
+	</rule>
+	<!--
+		The five files below hold Paymattic's own vocabulary: its model objects
+		($vendorTransaction, $transactionModel, $submissionModel, $globalSettings)
+		and its method naming convention (camelCase, e.g. getSettings(),
+		mapperSettings(), ApiRoutes()). Chip_Paymattic_Element extends
+		Paymattic's BaseComponent and ChipSettings extends BasePaymentMethod, so
+		these names are an interface with a third-party base class whose source
+		is not vendored here. Renaming them risks breaking that interface, so the
+		two naming sniffs are off for these files only - every other sniff,
+		including the security and escaping ones, still applies.
+	-->
+	<rule ref="WordPress.NamingConventions.ValidVariableName">
+		<exclude-pattern>includes/class-processor.php</exclude-pattern>
+		<exclude-pattern>includes/class-element.php</exclude-pattern>
+		<exclude-pattern>includes/class-settings.php</exclude-pattern>
+		<exclude-pattern>includes/class-api.php</exclude-pattern>
+		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
+	</rule>
+
+	<!--
+		Same five files, same reason as above: the camelCase method names are
+		Paymattic's convention and are called through its base classes.
+	-->
+	<rule ref="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid">
+		<exclude-pattern>includes/class-processor.php</exclude-pattern>
+		<exclude-pattern>includes/class-element.php</exclude-pattern>
+		<exclude-pattern>includes/class-settings.php</exclude-pattern>
+		<exclude-pattern>includes/class-api.php</exclude-pattern>
+		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
+	</rule>
+	<!--
+		The text domain 'wp-payment-form' is Paymattic's own bundled domain. These
+		strings live in the payment-method descriptor that Paymattic renders, and
+		they were shipped under that domain before this work, so changing it here
+		would silently drop them from any translation that already covers
+		Paymattic. The strings the plugin itself owns use 'chip-for-paymattic'.
+	-->
+	<rule ref="WordPress.WP.I18n">
+		<exclude-pattern>includes/class-settings.php</exclude-pattern>
+	</rule>
+
+	<!--
+		These five file names and the class name in the last of them predate this
+		work and are referenced by the plugin bootstrap (and, for ChipSettings, by
+		Paymattic's payment-method registry). Renaming them is a separate,
+		behaviour-risking change, so the file-name/class-name sniffs are off for
+		these files only.
+	-->
+	<rule ref="WordPress.Files.FileName">
+		<exclude-pattern>includes/class-api.php</exclude-pattern>
+		<exclude-pattern>includes/class-element.php</exclude-pattern>
+		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
+		<exclude-pattern>includes/class-processor.php</exclude-pattern>
+		<exclude-pattern>includes/class-settings.php</exclude-pattern>
+	</rule>
+	<!--
+		includes/class-inject-chip-logo.php is not loaded by the bootstrap
+		(see the note in chip-for-paymattic.php), so it never runs. It is kept
+		for reference, and the class-name/comment sniffs are off for it rather
+		than renaming a class nothing calls.
+	-->
+	<rule ref="PEAR.NamingConventions.ValidClassName">
+		<exclude-pattern>includes/class-inject-chip-logo.php</exclude-pattern>
+	</rule>
+</ruleset>

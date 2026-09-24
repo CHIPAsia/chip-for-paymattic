@@ -1,105 +1,128 @@
 <?php
+/**
+ * Per-form settings for CHIP for Paymattic.
+ *
+ * @package CHIPForPaymattic
+ */
 
 use WPPayForm\App\Models\Form;
 
 $slug = PYMTC_CHIP_FSLUG;
-function pymtc_chip_form_fields( $form ){
 
-  $pymtc_form_currency = Form::getCurrencySettings( $form->ID );
+/**
+ * Builds the per-form CHIP settings fields.
+ *
+ * @param object $form The Paymattic form.
+ * @return array The field definitions.
+ */
+function pymtc_chip_form_fields( $form ) {
 
-  $form_fields = array(
-    array(
-      'id'    => 'form-customize-' . $form->ID,
-      'type'  => 'switcher',
-      'title' => sprintf( __( 'Customization', 'chip-for-paymattic' ) ),
-      'desc'  => sprintf( __( 'Form ID: <strong>#%s</strong>. Form Title: <strong>%s</strong>', 'chip-for-paymattic' ), $form->ID, $form->post_title),
-      'help'  => sprintf( __( 'This to enable customization per form-basis for form: #%s', 'chip-for-paymattic' ), $form->ID ),
-    ),
-    array(
-      'type'    => 'notice',
-      'style'   => 'danger',
-      'content' => sprintf( __( 'The default currency is set to non compatible currencies! %sClick here%s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url('admin.php?page=wppayform.php#/edit-form/' . $form->ID . '/settings/currency_settings') . ' >', '</a>' ),
-      'class'   => $pymtc_form_currency['currency'] == 'MYR' ? 'hidden' : '',
-    ),
-    array(
-      'type'    => 'notice',
-      'style'   => 'normal',
-      'content' => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
+	$pymtc_form_currency = Form::getCurrencySettings( $form->ID );
 
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'type'    => 'subheading',
-      'content' => 'Credentials',
+	$form_fields = array(
+		array(
+			'id'    => 'form-customize-' . $form->ID,
+			'type'  => 'switcher',
+			'title' => sprintf( __( 'Customization', 'chip-for-paymattic' ) ),
+			/* translators: 1: Form ID, 2: Form Title. */
+			'desc'  => sprintf( __( 'Form ID: <strong>#%1$s</strong>. Form Title: <strong>%2$s</strong>', 'chip-for-paymattic' ), $form->ID, $form->post_title ),
+			/* translators: %s: Form ID. */
+			'help'  => sprintf( __( 'This to enable customization per form-basis for form: #%s', 'chip-for-paymattic' ), $form->ID ),
+		),
+		array(
+			'type'    => 'notice',
+			'style'   => 'danger',
+			/* translators: 1: opening link tag, 2: closing link tag. */
+			'content' => sprintf( __( 'The default currency is set to non compatible currencies! %1$sClick here%2$s to update currency configuration.', 'chip-for-paymattic' ), '<a target=_blank href=' . admin_url( 'admin.php?page=wppayform.php#/edit-form/' . $form->ID . '/settings/currency_settings' ) . ' >', '</a>' ),
+			'class'   => 'MYR' === $pymtc_form_currency['currency'] ? 'hidden' : '',
+		),
+		array(
+			'type'       => 'notice',
+			'style'      => 'normal',
+			'content'    => __( 'Note: Please add Email and Name field on your form to get payment data correctly.', 'chip-for-paymattic' ),
 
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'id'    => 'secret-key-' . $form->ID,
-      'type'  => 'text',
-      'title' => __( 'Secret Key', 'chip-for-paymattic' ),
-      'desc'  => __( 'Enter your Secret Key.', 'chip-for-paymattic' ),
-      'help'  => __( 'Secret key is used to identify your account with CHIP. You are recommended to create dedicated secret key for each website.', 'chip-for-paymattic' ),
-      
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'id'    => 'brand-id-' . $form->ID,
-      'type'  => 'text',
-      'title' => __( 'Brand ID', 'chip-for-paymattic' ),
-      'desc'  => __( 'Enter your Brand ID.', 'chip-for-paymattic' ),
-      'help'  => __( 'Brand ID enables you to represent your Brand suitable for the system using the same CHIP account.', 'chip-for-paymattic' ),
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'type'       => 'subheading',
+			'content'    => 'Credentials',
 
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'type'    => 'subheading',
-      'content' => 'Miscellaneous',
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'id'         => 'secret-key-' . $form->ID,
+			'type'       => 'text',
+			'title'      => __( 'Secret Key', 'chip-for-paymattic' ),
+			'desc'       => __( 'Enter your Secret Key.', 'chip-for-paymattic' ),
+			'help'       => __( 'Secret key is used to identify your account with CHIP. You are recommended to create dedicated secret key for each website.', 'chip-for-paymattic' ),
 
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'id'      => 'due-strict-' . $form->ID,
-      'type'    => 'switcher',
-      'title'   => __( 'Due Strict', 'chip-for-paymattic' ),
-      'desc'    => __( 'Turn this on to prevent payment after specific time.', 'chip-for-paymattic' ),
-      'help'    => __( 'Whether to permit payments when Purchase\'s due has passed. By default those are permitted (and status will be set to overdue once due moment is passed). If this is set to true, it won\'t be possible to pay for an overdue invoice, and when due is passed the Purchase\'s status will be set to expired.', 'chip-for-paymattic' ),
-      'default' => true,
-      
-      'dependency'  => array( ['form-customize-' . $form->ID, '==', 'true'] ),
-    ),
-    array(
-      'id'          => 'due-strict-timing-' . $form->ID,
-      'type'        => 'number',
-      'after'       => 'minutes',
-      'title'       => __( 'Due Strict Timing', 'chip-for-paymattic' ),
-      'help'        => __( 'Set due time to enforce due timing for purchases. 60 for 60 minutes. If due_strict is set while due strict timing unset, it will default to 1 hour.', 'chip-for-paymattic' ),
-      'desc'        => __( 'Default 60 for 1 hour.', 'chip-for-paymattic' ),
-      'default'     => '60',
-      'placeholder' => '60',
-      'dependency'  => array( ['due-strict-' . $form->ID, '==', 'true'], ['form-customize-' . $form->ID, '==', 'true'] ),
-      'validate'    => 'pymtc_chip_validate_numeric',
-    ),
-  );
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'id'         => 'brand-id-' . $form->ID,
+			'type'       => 'text',
+			'title'      => __( 'Brand ID', 'chip-for-paymattic' ),
+			'desc'       => __( 'Enter your Brand ID.', 'chip-for-paymattic' ),
+			'help'       => __( 'Brand ID enables you to represent your Brand suitable for the system using the same CHIP account.', 'chip-for-paymattic' ),
 
-  return $form_fields;
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'type'       => 'subheading',
+			'content'    => 'Miscellaneous',
+
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'id'         => 'due-strict-' . $form->ID,
+			'type'       => 'switcher',
+			'title'      => __( 'Due Strict', 'chip-for-paymattic' ),
+			'desc'       => __( 'Turn this on to prevent payment after specific time.', 'chip-for-paymattic' ),
+			'help'       => __( 'Whether to permit payments when Purchase\'s due has passed. By default those are permitted (and status will be set to overdue once due moment is passed). If this is set to true, it won\'t be possible to pay for an overdue invoice, and when due is passed the Purchase\'s status will be set to expired.', 'chip-for-paymattic' ),
+			'default'    => true,
+
+			'dependency' => array( array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+		),
+		array(
+			'id'          => 'due-strict-timing-' . $form->ID,
+			'type'        => 'number',
+			'after'       => 'minutes',
+			'title'       => __( 'Due Strict Timing', 'chip-for-paymattic' ),
+			'help'        => __( 'Set due time to enforce due timing for purchases. 60 for 60 minutes. If due_strict is set while due strict timing unset, it will default to 1 hour.', 'chip-for-paymattic' ),
+			'desc'        => __( 'Default 60 for 1 hour.', 'chip-for-paymattic' ),
+			'default'     => '60',
+			'placeholder' => '60',
+			'dependency'  => array( array( 'due-strict-' . $form->ID, '==', 'true' ), array( 'form-customize-' . $form->ID, '==', 'true' ) ),
+			'validate'    => 'pymtc_chip_validate_numeric',
+		),
+	);
+
+	return $form_fields;
 }
 
-CHIP_FF_Settings::createSection( $slug, array(
-  'id'    => 'form-configuration',
-  'title' => __( 'Form Configuration', 'chip-for-paymattic' ),
-  'icon'  => 'fa fa-gear'
-));
+CHIP_FF_Settings::createSection(
+	$slug,
+	array(
+		'id'    => 'form-configuration',
+		'title' => __( 'Form Configuration', 'chip-for-paymattic' ),
+		'icon'  => 'fa fa-gear',
+	)
+);
 
 $all_forms_query = Form::getAllForms();
 
-foreach( $all_forms_query as $form ) {
+foreach ( $all_forms_query as $form ) {
 
-  CHIP_FF_Settings::createSection( $slug, array(
-    'parent'      => 'form-configuration',
-    'id'          => 'form-id-' . $form->ID,
-    'title'       => sprintf( __( 'Form #%s - %s', 'chip-for-paymattic' ), $form->ID, substr( $form->post_title, 0, 15 ) ),
-    'description' => sprintf( __( 'Configuration for Form #%s - %s', 'chip-for-paymattic' ), $form->ID, $form->post_title ),
-    'fields'      => pymtc_chip_form_fields( $form ),
-  ));
+	CHIP_FF_Settings::createSection(
+		$slug,
+		array(
+			'parent'      => 'form-configuration',
+			'id'          => 'form-id-' . $form->ID,
+			/* translators: 1: Form ID, 2: Form Title, truncated to 15 characters. */
+			'title'       => sprintf( __( 'Form #%1$s - %2$s', 'chip-for-paymattic' ), $form->ID, substr( $form->post_title, 0, 15 ) ),
+			/* translators: 1: Form ID, 2: Form Title. */
+			'description' => sprintf( __( 'Configuration for Form #%1$s - %2$s', 'chip-for-paymattic' ), $form->ID, $form->post_title ),
+			'fields'      => pymtc_chip_form_fields( $form ),
+		)
+	);
 }
