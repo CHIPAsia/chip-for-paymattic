@@ -84,6 +84,51 @@ class Chip_Paymattic_Processor {
 	}
 
 	/**
+	 * Verifies the stored CHIP credentials against the CHIP API.
+	 *
+	 * Paymattic Pro routes GET settings/payments/chip/verify to
+	 * PaymentController::verifyKeys(), which runs this filter and reports a
+	 * failure when the returned array has status => false. The method did not
+	 * exist before, so that admin route raised a TypeError instead of
+	 * answering.
+	 *
+	 * @param array $response The response accumulated so far.
+	 * @param mixed $keys     The submitted keys, carrying a `settings` array.
+	 * @return array {status: bool, message: string}
+	 */
+	public function verify_keys( $response, $keys ) {
+		$settings = Arr::get( $keys, 'settings', array() );
+
+		$secret_key = Arr::get( $settings, 'secret_key' );
+		$brand_id   = Arr::get( $settings, 'brand_id' );
+
+		if ( empty( $secret_key ) || empty( $brand_id ) ) {
+			return array(
+				'status'  => false,
+				'message' => __( 'Please provide the CHIP Secret Key and Brand ID.', 'chip-for-paymattic' ),
+			);
+		}
+
+		$chip = Chip_Paymattic_API::get_instance( $secret_key, $brand_id );
+
+		// Ask CHIP for the payment methods available to this brand. An invalid
+		// pair is rejected by the API, which the client reports as null.
+		$methods = $chip->payment_methods( 'MYR', 'en' );
+
+		if ( empty( $methods ) ) {
+			return array(
+				'status'  => false,
+				'message' => __( 'Failed to verify the CHIP credentials. Please check the Secret Key and Brand ID.', 'chip-for-paymattic' ),
+			);
+		}
+
+		return array(
+			'status'  => true,
+			'message' => __( 'CHIP credentials verified.', 'chip-for-paymattic' ),
+		);
+	}
+
+	/**
 	 * Resolves whether CHIP is the method chosen for this submission.
 	 *
 	 * @param mixed $payment_method The payment method.

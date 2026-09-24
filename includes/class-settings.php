@@ -128,6 +128,36 @@ class ChipSettings extends BasePaymentMethod {
 	}
 
 	/**
+	 * Validates the settings before Paymattic stores them.
+	 *
+	 * Paymattic calls this from its own save handler
+	 * (PaymentController::savePaymentMethodSettings) and refuses to save when a
+	 * non-empty array comes back. This method did not exist at all before, so
+	 * every save of the CHIP credentials died with a TypeError instead of
+	 * reaching the option.
+	 *
+	 * @param array $errors   The errors accumulated so far.
+	 * @param mixed $settings The submitted settings.
+	 * @return array
+	 */
+	public function validateSettings( $errors, $settings ) {
+		$errors = is_array( $errors ) ? $errors : array();
+
+		$secret_key = Arr::get( $settings, 'secret_key' );
+		$brand_id   = Arr::get( $settings, 'brand_id' );
+
+		if ( empty( $secret_key ) ) {
+			$errors['secret_key'] = __( 'Please provide the CHIP Secret Key.', 'chip-for-paymattic' );
+		}
+
+		if ( empty( $brand_id ) ) {
+			$errors['brand_id'] = __( 'Please provide the CHIP Brand ID.', 'chip-for-paymattic' );
+		}
+
+		return $errors;
+	}
+
+	/**
 	 * Maps stored settings to the shape Paymattic expects.
 	 *
 	 * @param mixed $settings The settings.
