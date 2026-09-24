@@ -51,7 +51,10 @@ class Chip_Paymattic {
 
 	public function includes() {
 		$includes_dir = PYMTC_CHIP_DIR_PATH . 'includes/';
+		include $includes_dir . 'chip-ff-functions.php';
 		include $includes_dir . 'class-api.php';
+		include $includes_dir . 'class-chip-ff-settings.php';
+		include $includes_dir . 'class-chip-ff-settings-page.php';
 
 		if ( is_admin() ) {
 			include $includes_dir . 'admin/global-settings.php';
@@ -73,7 +76,6 @@ class Chip_Paymattic {
 	public function setting_link( $links ) {
 		$new_links = array(
 			'settings' => sprintf(
-			// this has to be changed to codestar framework settings
 				'<a href="%1$s">%2$s</a>',
 				admin_url( 'admin.php?page=chip-for-paymattic' ),
 				esc_html__( 'Settings', 'chip-for-paymattic' )
@@ -84,10 +86,28 @@ class Chip_Paymattic {
 	}
 }
 
-add_action( 'init', 'load_chip_for_paymattic_csf', 0 );
+/**
+ * Builds the settings page once every settings file has registered its
+ * sections.
+ *
+ * Building the page earlier would snapshot an empty section list and drop
+ * every field.
+ *
+ * @return void
+ */
+function chip_ff_build_paymattic_settings_page() {
+	if ( class_exists( 'CHIP_FF_Settings' ) ) {
+		CHIP_FF_Settings::$version = PYMTC_CHIP_MODULE_VERSION;
+		CHIP_FF_Settings::init_pages();
+	}
+}
 
+/**
+ * Boots the gateway once Paymattic Pro is available.
+ *
+ * @return void
+ */
 function load_chip_for_paymattic_csf() {
-	include plugin_dir_path( __FILE__ ) . 'includes/codestar-framework/classes/setup.class.php';
 
 	if ( ! class_exists( 'WPPayFormPro' ) || ! class_exists( 'WPPayFormPro\GateWays\BasePaymentMethod' ) ) {
 		return;
@@ -95,3 +115,6 @@ function load_chip_for_paymattic_csf() {
 
 	Chip_Paymattic::get_instance();
 }
+
+add_action( 'init', 'load_chip_for_paymattic_csf', 0 );
+add_action( 'init', 'chip_ff_build_paymattic_settings_page', 100 );
