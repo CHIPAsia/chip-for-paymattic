@@ -1,5 +1,11 @@
 == Changelog ==
 
+= 1.1.3 - 2026-09-24 =
+* Fixed   - Saving the CHIP credentials from Paymattic's own payment settings screen now works. It previously stopped with an error before storing anything.
+* Fixed   - The button that checks the CHIP credentials now answers. It previously stopped with an error instead of reporting whether the credentials work.
+* Fixed   - Credentials that CHIP rejects are now reported as not working. A response from CHIP that was not a success used to be read as if it were one, so an invalid Secret Key and Brand ID could look correct.
+* Fixed   - A form that uses its own CHIP credentials no longer uses the credentials of another form.
+
 = 1.1.2 - 2026-09-24 =
 * Fixed   - When a payment cannot be started, the reason reported by CHIP is now shown. The full response is kept in the activity log instead of being printed to the page.
 * Fixed   - If CHIP cannot be reached, the form now reports the connection problem instead of appearing to do nothing.
