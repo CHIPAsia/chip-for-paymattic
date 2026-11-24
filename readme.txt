@@ -3,7 +3,7 @@ Contributors: chipasia, wanzulnet, amirulazreen
 Tags: chip
 Requires at least: 6.1
 Tested up to: 7.1
-Stable tag: 1.1.3
+Stable tag: 1.1.4
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,6 +26,10 @@ CHIP is a payment and business solutions platform that allow you to securely sel
 * List of successful paid entries.
 
 == Changelog ==
+
+= 1.1.4 - 2026-11-24 =
+* Fixed   - The settings page no longer warns that the default currency is not supported while MYR is selected and saved. The warning is hidden again when the currency is MYR, and still shown for every other currency.
+* Changed - PHP compatibility is now checked against PHP 7.4 through 8.6 on every change.
 
 = 1.1.3 - 2026-09-24 =
 * Fixed   - Saving the CHIP credentials from Paymattic's own payment settings screen now works. It previously stopped with an error before storing anything.
